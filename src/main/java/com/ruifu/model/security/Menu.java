@@ -62,6 +62,8 @@ public class Menu {
     @JoinColumn(name="parent_id")
     private List<Menu> subMenus;
 
+
+
     public List<Menu> getSubMenus() {
         return subMenus;
     }
