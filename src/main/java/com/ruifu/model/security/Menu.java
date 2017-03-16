@@ -1,8 +1,7 @@
 package com.ruifu.model.security;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by stevenfu on 07/03/2017.
@@ -16,7 +15,7 @@ public class Menu {
     private String Description;
     private String Url;
     private String Icon;
-    private Integer ParentId;
+
 
     public Integer getId() {
         return Id;
@@ -58,11 +57,16 @@ public class Menu {
         Icon = icon;
     }
 
-    public Integer getParentId() {
-        return ParentId;
+
+    @OneToMany(fetch= FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @JoinColumn(name="parent_id")
+    private List<Menu> subMenus;
+
+    public List<Menu> getSubMenus() {
+        return subMenus;
     }
 
-    public void setParentId(Integer parentId) {
-        ParentId = parentId;
+    public void setSubMenus(List<Menu> subMenus) {
+        this.subMenus = subMenus;
     }
 }

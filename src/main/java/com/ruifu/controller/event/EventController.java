@@ -36,4 +36,16 @@ public class EventController {
         eventDetailRepository.save(detail);
         return eventDetailRepository.findAllByEventId(detail.getEventId());
     }
+    @RequestMapping("/remove/{event_id}")
+    public Iterable<Event> removeEvent(@PathVariable int event_id){
+        eventDetailRepository.delete(eventDetailRepository.findAllByEventId(event_id));
+        eventRepository.delete(event_id);
+        return eventRepository.findAll();
+    }
+    @RequestMapping("/removeDetail/{detail_id}")
+    public Iterable<EventDetail> removeEventDetail(@PathVariable int detail_id){
+        EventDetail detail = eventDetailRepository.findOne(detail_id);
+        eventDetailRepository.delete(detail_id);
+        return eventDetailRepository.findAllByEventId(detail.getEventId());
+    }
 }

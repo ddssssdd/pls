@@ -42,9 +42,10 @@
                         </div>
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li class="active" ng-repeat="event in events" ng-click="chooseEvent(event,$event)">
+                                <li ng-class="{active:event.selected}" ng-repeat="event in events" ng-click="chooseEvent(event,$event)">
                                     <a href="#"><i class="fa fa-inbox"></i> {{event.description}}
-                                    <span class="label label-primary pull-right">0</span></a>
+                                    <span class="label label-primary pull-right" ng-click="removeEvent($index,$event);">Del</span></a>
+
                                 </li>
 
                             </ul>
@@ -80,7 +81,7 @@
                 <div class="col-md-9">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Details</h3>
+                            <h3 class="box-title">{{current.description}}  -  Details</h3>
 
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
@@ -123,7 +124,9 @@
                                         <td class="mailbox-subject">{{d.description}}
                                         </td>
                                         <td class="mailbox-attachment"></td>
-                                        <td class="mailbox-date">{{d.startTime}}</td>
+                                        <td class="mailbox-date">
+                                            <span class="label label-danger" ng-click="removeDetail($index,d,$event);">Del</span>
+                                        </td>
                                     </tr>
                                     <tr >
                                         <td><input type="checkbox" /></td>
@@ -200,7 +203,7 @@
     /*<![CDATA[*/
     angular.module("pls").controller("DashboardController",function($scope,httpService,Message){
 
-        $scope.title = 'hello';
+        $scope.title = [[#{app.title}]];
         $scope.event = {id:0,description:''};
         $scope.current = {};
         $scope.detail = {id:0,description:'',userId:0,eventId:0};
@@ -208,6 +211,7 @@
         $scope.addEvent = function(event){
             httpService("/event/add",$scope.event,function(json){
                 $scope.events = json;
+                $scope.event = {id:0,description:''};
             })
         }
         $scope.loadEvents = function(){
@@ -237,7 +241,22 @@
             p.eventId = $scope.current.id;
             httpService("/event/addDetail",p,function(json){
                 $scope.details = json;
+                $scope.detail = {id:0,description:'',userId:0,eventId:0};
             })
+        }
+        $scope.removeEvent = function(index,event){
+            event.stopPropagation();
+            var id = $scope.events[index].id;
+            httpService("/event/remove/"+id,{},function(json){
+                $scope.events = json;
+            })
+        }
+        $scope.removeDetail = function(index,detail,event){
+            event.stopPropagation();
+            httpService("/event/removeDetail/"+detail.id,{},function(json){
+                $scope.details = json;
+            })
+
         }
         $scope.init();
     });

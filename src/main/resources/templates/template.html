@@ -33,6 +33,7 @@
 <div class="wrapper">
 
     <navigation th:fragment="header">
+    <controller ng-controller="MenuController">
     <!-- Main Header -->
     <header class="main-header">
 
@@ -222,27 +223,30 @@
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
-                <li class="header">HEADER</li>
+                <li class="header">{{title}}</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                        <span class="pull-right-container">
+                <li ng-class="{active:selected,treeview:subMenus.length>0}" ng-repeat="menu in menus">
+                    <a ng-href="{{menu.url}}">
+                        <i class="fa fa-link"></i>
+                        <span>{{menu.name}}</span>
+                        <span class="pull-right-container" ng-if="menu.subMenus.length>0">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
+                    <ul class="treeview-menu" ng-if="menu.subMenus.length>0">
+                        <li ng-repeat="sub in menu.subMenus"><a ng-href="{{sub.url}}">{{sub.name}}</a></li>
+
                     </ul>
                 </li>
+
+
+
             </ul>
             <!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
     </aside>
-
+    </controller>
     </navigation>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -649,6 +653,8 @@
     angular.module("pls",["commonService"]);
     /*]]>*/
 </script>
+
+    <script th:src="@{dist/js/menu.js}"></script>
 </navigation>
 
 </body>
