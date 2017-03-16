@@ -282,11 +282,34 @@ CREATE TABLE `event_detail` (
   `start_time` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `event_detail` */
 
-insert  into `event_detail`(`id`,`description`,`end_time`,`event_id`,`start_time`,`user_id`) values (1,'å¦‚ä½•éªŒè¯å¯†ç ',NULL,14,NULL,1),(2,'è§’è‰²çš„å¤šä¸ªå†…å®¹',NULL,14,NULL,1),(3,'åˆ†ç¦»æ¨¡å—ï¼Ÿ',NULL,14,NULL,1),(4,'åŠ¨æ€åŠ è½½èœå•',NULL,15,NULL,1),(5,'èœå•çš„ç®¡ç†',NULL,15,NULL,1),(6,'ç”¨æˆ·å’Œèœå•çš„å…³è”',NULL,15,NULL,1),(7,'äº§å“å­—å…¸è¡¨çš„è®¾è®¡',NULL,16,NULL,1),(8,'bomçš„åˆ†è§£',NULL,16,NULL,1),(9,'åˆ†é¡µçš„è®¾è®¡',NULL,17,NULL,1),(10,'UIç ”ç©¶',NULL,17,NULL,1),(11,'å¦‚ä½•ä¿å­˜å³å¯ç”¨ï¼Ÿ',NULL,18,NULL,1);
+insert  into `event_detail`(`id`,`description`,`end_time`,`event_id`,`start_time`,`user_id`) values (1,'å¦‚ä½•éªŒè¯å¯†ç ',NULL,14,NULL,1),(2,'è§’è‰²çš„å¤šä¸ªå†…å®¹',NULL,14,NULL,1),(3,'åˆ†ç¦»æ¨¡å—ï¼Ÿ',NULL,14,NULL,1),(4,'åŠ¨æ€åŠ è½½èœå•',NULL,15,NULL,1),(5,'èœå•çš„ç®¡ç†',NULL,15,NULL,1),(6,'ç”¨æˆ·å’Œèœå•çš„å…³è”',NULL,15,NULL,1),(7,'äº§å“å­—å…¸è¡¨çš„è®¾è®¡',NULL,16,NULL,1),(8,'bomçš„åˆ†è§£',NULL,16,NULL,1),(9,'åˆ†é¡µçš„è®¾è®¡',NULL,17,NULL,1),(10,'UIç ”ç©¶',NULL,17,NULL,1),(11,'å¦‚ä½•ä¿å­˜å³å¯ç”¨ï¼Ÿ',NULL,18,NULL,1),(12,'è‡ªåŠ¨éƒ¨ç½²ç ”ç©¶',NULL,17,NULL,1),(13,'dockeræ–¹å¼éƒ¨ç½²',NULL,17,NULL,1),(14,'å¦‚ä½•å¤„ç†ç¼“å­˜',NULL,17,NULL,0);
+
+/*Table structure for table `material` */
+
+DROP TABLE IF EXISTS `material`;
+
+CREATE TABLE `material` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `specific` varchar(2000) DEFAULT NULL,
+  `unit` varchar(50) DEFAULT NULL,
+  `width` decimal(10,0) DEFAULT NULL,
+  `height` decimal(10,0) DEFAULT NULL,
+  `length` decimal(10,0) DEFAULT NULL,
+  `weight` decimal(10,0) DEFAULT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `material` */
+
+insert  into `material`(`id`,`name`,`description`,`specific`,`unit`,`width`,`height`,`length`,`weight`,`note`,`sku`) values (1,'test1','test 1 description',NULL,'ge','1','1','2','1','give me a note',NULL);
 
 /*Table structure for table `menu` */
 
@@ -339,7 +362,7 @@ CREATE TABLE `spring_session` (
 
 /*Data for the table `spring_session` */
 
-insert  into `spring_session`(`SESSION_ID`,`CREATION_TIME`,`LAST_ACCESS_TIME`,`MAX_INACTIVE_INTERVAL`,`PRINCIPAL_NAME`) values ('96cc7d18-98b6-4ba0-a23f-682012304ef7',1489639609462,1489645474848,1800,'admin');
+insert  into `spring_session`(`SESSION_ID`,`CREATION_TIME`,`LAST_ACCESS_TIME`,`MAX_INACTIVE_INTERVAL`,`PRINCIPAL_NAME`) values ('768c647f-76fb-43dc-8693-1c1c20ac6b71',1489654787976,1489656175596,1800,'admin');
 
 /*Table structure for table `spring_session_attributes` */
 
@@ -356,7 +379,7 @@ CREATE TABLE `spring_session_attributes` (
 
 /*Data for the table `spring_session_attributes` */
 
-insert  into `spring_session_attributes`(`SESSION_ID`,`ATTRIBUTE_NAME`,`ATTRIBUTE_BYTES`) values ('96cc7d18-98b6-4ba0-a23f-682012304ef7','org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN','¬í\0sr\06org.springframework.security.web.csrf.DefaultCsrfTokenZï·È/¢ûÕ\0L\0\nheaderNamet\0Ljava/lang/String;L\0\rparameterNameq\0~\0L\0tokenq\0~\0xpt\0X-CSRF-TOKENt\0_csrft\0$611746c8-ebb4-40bc-916d-0a6a51513607'),('96cc7d18-98b6-4ba0-a23f-682012304ef7','SPRING_SECURITY_CONTEXT','¬í\0sr\0=org.springframework.security.core.context.SecurityContextImpl\0\0\0\0\0\0¤\0L\0authenticationt\02Lorg/springframework/security/core/Authentication;xpsr\0Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken\0\0\0\0\0\0¤\0L\0credentialst\0Ljava/lang/Object;L\0	principalq\0~\0xr\0Gorg.springframework.security.authentication.AbstractAuthenticationTokenÓª(~nGd\0Z\0\rauthenticatedL\0authoritiest\0Ljava/util/Collection;L\0detailsq\0~\0xpsr\0&java.util.Collections$UnmodifiableListü%1µìŽ\0L\0listt\0Ljava/util/List;xr\0,java.util.Collections$UnmodifiableCollectionB\0€Ë^÷\0L\0cq\0~\0xpsr\0java.util.ArrayListxÒ™Ça\0I\0sizexp\0\0\0\0w\0\0\0\0xq\0~\0\rsr\0Horg.springframework.security.web.authentication.WebAuthenticationDetails\0\0\0\0\0\0¤\0L\0\rremoteAddresst\0Ljava/lang/String;L\0	sessionIdq\0~\0xpt\00:0:0:0:0:0:0:1t\0$9083599b-1d65-4bd1-b209-a598fe5e879dpsr\0com.ruifu.model.security.User¡]¥|ÂÖú\0L\0idt\0Ljava/lang/Integer;L\0passwordq\0~\0L\0rolesq\0~\0	L\0usernameq\0~\0xpsr\0java.lang.Integerâ ¤÷‡8\0I\0valuexr\0java.lang.Number†¬•”à‹\0\0xp\0\0\0t\0adminsr\0/org.hibernate.collection.internal.PersistentBagFJd\\.Ä\0L\0bagq\0~\0	xr\0>org.hibernate.collection.internal.AbstractPersistentCollectionbt\0Ð_Us<\0\nZ\0allowLoadOutsideTransactionI\0\ncachedSizeZ\0dirtyZ\0initializedZ\0\risTempSessionL\0keyt\0Ljava/io/Serializable;L\0ownerq\0~\0L\0roleq\0~\0L\0sessionFactoryUuidq\0~\0L\0storedSnapshotq\0~\0xp\0ÿÿÿÿ\0\0q\0~\0q\0~\0t\0#com.ruifu.model.security.User.rolespsq\0~\0\0\0\0\0w\0\0\0\0xsq\0~\0\0\0\0\0w\0\0\0\0xt\0admin');
+insert  into `spring_session_attributes`(`SESSION_ID`,`ATTRIBUTE_NAME`,`ATTRIBUTE_BYTES`) values ('768c647f-76fb-43dc-8693-1c1c20ac6b71','org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN','¬í\0sr\06org.springframework.security.web.csrf.DefaultCsrfTokenZï·È/¢ûÕ\0L\0\nheaderNamet\0Ljava/lang/String;L\0\rparameterNameq\0~\0L\0tokenq\0~\0xpt\0X-CSRF-TOKENt\0_csrft\0$3af1f356-5d6c-4c9c-852d-b5987859002e'),('768c647f-76fb-43dc-8693-1c1c20ac6b71','SPRING_SECURITY_CONTEXT','¬í\0sr\0=org.springframework.security.core.context.SecurityContextImpl\0\0\0\0\0\0¤\0L\0authenticationt\02Lorg/springframework/security/core/Authentication;xpsr\0Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken\0\0\0\0\0\0¤\0L\0credentialst\0Ljava/lang/Object;L\0	principalq\0~\0xr\0Gorg.springframework.security.authentication.AbstractAuthenticationTokenÓª(~nGd\0Z\0\rauthenticatedL\0authoritiest\0Ljava/util/Collection;L\0detailsq\0~\0xpsr\0&java.util.Collections$UnmodifiableListü%1µìŽ\0L\0listt\0Ljava/util/List;xr\0,java.util.Collections$UnmodifiableCollectionB\0€Ë^÷\0L\0cq\0~\0xpsr\0java.util.ArrayListxÒ™Ça\0I\0sizexp\0\0\0\0w\0\0\0\0xq\0~\0\rsr\0Horg.springframework.security.web.authentication.WebAuthenticationDetails\0\0\0\0\0\0¤\0L\0\rremoteAddresst\0Ljava/lang/String;L\0	sessionIdq\0~\0xpt\00:0:0:0:0:0:0:1t\0$a7ed619b-ee7d-40dd-b9d8-9b1ede65548fpsr\0com.ruifu.model.security.User¡]¥|ÂÖú\0L\0idt\0Ljava/lang/Integer;L\0passwordq\0~\0L\0rolesq\0~\0	L\0usernameq\0~\0xpsr\0java.lang.Integerâ ¤÷‡8\0I\0valuexr\0java.lang.Number†¬•”à‹\0\0xp\0\0\0t\0adminsr\0/org.hibernate.collection.internal.PersistentBagFJd\\.Ä\0L\0bagq\0~\0	xr\0>org.hibernate.collection.internal.AbstractPersistentCollectionbt\0Ð_Us<\0\nZ\0allowLoadOutsideTransactionI\0\ncachedSizeZ\0dirtyZ\0initializedZ\0\risTempSessionL\0keyt\0Ljava/io/Serializable;L\0ownerq\0~\0L\0roleq\0~\0L\0sessionFactoryUuidq\0~\0L\0storedSnapshotq\0~\0xp\0ÿÿÿÿ\0\0q\0~\0q\0~\0t\0#com.ruifu.model.security.User.rolespsq\0~\0\0\0\0\0w\0\0\0\0xsq\0~\0\0\0\0\0w\0\0\0\0xt\0admin');
 
 /*Table structure for table `user` */
 
