@@ -12,17 +12,17 @@ import javax.persistence.Id;
 public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private String sku;
     private String name;
     private String description;
     private String specific;
     private String unit;
-    private Double width;
-    private Double height;
-    private Double length;
-    private Double weight;
+    private double width;
+    private double height;
+    private double length;
+    private double weight;
     private String note;
 
 
@@ -66,37 +66,7 @@ public class Material {
         this.unit = unit;
     }
 
-    public Double getWidth() {
-        return width;
-    }
 
-    public void setWidth(Double width) {
-        this.width = width;
-    }
-
-    public Double getHeight() {
-        return height;
-    }
-
-    public void setHeight(Double height) {
-        this.height = height;
-    }
-
-    public Double getLength() {
-        return length;
-    }
-
-    public void setLength(Double length) {
-        this.length = length;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
 
     public String getNote() {
         return note;
@@ -107,10 +77,42 @@ public class Material {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id= id;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 }

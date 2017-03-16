@@ -30,7 +30,7 @@ public class HomeController {
     @RequestMapping("/")
     public String Index(Model model){
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Iterable<Menu> menus = menuRepository.findAll();
+
       //  User user = (User)auth.getPrincipal();
         model.addAttribute("user",auth.getPrincipal());
 
