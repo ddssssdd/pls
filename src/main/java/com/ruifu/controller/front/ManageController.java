@@ -18,6 +18,14 @@ public class ManageController {
 
         //  User user = (User)auth.getPrincipal();
         model.addAttribute("user",auth.getPrincipal());
-        return "manage/index";
+        return "manage/sku";
+    }
+    @RequestMapping("/vendor")
+    public String vendor(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        //  User user = (User)auth.getPrincipal();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/vendor";
     }
 }

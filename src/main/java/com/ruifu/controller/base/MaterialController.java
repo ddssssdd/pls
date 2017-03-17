@@ -32,5 +32,12 @@ public class MaterialController {
         return materialRepository.findAll();
 
     }
+
+    @RequestMapping("/search/{sku}/{name}")
+    public Iterable<Material> search(@PathVariable String sku, @PathVariable String name){
+        return materialRepository.findAllBySkuAndName("%"+sku+"%","%"+name+"%");
+    }
+
+
     //todo: create test case for material model, repository, controller;
 }

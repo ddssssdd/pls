@@ -1,9 +1,6 @@
 package com.ruifu.model.base;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Administrator on 2017/3/16.
@@ -15,13 +12,20 @@ public class Material {
     private Long id;
 
     private String sku;
+    @Column(name = "`name`")
     private String name;
     private String description;
+    @Column(name = "`specific`")
     private String specific;
+    @Column(name = "`unit`")
     private String unit;
+    @Column(name = "`width`")
     private double width;
+    @Column(name = "`height`")
     private double height;
+    @Column(name = "`length`")
     private double length;
+
     private double weight;
     private String note;
 
