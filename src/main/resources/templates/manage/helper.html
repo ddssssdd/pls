@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="/template::head">
+
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-app="pls">
+<div class="wrapper">
+    <navigation th:include="/template::header">
+
+    </navigation>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                后台辅助
+                <small>代码生成</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">后台辅助</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            <div class="row" ng-controller="HelperController">
+                <div class="col-md-3">
+                    <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
+
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <select ng-change="chooseTable($event)" class="form-control" ng-model="tablename">
+                                <option ng-repeat="t in tables">{{t}}</option>
+                            </select>
+                        </div>
+                        <div class="box-body no-padding">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li class="" ng-repeat="column in columns">
+                                    <a href="#">{{column.fieldName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-9">
+                    <textarea ng-model="content_multiple"  cols="120" rows="2">
+
+                    </textarea>
+                    <textarea ng-model="content"  cols="120" rows="20">
+
+                    </textarea>
+                    <textarea ng-model="content_scripts"  cols="120" rows="20">
+
+                    </textarea>
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <navigation th:include="/template::footer">
+
+    </navigation>
+
+
+</div>
+<!-- ./wrapper -->
+
+<navigation th:include="/template::js">
+
+</navigation>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    angular.module("pls").controller("HelperController",function($scope,httpService,Message){
+
+        $scope.title = [[#{app.title}]];
+        $scope.tables = [];
+        $scope.columns =[];
+        $scope.tablename='';
+        $scope.loadTables = function(){
+            httpService("/db/tables",{},function(json){
+                $scope.tables = json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadTables();
+        }
+        $scope.loadColumns=function(tablename){
+            httpService("/db/columns/"+tablename,{},function(json){
+                $scope.columns = json;
+                $scope.create_code();
+
+            })
+        }
+        $scope.chooseTable =function(event){
+            $scope.loadColumns($scope.tablename);
+            httpService("/db/creator/single",{tablename:$scope.tablename},function(json){
+                //$scope.content = json;
+
+            })
+        }
+        $scope.create_code = function(){
+            var tablename = $scope.tablename;
+            var multiples='';
+            var searchFields = '';
+            var tableHeaders = '';
+            var tableBodys='';
+            var tableFooters='';
+            var modalBodys = '';
+            for(var i=0;i<$scope.columns.length;i++){
+                var column = $scope.columns[i];
+                if (column.fieldName=='id'){
+                    continue;
+                }
+                multiples += tablename+'.'+column.fieldName +'='+column.fieldName.toUpperCase()+' ';
+                searchFields +=`<div class="form-group">
+                <label for="idSearch_`+column.fieldName+`" class="col-xs-1 control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
+                <div class="col-xs-2">
+                <input type="text" id="idSearch_`+column.fieldName+`" ng-model="search.`+column.fieldName+`" class="form-control"  placeholder="`+column.fieldName+`"/>
+                </div>
+                </div>
+                `;
+                tableHeaders +=`<th th:text="#{`+tablename+`.`+column.fieldName+`}" class="sorting"></th>`;
+                tableBodys +=`<td>{{item.`+column.fieldName+`}}</td>`;
+                tableFooters +=`<th>
+                    <input type="text" class="form-control" ng-model="current.`+column.fieldName+`" placeholder="`+column.fieldName+`"/>
+                    </th>`;
+                modalBodys +=`<div class="form-group">
+                <label for="id_`+column.fieldName+`" class="col-xs-1 control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
+                <div class="col-xs-2">
+                <input type="text" id="id_`+column.fieldName+`" ng-model="current.`+column.fieldName+`" class="form-control"  placeholder="`+column.fieldName+`"/>
+                </div>
+                </div>
+                `;
+            }
+            $scope.content_multiple = multiples;
+            $scope.content =` <!-- Your Page Content Here -->
+                <div class="row" ng-controller="`+tablename+`Controller">
+                <div class="col-xs-12">
+                <div class="box box-primary">
+                <div class="box-header with-border">
+                <h3 class="box-title">查询</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">`+searchFields+`
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                <button class="btn btn-primary"
+                th:text="#{action.search}"
+                ng-click="doSearch($event)">Search</button>
+                <button class="btn btn-danger"
+                th:text="#{action.clear}"
+                ng-click="resetSearch($event)">Clear</button>
+                <button class="btn btn-info"
+                th:text="#{action.add}"
+                data-toggle="modal" data-target="#edt`+tablename+`Modal">
+                Add
+                </button>
+                </div>
+                </div>
+
+                <div class="box">
+                <div class="box-header">
+                <h3 class="box-title">查询结果</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                <table id="tableResult" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                `+tableHeaders+`
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in `+tablename+`_items">
+                `+tableBodys+`
+                <td>
+                <button class="btn btn-danger"
+                th:text="#{action.delete}"
+                ng-click="removeItem($index,item,$event);"></button>
+                </td>
+                </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                `+tableFooters+`
+                <th>
+                <button class="btn btn-danger"
+                th:text="#{action.add}"
+                ng-click="saveItem($event);">Add</button>
+                </th>
+                </tr>
+                </tfoot>
+                </table>
+                </div>
+                <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                </div>
+                <!-- popup begin -->
+                <div class="modal fade" id="edt`+tablename+`Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
+                </div>
+                <div class="modal-body">
+                `+modalBodys+`
+                </div>
+
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveItem($event);">Save changes</button>
+                </div>
+                </div>
+                </div>
+                </div>
+                <!-- popup end -->
+
+                </div>
+                <!-- /.row -->
+                `;
+            $scope.content_scripts = `angular.module("pls").controller("`+tablename+`Controller",function($scope,httpService,Message){
+                
+                $scope.`+tablename+`_items = [];
+                $scope.current ={id:0};
+                $scope.search ={};
+                $scope.loadItems = function(){
+                httpService("/base/`+tablename+`/list",{},function(json){
+                $scope.`+tablename+`_items = json;
+                })
+                }
+                $scope.init = function(){
+                $scope.loadItems();
+                }
+                $scope.saveItem=function(event){
+                httpService("/base/`+tablename+`/add",$scope.current,function(json){
+                $scope.`+tablename+`_items = json;
+                angular.element("#edt`+tablename+`Modal").modal('hide');
+                })
+                }
+                $scope.resetSearch = function(event){
+                $scope.search ={};
+                }
+                $scope.doSearch = function(event){
+
+                httpService("/base/`+tablename+`/search/",{},function(json){
+                $scope.`+tablename+`_items = json;
+                });
+                }
+                $scope.removeItem= function(index,item,event){
+                httpService("/base/`+tablename+`/remove/"+item.id,{},function(json){
+                $scope.`+tablename+`_items = json;
+                });
+                }
+                $scope.init();
+
+                });`;
+        }
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

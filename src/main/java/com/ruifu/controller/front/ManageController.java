@@ -23,9 +23,20 @@ public class ManageController {
     @RequestMapping("/vendor")
     public String vendor(Model model){
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        //  User user = (User)auth.getPrincipal();
         model.addAttribute("user",auth.getPrincipal());
         return "manage/vendor";
+    }
+
+    @RequestMapping("/helper")
+    public String helper(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/helper";
+    }
+    @RequestMapping("/menu")
+    public String menu(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/menu";
     }
 }

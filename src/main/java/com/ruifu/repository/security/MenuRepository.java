@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by Administrator on 2017/3/15.
  */
-public interface MenuRepository  extends CrudRepository<Menu,Long>{
+public interface MenuRepository  extends CrudRepository<Menu,Integer>{
 
     @Cacheable("menus")
     @Query(value="SELECT * FROM menu m WHERE m.parent_id IS NULL OR m.parent_id =0",nativeQuery = true)
