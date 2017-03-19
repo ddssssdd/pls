@@ -52,4 +52,25 @@ public class ManageController {
         model.addAttribute("user",auth.getPrincipal());
         return "manage/material_vendor";
     }
+
+    @RequestMapping("/plan/production")
+    public String production_plan(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "plan/production";
+    }
+
+    @RequestMapping("/plan/material")
+    public String material_plan(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "plan/material";
+    }
+    @RequestMapping("/plan/order")
+    public String order_plan(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "plan/order";
+    }
+
 }

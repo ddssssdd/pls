@@ -1,6 +1,7 @@
 package com.ruifu.model.plan;
 
 import com.ruifu.model.base.Production;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,13 +17,14 @@ public class ProductionPlan {
     @Id
     @GeneratedValue
     private long id;
-
+    private String planNo;
     @OneToOne()
     private Production production;
     private String orderNo;
     private String lineNo;
     private String serialNo;
     private String num;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date deliveryDate;
 
     public long getId() {
@@ -79,5 +81,13 @@ public class ProductionPlan {
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public String getPlanNo() {
+        return planNo;
+    }
+
+    public void setPlanNo(String planNo) {
+        this.planNo = planNo;
     }
 }
