@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="/template::head">
+
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-app="pls">
+<div class="wrapper">
+    <navigation th:include="/template::header">
+
+    </navigation>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                基础管理
+                <small>物料编码管理</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">物料编码</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            <div class="row" ng-controller="material_vendorController">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">查询</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body"><div class="form-group">
+                            <label for="idSearch_end_date" class="col-xs-1 control-label" th:text="#{material_vendor.end_date}">end_date</label>
+                            <div class="col-xs-2">
+                                <input type="text" id="idSearch_end_date" ng-model="search.end_date" class="form-control"  placeholder="end_date"/>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_max_price" class="col-xs-1 control-label" th:text="#{material_vendor.max_price}">max_price</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_max_price" ng-model="search.max_price" class="form-control"  placeholder="max_price"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_max_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.max_quantity}">max_quantity</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_max_quantity" ng-model="search.max_quantity" class="form-control"  placeholder="max_quantity"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_min_price" class="col-xs-1 control-label" th:text="#{material_vendor.min_price}">min_price</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_min_price" ng-model="search.min_price" class="form-control"  placeholder="min_price"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_min_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.min_quantity}">min_quantity</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_min_quantity" ng-model="search.min_quantity" class="form-control"  placeholder="min_quantity"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_start_date" class="col-xs-1 control-label" th:text="#{material_vendor.start_date}">start_date</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_start_date" ng-model="search.start_date" class="form-control"  placeholder="start_date"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_material_id" class="col-xs-1 control-label" th:text="#{material_vendor.material_id}">material_id</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_material_id" ng-model="search.material_id" class="form-control"  placeholder="material_id"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_vendor_id" class="col-xs-1 control-label" th:text="#{material_vendor.vendor_id}">vendor_id</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_vendor_id" ng-model="search.vendor_id" class="form-control"  placeholder="vendor_id"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button class="btn btn-primary"
+                                    th:text="#{action.search}"
+                                    ng-click="doSearch($event)">Search</button>
+                            <button class="btn btn-danger"
+                                    th:text="#{action.clear}"
+                                    ng-click="resetSearch($event)">Clear</button>
+                            <button class="btn btn-info"
+                                    th:text="#{action.add}"
+                                    data-toggle="modal" data-target="#edtmaterial_vendorModal">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">查询结果</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="tableResult" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{material_vendor.end_date}" class="sorting"></th><th th:text="#{material_vendor.max_price}" class="sorting"></th><th th:text="#{material_vendor.max_quantity}" class="sorting"></th><th th:text="#{material_vendor.min_price}" class="sorting"></th><th th:text="#{material_vendor.min_quantity}" class="sorting"></th><th th:text="#{material_vendor.start_date}" class="sorting"></th><th th:text="#{material_vendor.material_id}" class="sorting"></th><th th:text="#{material_vendor.vendor_id}" class="sorting"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in material_vendor_items">
+                                    <td>{{item.endDate | date}}</td>
+                                    <td>{{item.maxPrice}}</td>
+                                    <td>{{item.maxQuantity}}</td>
+                                    <td>{{item.minPrice}}</td>
+                                    <td>{{item.minQuantity}}</td>
+                                    <td>{{item.startDate | date}}</td>
+                                    <td>{{item.material.name}}</td>
+                                    <td>{{item.vendor.name}}</td>
+                                    <td>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.delete}"
+                                                ng-click="removeItem($index,item,$event);"></button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>
+                                        <input type="text" class="form-control" ng-model="current.end_date" placeholder="end_date"/>
+                                    </th><th>
+                                    <input type="text" class="form-control" ng-model="current.max_price" placeholder="max_price"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.max_quantity" placeholder="max_quantity"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.min_price" placeholder="min_price"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.min_quantity" placeholder="min_quantity"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.start_date" placeholder="start_date"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.material_id" placeholder="material_id"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.vendor_id" placeholder="vendor_id"/>
+                                </th>
+                                    <th>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.add}"
+                                                ng-click="saveItem($event);">Add</button>
+                                    </th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- popup begin -->
+                <div class="modal fade" id="edtmaterial_vendorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="id_end_date" class="col-xs-1 control-label" th:text="#{material_vendor.end_date}">end_date</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_end_date" ng-model="current.end_date" class="form-control"  placeholder="end_date"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_max_price" class="col-xs-1 control-label" th:text="#{material_vendor.max_price}">max_price</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_max_price" ng-model="current.max_price" class="form-control"  placeholder="max_price"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_max_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.max_quantity}">max_quantity</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_max_quantity" ng-model="current.max_quantity" class="form-control"  placeholder="max_quantity"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_min_price" class="col-xs-1 control-label" th:text="#{material_vendor.min_price}">min_price</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_min_price" ng-model="current.min_price" class="form-control"  placeholder="min_price"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_min_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.min_quantity}">min_quantity</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_min_quantity" ng-model="current.min_quantity" class="form-control"  placeholder="min_quantity"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_start_date" class="col-xs-1 control-label" th:text="#{material_vendor.start_date}">start_date</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_start_date" ng-model="current.start_date" class="form-control"  placeholder="start_date"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_material_id" class="col-xs-1 control-label" th:text="#{material_vendor.material_id}">material_id</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_material_id" ng-model="current.material_id" class="form-control"  placeholder="material_id"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_vendor_id" class="col-xs-1 control-label" th:text="#{material_vendor.vendor_id}">vendor_id</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_vendor_id" ng-model="current.vendor_id" class="form-control"  placeholder="vendor_id"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveItem($event);">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- popup end -->
+
+            </div>
+            <!-- /.row -->
+
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <navigation th:include="/template::footer">
+
+    </navigation>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+
+
+
+
+<navigation th:include="/template::js">
+
+</navigation>
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/plugins/fastclick/fastclick.js}"></script>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    angular.module("pls").controller("material_vendorController",function($scope,httpService,Message){
+
+        $scope.material_vendor_items = [];
+        $scope.current ={id:0};
+        $scope.search ={};
+        $scope.loadItems = function(){
+            httpService("/base/material_vendor/list",{},function(json){
+                $scope.material_vendor_items = json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadItems();
+        }
+        $scope.saveItem=function(event){
+            var c = $scope.current;
+            var p = { material:{id:c.material_id},
+                vendor:{id:c.vendor_id},
+                startDate:c.start_date,
+                endDate:c.end_date,
+                minPrice:c.min_price,
+                maxPrice:c.max_price,
+                minQuantity:c.min_quantity,
+                maxQuantity:c.max_quantity
+            }
+            httpService("/base/material_vendor/add",p,function(json){
+                $scope.material_vendor_items = json;
+                angular.element("#edtmaterial_vendorModal").modal('hide');
+            })
+        }
+        $scope.resetSearch = function(event){
+            $scope.search ={};
+        }
+        $scope.doSearch = function(event){
+
+            httpService("/base/material_vendor/search/",{},function(json){
+                $scope.material_vendor_items = json;
+            });
+        }
+        $scope.removeItem= function(index,item,event){
+            httpService("/base/material_vendor/remove/"+item.id,{},function(json){
+                $scope.material_vendor_items = json;
+            });
+        }
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

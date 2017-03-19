@@ -18,7 +18,7 @@ public class DbController {
     @Autowired
     JdbcTemplate jdbcTemplate;
     private static String COLUMS_SQL ="select column_name as fieldName,ordinal_position as `index`,is_nullable as nullable,data_type as fieldType,column_type as type from information_schema.columns \n" +
-            "where table_name=? and table_schema='pls'";
+            "where table_name=? and table_schema='pls' order by `index`";
 
     private static String TALBES_SQL = "select table_name from information_schema.tables where table_schema='pls'";
 
@@ -55,7 +55,7 @@ class Column{
     private String type;
 
     public Column(String fieldName,long index,String nullable,String fieldType,String type){
-        this.fieldName = fieldName;
+        this.fieldName =formatFieldName( fieldName);
         this.index = index;
         this.nullable = nullable;
         this.fieldType = fieldType;
@@ -66,7 +66,7 @@ class Column{
     }
 
     public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+        this.fieldName = formatFieldName(fieldName);
     }
 
     public Long getIndex() {
@@ -99,5 +99,20 @@ class Column{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    private String formatFieldName(String fieldName) {
+        if (fieldName.contains("_")){
+            while(fieldName.contains("_")){
+                int pos = fieldName.indexOf("_");
+                if (pos<fieldName.length()-1){
+                    String temp = fieldName.substring(pos+1,pos+2);
+                    fieldName = fieldName.substring(0,pos)+temp.toUpperCase()+fieldName.substring(pos+2,fieldName.length());
+                }
+            }
+            return fieldName;
+        }else{
+            return fieldName;
+        }
     }
 }

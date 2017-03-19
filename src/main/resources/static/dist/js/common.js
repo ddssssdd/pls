@@ -26,7 +26,8 @@ angular.module("commonService",["ngMd5"], function($httpProvider) { //fix angula
 	      else if(value instanceof Object) {
 	        for(subName in value) {
 	          subValue = value[subName];
-	          fullSubName = name + '[' + subName + ']';
+	          //fullSubName = name + '[' + subName + ']';
+				fullSubName = name + '.' + subName;
 	          innerObj = {};
 	          innerObj[fullSubName] = subValue;
 	          query += param(innerObj) + '&';
@@ -41,7 +42,8 @@ angular.module("commonService",["ngMd5"], function($httpProvider) { //fix angula
 	 
 	  // Override $http service's default transformRequest
 	  $httpProvider.defaults.transformRequest = [function(data) {
-	    return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+	    //return JSON.stringify( angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data);
+          return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
 	  }];
 	})
 .factory("Message",function(){

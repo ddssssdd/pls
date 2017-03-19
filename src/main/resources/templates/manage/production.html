@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="/template::head">
+
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-app="pls">
+<div class="wrapper">
+    <navigation th:include="/template::header">
+
+    </navigation>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                基础管理
+                <small>产品代码管理</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">物料编码</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            <div class="row" ng-controller="productionController">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">查询</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body"><div class="form-group">
+                            <label for="idSearch_active_date" class="col-xs-1 control-label" th:text="#{production.active_date}">active_date</label>
+                            <div class="col-xs-2">
+                                <input type="text" id="idSearch_active_date" ng-model="search.active_date" class="form-control"  placeholder="active_date"/>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_band" class="col-xs-1 control-label" th:text="#{production.band}">band</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_band" ng-model="search.band" class="form-control"  placeholder="band"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_description" class="col-xs-1 control-label" th:text="#{production.description}">description</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_description" ng-model="search.description" class="form-control"  placeholder="description"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_name" class="col-xs-1 control-label" th:text="#{production.name}">name</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_name" ng-model="search.name" class="form-control"  placeholder="name"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_no" class="col-xs-1 control-label" th:text="#{production.no}">no</label>
+                                <div class="col-xs-2">
+                                    <input type="text" id="idSearch_no" ng-model="search.no" class="form-control"  placeholder="no"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button class="btn btn-primary"
+                                    th:text="#{action.search}"
+                                    ng-click="doSearch($event)">Search</button>
+                            <button class="btn btn-danger"
+                                    th:text="#{action.clear}"
+                                    ng-click="resetSearch($event)">Clear</button>
+                            <button class="btn btn-info"
+                                    th:text="#{action.add}"
+                                    data-toggle="modal" data-target="#edtproductionModal">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">查询结果</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="tableResult" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{production.active_date}" class="sorting"></th><th th:text="#{production.band}" class="sorting"></th><th th:text="#{production.description}" class="sorting"></th><th th:text="#{production.name}" class="sorting"></th><th th:text="#{production.no}" class="sorting"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in production_items">
+                                    <td>{{item.active_date}}</td><td>{{item.band}}</td><td>{{item.description}}</td><td>{{item.name}}</td><td>{{item.no}}</td>
+                                    <td>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.delete}"
+                                                ng-click="removeItem($index,item,$event);"></button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>
+                                        <input type="text" class="form-control" ng-model="current.active_date" placeholder="active_date"/>
+                                    </th><th>
+                                    <input type="text" class="form-control" ng-model="current.band" placeholder="band"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.description" placeholder="description"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.name" placeholder="name"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.no" placeholder="no"/>
+                                </th>
+                                    <th>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.add}"
+                                                ng-click="saveItem($event);">Add</button>
+                                    </th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- popup begin -->
+                <div class="modal fade" id="edtproductionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="id_active_date" class="col-xs-1 control-label" th:text="#{production.active_date}">active_date</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_active_date" ng-model="current.active_date" class="form-control"  placeholder="active_date"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_band" class="col-xs-1 control-label" th:text="#{production.band}">band</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_band" ng-model="current.band" class="form-control"  placeholder="band"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_description" class="col-xs-1 control-label" th:text="#{production.description}">description</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_description" ng-model="current.description" class="form-control"  placeholder="description"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_name" class="col-xs-1 control-label" th:text="#{production.name}">name</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_no" class="col-xs-1 control-label" th:text="#{production.no}">no</label>
+                                    <div class="col-xs-2">
+                                        <input type="text" id="id_no" ng-model="current.no" class="form-control"  placeholder="no"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveItem($event);">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- popup end -->
+
+            </div>
+            <!-- /.row -->
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <navigation th:include="/template::footer">
+
+    </navigation>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+
+
+
+
+<navigation th:include="/template::js">
+
+</navigation>
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/plugins/fastclick/fastclick.js}"></script>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    angular.module("pls").controller("productionController",function($scope,httpService,Message){
+
+        $scope.production_items = [];
+        $scope.current ={id:0};
+        $scope.search ={};
+        $scope.loadItems = function(){
+            httpService("/base/production/list",{},function(json){
+                $scope.production_items = json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadItems();
+        }
+        $scope.saveItem=function(event){
+            httpService("/base/production/add",$scope.current,function(json){
+                $scope.production_items = json;
+                angular.element("#edtproductionModal").modal('hide');
+            })
+        }
+        $scope.resetSearch = function(event){
+            $scope.search ={};
+        }
+        $scope.doSearch = function(event){
+
+            httpService("/base/production/search/",{},function(json){
+                $scope.production_items = json;
+            });
+        }
+        $scope.removeItem= function(index,item,event){
+            httpService("/base/production/remove/"+item.id,{},function(json){
+                $scope.production_items = json;
+            });
+        }
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

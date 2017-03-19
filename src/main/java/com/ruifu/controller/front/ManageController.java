@@ -39,4 +39,17 @@ public class ManageController {
         model.addAttribute("user",auth.getPrincipal());
         return "manage/menu";
     }
+
+    @RequestMapping("/production")
+    public String production(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/production";
+    }
+    @RequestMapping("/material_vendor")
+    public String material_vendor(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/material_vendor";
+    }
 }
