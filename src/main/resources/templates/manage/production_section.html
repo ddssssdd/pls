@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<!-- Your Page Content Here -->
+<div class="row" ng-controller="skuController" th:fragment="production">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">查询</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <label for="idSku" class="col-xs-1 control-label" th:text="#{vendor.name}">Name</label>
+                        <div class="col-xs-2">
+                            <input type="text" id="idSku" ng-model="search.name" class="form-control"  placeholder="Name"/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="idName" class="col-xs-1 control-label" th:text="#{vendor.phone}">Phone</label>
+                        <div class="col-xs-2">
+                            <input type="text" id="idName" ng-model="search.phone" class="form-control"  placeholder="Phone"/>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button class="btn btn-primary"
+                        th:text="#{action.search}"
+                        ng-click="doSearch($event)">Search</button>
+                <button class="btn btn-danger"
+                        th:text="#{action.clear}"
+                        ng-click="resetSearch($event)">Clear</button>
+                <button class="btn btn-info"
+                        th:text="#{action.add}"
+                        data-toggle="modal" data-target="#edtVendorModel">
+                    Add
+                </button>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">查询结果</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="tableResult" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+
+                        <th th:text="#{vendor.name}" class="sorting"></th>
+                        <th th:text="#{vendor.phone}" class="sorting-asc"></th>
+                        <th th:text="#{vendor.fax}" class="sorting-desc"></th>
+                        <th th:text="#{vendor.city}"></th>
+                        <th th:text="#{vendor.province}"></th>
+                        <th th:text="#{vendor.country}"></th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="m in vendors">
+
+                        <td>{{m.name}}</td>
+                        <td>{{m.phone}}
+                        </td>
+                        <td>{{m.fax}}</td>
+                        <td>{{m.city}}</td>
+                        <td>{{m.province}}</td>
+                        <td>{{m.country}}</td>
+
+                        <td>
+                            <button class="btn btn-danger"
+                                    th:text="#{action.delete}"
+                                    ng-click="removevendor($index,m,$event);"></button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>
+                            <input type="text" class="form-control" ng-model="vendor.name" placeholder="Name"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" ng-model="vendor.phone" placeholder="Phone"/>
+                        </th>
+
+                        <th>
+                            <input type="text" class="form-control" ng-model="vendor.fax" placeholder="Fax"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" ng-model="vendor.city" placeholder="City"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" ng-model="vendor.province" placeholder="Province"/>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" ng-model="vendor.country" placeholder="Country"/>
+                        </th>
+
+                        <th>
+                            <button class="btn btn-danger"
+                                    th:text="#{action.add}"
+                                    ng-click="savevendor($event);">Add</button>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- popup begin -->
+    <div class="modal fade" id="edtVendorModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add/Edit Vendor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row form form-horizontal"><div class="form-group">
+                        <label for="id_address1" class="col-xs-3 control-label" th:text="#{vendor.address1}">address1</label>
+                        <div class="col-xs-6">
+                            <input type="text" id="id_address1" ng-model="current.address1" class="form-control"  placeholder="address1"/>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label for="id_address2" class="col-xs-3 control-label" th:text="#{vendor.address2}">address2</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_address2" ng-model="current.address2" class="form-control"  placeholder="address2"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_city" class="col-xs-3 control-label" th:text="#{vendor.city}">city</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_city" ng-model="current.city" class="form-control"  placeholder="city"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_contactCellphone" class="col-xs-3 control-label" th:text="#{vendor.contactCellphone}">contactCellphone</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_contactCellphone" ng-model="current.contactCellphone" class="form-control"  placeholder="contactCellphone"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_contactFirstname" class="col-xs-3 control-label" th:text="#{vendor.contactFirstname}">contactFirstname</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_contactFirstname" ng-model="current.contactFirstname" class="form-control"  placeholder="contactFirstname"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_contactLastname" class="col-xs-3 control-label" th:text="#{vendor.contactLastname}">contactLastname</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_contactLastname" ng-model="current.contactLastname" class="form-control"  placeholder="contactLastname"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_country" class="col-xs-3 control-label" th:text="#{vendor.country}">country</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_country" ng-model="current.country" class="form-control"  placeholder="country"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_fax" class="col-xs-3 control-label" th:text="#{vendor.fax}">fax</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_fax" ng-model="current.fax" class="form-control"  placeholder="fax"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_name" class="col-xs-3 control-label" th:text="#{vendor.name}">name</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_phone" class="col-xs-3 control-label" th:text="#{vendor.phone}">phone</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_phone" ng-model="current.phone" class="form-control"  placeholder="phone"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_postal" class="col-xs-3 control-label" th:text="#{vendor.postal}">postal</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_postal" ng-model="current.postal" class="form-control"  placeholder="postal"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_province" class="col-xs-3 control-label" th:text="#{vendor.province}">province</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_province" ng-model="current.province" class="form-control"  placeholder="province"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_website" class="col-xs-3 control-label" th:text="#{vendor.website}">website</label>
+                            <div class="col-xs-6">
+                                <input type="text" id="id_website" ng-model="current.website" class="form-control"  placeholder="website"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="savevendor($event);">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- popup end -->
+
+</div>
+<!-- /.row -->
+
+<script th:fragment="scripts">
+    /*<![CDATA[*/
+    angular.module("pls").controller("skuController",function($scope,httpService,Message){
+
+        $scope.title = [[#{app.title}]];
+        $scope.vendors = [];
+        $scope.vendor ={id:0};
+        $scope.search ={};
+        $scope.loadvendors = function(){
+            httpService("/base/vendor/list",{},function(json){
+                $scope.vendors = json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadvendors();
+        }
+        $scope.savevendor=function(event){
+            httpService("/base/vendor/add",$scope.vendor,function(json){
+                $scope.vendors = json;
+                angular.element("#edtvendorModal").modal('hide');
+            })
+        }
+        $scope.resetSearch = function(event){
+            $scope.search ={};
+        }
+        $scope.doSearch = function(event){
+            $scope.search.name = $scope.search.name || '';
+            httpService("/base/vendor/search/"+$scope.search.name,{},function(json){
+                $scope.vendors = json;
+            });
+        }
+        $scope.removevendor= function(index,vendor,event){
+            httpService("/base/vendor/remove/"+vendor.id,{},function(json){
+                $scope.vendors = json;
+            });
+        }
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
+

@@ -45,6 +45,8 @@ public class ManageController {
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user",auth.getPrincipal());
         return "manage/production";
+       // model.addAttribute("navigation","/manage/production_section::production");
+       // return "manage/manage_template";
     }
     @RequestMapping("/material_vendor")
     public String material_vendor(Model model){
