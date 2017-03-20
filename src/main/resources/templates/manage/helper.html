@@ -63,12 +63,15 @@
                                 <a href="#tab_4" data-toggle="tab">Search Fields</a>
                             </li>
                             <li>
-                                <a href="#tab_5" data-toggle="tab">Modal</a>
+                                <a href="#tab_5" data-toggle="tab">Modal Edit</a>
+                            </li>
+                            <li>
+                                <a href="#tab_6" data-toggle="tab">Rest Controller</a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane" id="tab_1">
-                                <textarea ng-model="content_multiple"  cols="120" rows="2">
+                                <textarea ng-model="content_multiple"  cols="120" rows="20">
 
                                 </textarea>
                             </div>
@@ -91,6 +94,10 @@
                             <div class="tab-pane" id="tab_5">
                                 <textarea ng-model="content_modalbody" cols="120" rows="20"></textarea>
                             </div>
+                            <div class="tab-pane" id="tab_6">
+                                <textarea ng-model="content_rest" cols="120" rows="20"></textarea>
+                            </div>
+
                         </div>
 
                     </div>
@@ -163,7 +170,7 @@
                 if (column.fieldName=='id'){
                     continue;
                 }
-                multiples += tablename+'.'+column.fieldName +'='+column.fieldName.toUpperCase()+' ';
+                multiples += tablename+'.'+column.fieldName +'='+column.fieldName.toUpperCase()+'\n';
                 var field_search =`<div class="form-group">
                 <label for="idSearch_`+column.fieldName+`" class="control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
                 <input type="text" id="idSearch_`+column.fieldName+`" ng-model="search.`+column.fieldName+`" class="form-control"  placeholder="`+column.fieldName+`"/>
@@ -325,6 +332,27 @@
                 $scope.init();
 
                 });`;
+            $scope.content_rest = `@RestController
+                @RequestMapping("/")
+                public class `+tablename+`Controller {
+                @Autowired
+                `+tablename+`Repository currentRepository;
+                @RequestMapping("/list")
+                public Iterable<`+tablename+`> list(){
+                return currentRepository.findAll();
+                }
+                @RequestMapping("/add")
+                public Iterable<`+tablename+`> add(`+tablename+` item){
+                currentRepository.save(item);
+                return list();
+                }
+                @RequestMapping("/remove/{item_id}")
+                public Iterable<`+tablename+`> remove(long item_id){
+                currentRepository.delete(item_id);
+                return list();
+                }
+                }
+                `;
         }
         $scope.init();
 

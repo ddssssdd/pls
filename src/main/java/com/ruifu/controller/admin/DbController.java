@@ -46,6 +46,25 @@ public class DbController {
         result.put("key","this is atest");
         return result;
     }
+    public static String formatTableName(String name){
+        String result= formatFieldName(name);
+        result=  result.substring(0,1).toUpperCase()+result.substring(1,result.length());
+        return result;
+    }
+    public static String formatFieldName(String fieldName) {
+        if (fieldName.contains("_")){
+            while(fieldName.contains("_")){
+                int pos = fieldName.indexOf("_");
+                if (pos<fieldName.length()-1){
+                    String temp = fieldName.substring(pos+1,pos+2);
+                    fieldName = fieldName.substring(0,pos)+temp.toUpperCase()+fieldName.substring(pos+2,fieldName.length());
+                }
+            }
+            return fieldName;
+        }else{
+            return fieldName;
+        }
+    }
 }
 class Column{
     private String fieldName;
@@ -55,7 +74,7 @@ class Column{
     private String type;
 
     public Column(String fieldName,long index,String nullable,String fieldType,String type){
-        this.fieldName =formatFieldName( fieldName);
+        this.fieldName =DbController.formatFieldName( fieldName);
         this.index = index;
         this.nullable = nullable;
         this.fieldType = fieldType;
@@ -66,7 +85,7 @@ class Column{
     }
 
     public void setFieldName(String fieldName) {
-        this.fieldName = formatFieldName(fieldName);
+        this.fieldName = DbController.formatFieldName(fieldName);
     }
 
     public Long getIndex() {
@@ -101,18 +120,5 @@ class Column{
         this.type = type;
     }
 
-    private String formatFieldName(String fieldName) {
-        if (fieldName.contains("_")){
-            while(fieldName.contains("_")){
-                int pos = fieldName.indexOf("_");
-                if (pos<fieldName.length()-1){
-                    String temp = fieldName.substring(pos+1,pos+2);
-                    fieldName = fieldName.substring(0,pos)+temp.toUpperCase()+fieldName.substring(pos+2,fieldName.length());
-                }
-            }
-            return fieldName;
-        }else{
-            return fieldName;
-        }
-    }
+
 }
