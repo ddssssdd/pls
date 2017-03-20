@@ -48,15 +48,52 @@
 
                 </div>
                 <div class="col-md-9">
-                    <textarea ng-model="content_multiple"  cols="120" rows="2">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab">Multiple Languages</a>
+                            </li>
+                            <li>
+                                <a href="#tab_2" data-toggle="tab">Main Content</a>
+                            </li>
+                            <li>
+                                <a href="#tab_3" data-toggle="tab">Scripts</a>
+                            </li>
+                            <li>
+                                <a href="#tab_4" data-toggle="tab">Search Fields</a>
+                            </li>
+                            <li>
+                                <a href="#tab_5" data-toggle="tab">Modal</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="tab_1">
+                                <textarea ng-model="content_multiple"  cols="120" rows="2">
 
-                    </textarea>
-                    <textarea ng-model="content"  cols="120" rows="20">
+                                </textarea>
+                            </div>
+                            <div class="tab-pane" id="tab_2">
+                                <textarea ng-model="content"  cols="120" rows="20">
 
-                    </textarea>
-                    <textarea ng-model="content_scripts"  cols="120" rows="20">
+                                </textarea>
 
-                    </textarea>
+                            </div>
+                            <div class="tab-pane" id="tab_3">
+                                <textarea ng-model="content_scripts"  cols="120" rows="20">
+
+                                </textarea>
+                            </div>
+                            <div class="tab-pane" id="tab_4">
+                                <textarea ng-model="content_search"  cols="120" rows="20">
+
+                                </textarea>
+                            </div>
+                            <div class="tab-pane" id="tab_5">
+                                <textarea ng-model="content_modalbody" cols="120" rows="20"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -120,33 +157,46 @@
             var tableBodys='';
             var tableFooters='';
             var modalBodys = '';
+            var notEnd = false;
             for(var i=0;i<$scope.columns.length;i++){
                 var column = $scope.columns[i];
                 if (column.fieldName=='id'){
                     continue;
                 }
                 multiples += tablename+'.'+column.fieldName +'='+column.fieldName.toUpperCase()+' ';
-                searchFields +=`<div class="form-group">
-                <label for="idSearch_`+column.fieldName+`" class="col-xs-1 control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
-                <div class="col-xs-2">
+                var field_search =`<div class="form-group">
+                <label for="idSearch_`+column.fieldName+`" class="control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
                 <input type="text" id="idSearch_`+column.fieldName+`" ng-model="search.`+column.fieldName+`" class="form-control"  placeholder="`+column.fieldName+`"/>
                 </div>
-                </div>
                 `;
+                if (i % 2==1){
+                    searchFields +="<div class='col-md-3'>"+field_search;
+                    notEnd = true;
+                }else{
+                    searchFields +=field_search+"</div>";
+                    notEnd = false;
+                }
+
                 tableHeaders +=`<th th:text="#{`+tablename+`.`+column.fieldName+`}" class="sorting"></th>`;
                 tableBodys +=`<td>{{item.`+column.fieldName+`}}</td>`;
                 tableFooters +=`<th>
                     <input type="text" class="form-control" ng-model="current.`+column.fieldName+`" placeholder="`+column.fieldName+`"/>
                     </th>`;
                 modalBodys +=`<div class="form-group">
-                <label for="id_`+column.fieldName+`" class="col-xs-1 control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
-                <div class="col-xs-2">
+                <label for="id_`+column.fieldName+`" class="col-xs-3 control-label" th:text="#{`+tablename+`.`+column.fieldName+`}">`+column.fieldName+`</label>
+                <div class="col-xs-6">
                 <input type="text" id="id_`+column.fieldName+`" ng-model="current.`+column.fieldName+`" class="form-control"  placeholder="`+column.fieldName+`"/>
                 </div>
                 </div>
                 `;
             }
+            if (notEnd){
+                searchFields += "</div>";
+            }
+            modalBodys = `<div class="row form form-horizontal">`+ modalBodys +`</div>`;
+            $scope.content_search  ="<div class='row'>"+ searchFields + "</div>";
             $scope.content_multiple = multiples;
+            $scope.content_modalbody = modalBodys;
             $scope.content =` <!-- Your Page Content Here -->
                 <div class="row" ng-controller="`+tablename+`Controller">
                 <div class="col-xs-12">
@@ -155,7 +205,8 @@
                 <h3 class="box-title">查询</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">`+searchFields+`
+                <div class="box-body"><div class="row">`+searchFields+`
+                </div>
                 </div>
                 <!-- /.box-body -->
 

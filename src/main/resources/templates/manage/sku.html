@@ -67,7 +67,7 @@
                                     ng-click="resetSearch($event)">Clear</button>
                             <button class="btn btn-info"
                                     th:text="#{action.add}"
-                                    data-toggle="modal" data-target="#edtMaterialModel">
+                                    data-toggle="modal" data-target="#edtMaterialModal">
                                 Add
                             </button>
                         </div>
@@ -159,54 +159,67 @@
                             </div>
                             <div class="modal-body">
 
-
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_name" class="col-xs-3 control-label" th:text="#{material.name}">name</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                    </div>
+                                </div>
                                     <div class="form-group">
-                                        <label for="idSku1" class="control-label" th:text="#{material.sku}">SKU</label>
-                                        <input type="text" id="idSku1" class="form-control" ng-model="material.sku" placeholder="SKU"/>
-
+                                        <label for="id_description" class="col-xs-3 control-label" th:text="#{material.description}">description</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_description" ng-model="current.description" class="form-control"  placeholder="description"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idName1" class="control-label" th:text="#{material.name}">Name</label>
-                                        <input type="text" id="idName1" class="form-control"  ng-model="material.name"  placeholder="Name"/>
-
+                                        <label for="id_specific" class="col-xs-3 control-label" th:text="#{material.specific}">specific</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_specific" ng-model="current.specific" class="form-control"  placeholder="specific"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idSpecific" class="control-label" th:text="#{material.specific}">Specific</label>
-                                        <input type="text" id="idSpecific" class="form-control"  ng-model="material.specific"  placeholder="Name"/>
-
+                                        <label for="id_unit" class="col-xs-3 control-label" th:text="#{material.unit}">unit</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_unit" ng-model="current.unit" class="form-control"  placeholder="unit"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idDescription1" class="control-label" th:text="#{material.description}">Description</label>
-                                        <input type="text" id="idDescription1" class="form-control" ng-model="material.description" placeholder="Name"/>
-
+                                        <label for="id_width" class="col-xs-3 control-label" th:text="#{material.width}">width</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_width" ng-model="current.width" class="form-control"  placeholder="width"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idUnit" class="control-label" th:text="#{material.unit}">Unit</label>
-                                        <input type="text" id="idUnit" class="form-control" ng-model="material.unit" placeholder="Name"/>
-
+                                        <label for="id_height" class="col-xs-3 control-label" th:text="#{material.height}">height</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_height" ng-model="current.height" class="form-control"  placeholder="height"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idLength1" class="control-label" th:text="#{material.length}">Length</label>
-                                        <input type="text" id="idLength1" class="form-control" ng-model="material.length"  placeholder="Name"/>
-
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="idWidth1" class="control-label" th:text="#{material.width}">Width</label>
-                                        <input type="text" id="idWidth1" class="form-control" ng-model="material.width" placeholder="Name"/>
-
+                                        <label for="id_length" class="col-xs-3 control-label" th:text="#{material.length}">length</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_length" ng-model="current.length" class="form-control"  placeholder="length"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idHeight" class="control-label" th:text="#{material.height}">Height</label>
-                                        <input type="text" id="idHeight" class="form-control" ng-model="material.height" placeholder="Name"/>
-
+                                        <label for="id_weight" class="col-xs-3 control-label" th:text="#{material.weight}">weight</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_weight" ng-model="current.weight" class="form-control"  placeholder="weight"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idNote" class="control-label" th:text="#{material.note}">Note</label>
-                                        <Textarea  id="idNote" class="form-control" ng-model="material.note" placeholder="Name"/>
-
+                                        <label for="id_note" class="col-xs-3 control-label" th:text="#{material.note}">note</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_note" ng-model="current.note" class="form-control"  placeholder="note"/>
+                                        </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="id_sku" class="col-xs-3 control-label" th:text="#{material.sku}">sku</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_sku" ng-model="current.sku" class="form-control"  placeholder="sku"/>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 

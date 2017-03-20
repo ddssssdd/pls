@@ -34,55 +34,71 @@
                             <h3 class="box-title">查询</h3>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body"><div class="form-group">
-                            <label for="idSearch_end_date" class="col-xs-1 control-label" th:text="#{material_vendor.end_date}">end_date</label>
-                            <div class="col-xs-2">
-                                <input type="text" id="idSearch_end_date" ng-model="search.end_date" class="form-control"  placeholder="end_date"/>
-                            </div>
-                        </div>
-                            <div class="form-group">
-                                <label for="idSearch_max_price" class="col-xs-1 control-label" th:text="#{material_vendor.max_price}">max_price</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_max_price" ng-model="search.max_price" class="form-control"  placeholder="max_price"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_max_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.max_quantity}">max_quantity</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_max_quantity" ng-model="search.max_quantity" class="form-control"  placeholder="max_quantity"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_min_price" class="col-xs-1 control-label" th:text="#{material_vendor.min_price}">min_price</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_min_price" ng-model="search.min_price" class="form-control"  placeholder="min_price"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_min_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.min_quantity}">min_quantity</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_min_quantity" ng-model="search.min_quantity" class="form-control"  placeholder="min_quantity"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_start_date" class="col-xs-1 control-label" th:text="#{material_vendor.start_date}">start_date</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_start_date" ng-model="search.start_date" class="form-control"  placeholder="start_date"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_material_id" class="col-xs-1 control-label" th:text="#{material_vendor.material_id}">material_id</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_material_id" ng-model="search.material_id" class="form-control"  placeholder="material_id"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_vendor_id" class="col-xs-1 control-label" th:text="#{material_vendor.vendor_id}">vendor_id</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_vendor_id" ng-model="search.vendor_id" class="form-control"  placeholder="vendor_id"/>
-                                </div>
-                            </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
 
+                                        <label for="idSearch_end_date" class="control-label" th:text="#{material_vendor.end_date}">end_date</label>
+
+                                        <input type="text" id="idSearch_end_date" ng-model="search.end_date" class="form-control"  placeholder="end_date"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idSearch_max_price" class="control-label" th:text="#{material_vendor.max_price}">max_price</label>
+
+                                        <input type="text" id="idSearch_max_price" ng-model="search.max_price" class="form-control"  placeholder="max_price"/>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="idSearch_max_quantity" class="control-label" th:text="#{material_vendor.max_quantity}">max_quantity</label>
+
+                                        <input type="text" id="idSearch_max_quantity" ng-model="search.max_quantity" class="form-control"  placeholder="max_quantity"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idSearch_min_price" class="control-label" th:text="#{material_vendor.min_price}">min_price</label>
+
+                                        <input type="text" id="idSearch_min_price" ng-model="search.min_price" class="form-control"  placeholder="min_price"/>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="idSearch_min_quantity" class="control-label" th:text="#{material_vendor.min_quantity}">min_quantity</label>
+
+                                        <input type="text" id="idSearch_min_quantity" ng-model="search.min_quantity" class="form-control"  placeholder="min_quantity"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idSearch_start_date" class="control-label" th:text="#{material_vendor.start_date}">start_date</label>
+
+                                        <input type="text" id="idSearch_start_date" ng-model="search.start_date" class="form-control"  placeholder="start_date"/>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="idSearch_material_id" class="control-label" th:text="#{material_vendor.material_id}">material_id</label>
+
+                                        <input type="text" id="idSearch_material_id" ng-model="search.material_id" class="form-control"  placeholder="material_id"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idSearch_vendor_id" class="control-label" th:text="#{material_vendor.vendor_id}">vendor_id</label>
+
+                                        <input type="text" id="idSearch_vendor_id" ng-model="search.vendor_id" class="form-control"  placeholder="vendor_id"/>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
                         </div>
                         <!-- /.box-body -->
 
@@ -173,52 +189,53 @@
                                 <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="id_end_date" class="col-xs-1 control-label" th:text="#{material_vendor.end_date}">end_date</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_end_date" ng-model="current.end_date" class="form-control"  placeholder="end_date"/>
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_endDate" class="col-xs-3 control-label" th:text="#{material_vendor.end_date}">endDate</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="id_endDate" ng-model="current.endDate" class="form-control"  placeholder="endDate"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="id_max_price" class="col-xs-1 control-label" th:text="#{material_vendor.max_price}">max_price</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_max_price" ng-model="current.max_price" class="form-control"  placeholder="max_price"/>
+                                    <div class="form-group">
+                                        <label for="id_maxPrice" class="col-xs-3 control-label" th:text="#{material_vendor.max_price}">maxPrice</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_maxPrice" ng-model="current.maxPrice" class="form-control"  placeholder="maxPrice"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_max_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.max_quantity}">max_quantity</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_max_quantity" ng-model="current.max_quantity" class="form-control"  placeholder="max_quantity"/>
+                                    <div class="form-group">
+                                        <label for="id_maxQuantity" class="col-xs-3 control-label" th:text="#{material_vendor.max_quantity}">maxQuantity</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_maxQuantity" ng-model="current.maxQuantity" class="form-control"  placeholder="maxQuantity"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_min_price" class="col-xs-1 control-label" th:text="#{material_vendor.min_price}">min_price</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_min_price" ng-model="current.min_price" class="form-control"  placeholder="min_price"/>
+                                    <div class="form-group">
+                                        <label for="id_minPrice" class="col-xs-3 control-label" th:text="#{material_vendor.min_price}">minPrice</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_minPrice" ng-model="current.minPrice" class="form-control"  placeholder="minPrice"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_min_quantity" class="col-xs-1 control-label" th:text="#{material_vendor.min_quantity}">min_quantity</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_min_quantity" ng-model="current.min_quantity" class="form-control"  placeholder="min_quantity"/>
+                                    <div class="form-group">
+                                        <label for="id_minQuantity" class="col-xs-3 control-label" th:text="#{material_vendor.min_quantity}">minQuantity</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_minQuantity" ng-model="current.minQuantity" class="form-control"  placeholder="minQuantity"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_start_date" class="col-xs-1 control-label" th:text="#{material_vendor.start_date}">start_date</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_start_date" ng-model="current.start_date" class="form-control"  placeholder="start_date"/>
+                                    <div class="form-group">
+                                        <label for="id_startDate" class="col-xs-3 control-label" th:text="#{material_vendor.start_date}">startDate</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_startDate" ng-model="current.startDate" class="form-control"  placeholder="startDate"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_material_id" class="col-xs-1 control-label" th:text="#{material_vendor.material_id}">material_id</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_material_id" ng-model="current.material_id" class="form-control"  placeholder="material_id"/>
+                                    <div class="form-group">
+                                        <label for="id_materialId" class="col-xs-3 control-label" th:text="#{material_vendor.material_id}">materialId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_materialId" ng-model="current.materialId" class="form-control"  placeholder="materialId"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_vendor_id" class="col-xs-1 control-label" th:text="#{material_vendor.vendor_id}">vendor_id</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_vendor_id" ng-model="current.vendor_id" class="form-control"  placeholder="vendor_id"/>
+                                    <div class="form-group">
+                                        <label for="id_vendorId" class="col-xs-3 control-label" th:text="#{material_vendor.vendor_id}">vendorId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_vendorId" ng-model="current.vendorId" class="form-control"  placeholder="vendorId"/>
+                                        </div>
                                     </div>
                                 </div>
 

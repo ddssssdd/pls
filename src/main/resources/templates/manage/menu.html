@@ -33,37 +33,35 @@
                             <h3 class="box-title">查询</h3>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body"><div class="form-group">
-                            <label for="idSearch_description" class="col-xs-1 control-label" th:text="#{menu.description}">description</label>
-                            <div class="col-xs-2">
-                                <input type="text" id="idSearch_description" ng-model="search.description" class="form-control"  placeholder="description"/>
-                            </div>
-                        </div>
-                            <div class="form-group">
-                                <label for="idSearch_icon" class="col-xs-1 control-label" th:text="#{menu.icon}">icon</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_icon" ng-model="search.icon" class="form-control"  placeholder="icon"/>
+                        <div class="box-body">
+                            <div class='row'>
+                                <div class='col-md-3'>
+                                    <div class="form-group">
+                                        <label for="idSearch_description" class="control-label" th:text="#{menu.description}">description</label>
+                                        <input type="text" id="idSearch_description" ng-model="search.description" class="form-control"  placeholder="description"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idSearch_icon" class="control-label" th:text="#{menu.icon}">icon</label>
+                                        <input type="text" id="idSearch_icon" ng-model="search.icon" class="form-control"  placeholder="icon"/>
+                                    </div>
+                                </div>
+                                <div class='col-md-3'>
+                                    <div class="form-group">
+                                        <label for="idSearch_name" class="control-label" th:text="#{menu.name}">name</label>
+                                        <input type="text" id="idSearch_name" ng-model="search.name" class="form-control"  placeholder="name"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idSearch_url" class="control-label" th:text="#{menu.url}">url</label>
+                                        <input type="text" id="idSearch_url" ng-model="search.url" class="form-control"  placeholder="url"/>
+                                    </div>
+                                </div>
+                                <div class='col-md-3'>
+                                    <div class="form-group">
+                                        <label for="idSearch_parentId" class="control-label" th:text="#{menu.parentId}">parentId</label>
+                                        <input type="text" id="idSearch_parentId" ng-model="search.parentId" class="form-control"  placeholder="parentId"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_name" class="col-xs-1 control-label" th:text="#{menu.name}">name</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_name" ng-model="search.name" class="form-control"  placeholder="name"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_url" class="col-xs-1 control-label" th:text="#{menu.url}">url</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_url" ng-model="search.url" class="form-control"  placeholder="url"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_parent_id" class="col-xs-1 control-label" th:text="#{menu.parent_id}">parent_id</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_parent_id" ng-model="search.parent_id" class="form-control"  placeholder="parent_id"/>
-                                </div>
-                            </div>
-
                         </div>
                         <!-- /.box-body -->
 
@@ -141,34 +139,35 @@
                                 <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="id_description" class="col-xs-1 control-label" th:text="#{menu.description}">description</label>
-                                    <div class="col-xs-2">
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_description" class="col-xs-3 control-label" th:text="#{menu.description}">description</label>
+                                    <div class="col-xs-6">
                                         <input type="text" id="id_description" ng-model="current.description" class="form-control"  placeholder="description"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="id_icon" class="col-xs-1 control-label" th:text="#{menu.icon}">icon</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_icon" ng-model="current.icon" class="form-control"  placeholder="icon"/>
+                                    <div class="form-group">
+                                        <label for="id_icon" class="col-xs-3 control-label" th:text="#{menu.icon}">icon</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_icon" ng-model="current.icon" class="form-control"  placeholder="icon"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_name" class="col-xs-1 control-label" th:text="#{menu.name}">name</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                    <div class="form-group">
+                                        <label for="id_name" class="col-xs-3 control-label" th:text="#{menu.name}">name</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_url" class="col-xs-1 control-label" th:text="#{menu.url}">url</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_url" ng-model="current.url" class="form-control"  placeholder="url"/>
+                                    <div class="form-group">
+                                        <label for="id_url" class="col-xs-3 control-label" th:text="#{menu.url}">url</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_url" ng-model="current.url" class="form-control"  placeholder="url"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_parent_id" class="col-xs-1 control-label" th:text="#{menu.parent_id}">parent_id</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_parent_id" ng-model="current.parent_id" class="form-control"  placeholder="parent_id"/>
+                                    <div class="form-group">
+                                        <label for="id_parentId" class="col-xs-3 control-label" th:text="#{menu.parentId}">parentId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_parentId" ng-model="current.parentId" class="form-control"  placeholder="parentId"/>
+                                        </div>
                                     </div>
                                 </div>
 

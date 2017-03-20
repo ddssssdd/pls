@@ -35,54 +35,40 @@
                             <h3 class="box-title">查询</h3>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body"><div class="form-group">
-                            <label for="idSearch_endDate" class="col-xs-1 control-label" th:text="#{material_plan.endDate}">endDate</label>
-                            <div class="col-xs-2">
+                        <div class="box-body">
+                            <div class='row'><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_endDate" class="control-label" th:text="#{material_plan.endDate}">endDate</label>
                                 <input type="text" id="idSearch_endDate" ng-model="search.endDate" class="form-control"  placeholder="endDate"/>
                             </div>
-                        </div>
-                            <div class="form-group">
-                                <label for="idSearch_materialPlanNo" class="col-xs-1 control-label" th:text="#{material_plan.materialPlanNo}">materialPlanNo</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_materialPlanNo" class="control-label" th:text="#{material_plan.materialPlanNo}">materialPlanNo</label>
                                     <input type="text" id="idSearch_materialPlanNo" ng-model="search.materialPlanNo" class="form-control"  placeholder="materialPlanNo"/>
                                 </div>
+                            </div><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_minQuantity" class="control-label" th:text="#{material_plan.minQuantity}">minQuantity</label>
+                                <input type="text" id="idSearch_minQuantity" ng-model="search.minQuantity" class="form-control"  placeholder="minQuantity"/>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_minQuantity" class="col-xs-1 control-label" th:text="#{material_plan.minQuantity}">minQuantity</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_minQuantity" ng-model="search.minQuantity" class="form-control"  placeholder="minQuantity"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_note" class="col-xs-1 control-label" th:text="#{material_plan.note}">note</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_note" class="control-label" th:text="#{material_plan.note}">note</label>
                                     <input type="text" id="idSearch_note" ng-model="search.note" class="form-control"  placeholder="note"/>
                                 </div>
+                            </div><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_planNo" class="control-label" th:text="#{material_plan.planNo}">planNo</label>
+                                <input type="text" id="idSearch_planNo" ng-model="search.planNo" class="form-control"  placeholder="planNo"/>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_planNo" class="col-xs-1 control-label" th:text="#{material_plan.planNo}">planNo</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_planNo" ng-model="search.planNo" class="form-control"  placeholder="planNo"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_productionSku" class="col-xs-1 control-label" th:text="#{material_plan.productionSku}">productionSku</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_productionSku" class="control-label" th:text="#{material_plan.productionSku}">productionSku</label>
                                     <input type="text" id="idSearch_productionSku" ng-model="search.productionSku" class="form-control"  placeholder="productionSku"/>
                                 </div>
+                            </div><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_quantity" class="control-label" th:text="#{material_plan.quantity}">quantity</label>
+                                <input type="text" id="idSearch_quantity" ng-model="search.quantity" class="form-control"  placeholder="quantity"/>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_quantity" class="col-xs-1 control-label" th:text="#{material_plan.quantity}">quantity</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_quantity" ng-model="search.quantity" class="form-control"  placeholder="quantity"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_materialId" class="col-xs-1 control-label" th:text="#{material_plan.materialId}">materialId</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_materialId" class="control-label" th:text="#{material_plan.materialId}">materialId</label>
                                     <input type="text" id="idSearch_materialId" ng-model="search.materialId" class="form-control"  placeholder="materialId"/>
                                 </div>
-                            </div>
+                            </div></div>
 
                         </div>
                         <!-- /.box-body -->
@@ -174,52 +160,53 @@
                                 <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="id_endDate" class="col-xs-1 control-label" th:text="#{material_plan.endDate}">endDate</label>
-                                    <div class="col-xs-2">
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_endDate" class="col-xs-3 control-label" th:text="#{material_plan.endDate}">endDate</label>
+                                    <div class="col-xs-6">
                                         <input type="text" id="id_endDate" ng-model="current.endDate" class="form-control"  placeholder="endDate"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="id_materialPlanNo" class="col-xs-1 control-label" th:text="#{material_plan.materialPlanNo}">materialPlanNo</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_materialPlanNo" ng-model="current.materialPlanNo" class="form-control"  placeholder="materialPlanNo"/>
+                                    <div class="form-group">
+                                        <label for="id_materialPlanNo" class="col-xs-3 control-label" th:text="#{material_plan.materialPlanNo}">materialPlanNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_materialPlanNo" ng-model="current.materialPlanNo" class="form-control"  placeholder="materialPlanNo"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_minQuantity" class="col-xs-1 control-label" th:text="#{material_plan.minQuantity}">minQuantity</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_minQuantity" ng-model="current.minQuantity" class="form-control"  placeholder="minQuantity"/>
+                                    <div class="form-group">
+                                        <label for="id_minQuantity" class="col-xs-3 control-label" th:text="#{material_plan.minQuantity}">minQuantity</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_minQuantity" ng-model="current.minQuantity" class="form-control"  placeholder="minQuantity"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_note" class="col-xs-1 control-label" th:text="#{material_plan.note}">note</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_note" ng-model="current.note" class="form-control"  placeholder="note"/>
+                                    <div class="form-group">
+                                        <label for="id_note" class="col-xs-3 control-label" th:text="#{material_plan.note}">note</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_note" ng-model="current.note" class="form-control"  placeholder="note"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_planNo" class="col-xs-1 control-label" th:text="#{material_plan.planNo}">planNo</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_planNo" ng-model="current.planNo" class="form-control"  placeholder="planNo"/>
+                                    <div class="form-group">
+                                        <label for="id_planNo" class="col-xs-3 control-label" th:text="#{material_plan.planNo}">planNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_planNo" ng-model="current.planNo" class="form-control"  placeholder="planNo"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_productionSku" class="col-xs-1 control-label" th:text="#{material_plan.productionSku}">productionSku</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_productionSku" ng-model="current.productionSku" class="form-control"  placeholder="productionSku"/>
+                                    <div class="form-group">
+                                        <label for="id_productionSku" class="col-xs-3 control-label" th:text="#{material_plan.productionSku}">productionSku</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_productionSku" ng-model="current.productionSku" class="form-control"  placeholder="productionSku"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_quantity" class="col-xs-1 control-label" th:text="#{material_plan.quantity}">quantity</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_quantity" ng-model="current.quantity" class="form-control"  placeholder="quantity"/>
+                                    <div class="form-group">
+                                        <label for="id_quantity" class="col-xs-3 control-label" th:text="#{material_plan.quantity}">quantity</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_quantity" ng-model="current.quantity" class="form-control"  placeholder="quantity"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_materialId" class="col-xs-1 control-label" th:text="#{material_plan.materialId}">materialId</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_materialId" ng-model="current.materialId" class="form-control"  placeholder="materialId"/>
+                                    <div class="form-group">
+                                        <label for="id_materialId" class="col-xs-3 control-label" th:text="#{material_plan.materialId}">materialId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_materialId" ng-model="current.materialId" class="form-control"  placeholder="materialId"/>
+                                        </div>
                                     </div>
                                 </div>
 

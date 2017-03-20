@@ -34,48 +34,36 @@
                             <h3 class="box-title">查询</h3>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body"><div class="form-group">
-                            <label for="idSearch_deliveryDate" class="col-xs-1 control-label" th:text="#{production_plan.deliveryDate}">deliveryDate</label>
-                            <div class="col-xs-2">
+                        <div class="box-body">
+                            <div class='row'><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_deliveryDate" class="control-label" th:text="#{production_plan.deliveryDate}">deliveryDate</label>
                                 <input type="text" id="idSearch_deliveryDate" ng-model="search.deliveryDate" class="form-control"  placeholder="deliveryDate"/>
                             </div>
-                        </div>
-                            <div class="form-group">
-                                <label for="idSearch_lineNo" class="col-xs-1 control-label" th:text="#{production_plan.lineNo}">lineNo</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_lineNo" class="control-label" th:text="#{production_plan.lineNo}">lineNo</label>
                                     <input type="text" id="idSearch_lineNo" ng-model="search.lineNo" class="form-control"  placeholder="lineNo"/>
                                 </div>
+                            </div><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_num" class="control-label" th:text="#{production_plan.num}">num</label>
+                                <input type="text" id="idSearch_num" ng-model="search.num" class="form-control"  placeholder="num"/>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_num" class="col-xs-1 control-label" th:text="#{production_plan.num}">num</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_num" ng-model="search.num" class="form-control"  placeholder="num"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_orderNo" class="col-xs-1 control-label" th:text="#{production_plan.orderNo}">orderNo</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_orderNo" class="control-label" th:text="#{production_plan.orderNo}">orderNo</label>
                                     <input type="text" id="idSearch_orderNo" ng-model="search.orderNo" class="form-control"  placeholder="orderNo"/>
                                 </div>
+                            </div><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_serialNo" class="control-label" th:text="#{production_plan.serialNo}">serialNo</label>
+                                <input type="text" id="idSearch_serialNo" ng-model="search.serialNo" class="form-control"  placeholder="serialNo"/>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_serialNo" class="col-xs-1 control-label" th:text="#{production_plan.serialNo}">serialNo</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_serialNo" ng-model="search.serialNo" class="form-control"  placeholder="serialNo"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_productionId" class="col-xs-1 control-label" th:text="#{production_plan.productionId}">productionId</label>
-                                <div class="col-xs-2">
+                                <div class="form-group">
+                                    <label for="idSearch_productionId" class="control-label" th:text="#{production_plan.productionId}">productionId</label>
                                     <input type="text" id="idSearch_productionId" ng-model="search.productionId" class="form-control"  placeholder="productionId"/>
                                 </div>
+                            </div><div class='col-md-3'><div class="form-group">
+                                <label for="idSearch_planNo" class="control-label" th:text="#{production_plan.planNo}">planNo</label>
+                                <input type="text" id="idSearch_planNo" ng-model="search.planNo" class="form-control"  placeholder="planNo"/>
                             </div>
-                            <div class="form-group">
-                                <label for="idSearch_planNo" class="col-xs-1 control-label" th:text="#{production_plan.planNo}">planNo</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_planNo" ng-model="search.planNo" class="form-control"  placeholder="planNo"/>
-                                </div>
-                            </div>
+                            </div></div>
 
                         </div>
                         <!-- /.box-body -->
@@ -164,46 +152,47 @@
                                 <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="id_deliveryDate" class="col-xs-1 control-label" th:text="#{production_plan.deliveryDate}">deliveryDate</label>
-                                    <div class="col-xs-2">
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_deliveryDate" class="col-xs-3 control-label" th:text="#{production_plan.deliveryDate}">deliveryDate</label>
+                                    <div class="col-xs-6">
                                         <input type="text" id="id_deliveryDate" ng-model="current.deliveryDate" class="form-control"  placeholder="deliveryDate"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="id_lineNo" class="col-xs-1 control-label" th:text="#{production_plan.lineNo}">lineNo</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_lineNo" ng-model="current.lineNo" class="form-control"  placeholder="lineNo"/>
+                                    <div class="form-group">
+                                        <label for="id_lineNo" class="col-xs-3 control-label" th:text="#{production_plan.lineNo}">lineNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_lineNo" ng-model="current.lineNo" class="form-control"  placeholder="lineNo"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_num" class="col-xs-1 control-label" th:text="#{production_plan.num}">num</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_num" ng-model="current.num" class="form-control"  placeholder="num"/>
+                                    <div class="form-group">
+                                        <label for="id_num" class="col-xs-3 control-label" th:text="#{production_plan.num}">num</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_num" ng-model="current.num" class="form-control"  placeholder="num"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_orderNo" class="col-xs-1 control-label" th:text="#{production_plan.orderNo}">orderNo</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_orderNo" ng-model="current.orderNo" class="form-control"  placeholder="orderNo"/>
+                                    <div class="form-group">
+                                        <label for="id_orderNo" class="col-xs-3 control-label" th:text="#{production_plan.orderNo}">orderNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_orderNo" ng-model="current.orderNo" class="form-control"  placeholder="orderNo"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_serialNo" class="col-xs-1 control-label" th:text="#{production_plan.serialNo}">serialNo</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_serialNo" ng-model="current.serialNo" class="form-control"  placeholder="serialNo"/>
+                                    <div class="form-group">
+                                        <label for="id_serialNo" class="col-xs-3 control-label" th:text="#{production_plan.serialNo}">serialNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_serialNo" ng-model="current.serialNo" class="form-control"  placeholder="serialNo"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_productionId" class="col-xs-1 control-label" th:text="#{production_plan.productionId}">productionId</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_productionId" ng-model="current.productionId" class="form-control"  placeholder="productionId"/>
+                                    <div class="form-group">
+                                        <label for="id_productionId" class="col-xs-3 control-label" th:text="#{production_plan.productionId}">productionId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_productionId" ng-model="current.productionId" class="form-control"  placeholder="productionId"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_planNo" class="col-xs-1 control-label" th:text="#{production_plan.planNo}">planNo</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_planNo" ng-model="current.planNo" class="form-control"  placeholder="planNo"/>
+                                    <div class="form-group">
+                                        <label for="id_planNo" class="col-xs-3 control-label" th:text="#{production_plan.planNo}">planNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_planNo" ng-model="current.planNo" class="form-control"  placeholder="planNo"/>
+                                        </div>
                                     </div>
                                 </div>
 

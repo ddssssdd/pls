@@ -156,19 +156,85 @@
                                 <h4 class="modal-title" id="myModalLabel">Add/Edit Vendor</h4>
                             </div>
                             <div class="modal-body">
-
-
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_address1" class="col-xs-3 control-label" th:text="#{vendor.address1}">address1</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="id_address1" ng-model="current.address1" class="form-control"  placeholder="address1"/>
+                                    </div>
+                                </div>
                                     <div class="form-group">
-                                        <label for="idSku1" class="control-label" th:text="#{vendor.name}">Name</label>
-                                        <input type="text" id="idSku1" class="form-control" ng-model="vendor.name" placeholder="Name"/>
-
+                                        <label for="id_address2" class="col-xs-3 control-label" th:text="#{vendor.address2}">address2</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_address2" ng-model="current.address2" class="form-control"  placeholder="address2"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="idName1" class="control-label" th:text="#{vendor.phone}">Phone</label>
-                                        <input type="text" id="idName1" class="form-control"  ng-model="vendor.Phone"  placeholder="Phone"/>
-
+                                        <label for="id_city" class="col-xs-3 control-label" th:text="#{vendor.city}">city</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_city" ng-model="current.city" class="form-control"  placeholder="city"/>
+                                        </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="id_contactCellphone" class="col-xs-3 control-label" th:text="#{vendor.contactCellphone}">contactCellphone</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_contactCellphone" ng-model="current.contactCellphone" class="form-control"  placeholder="contactCellphone"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_contactFirstname" class="col-xs-3 control-label" th:text="#{vendor.contactFirstname}">contactFirstname</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_contactFirstname" ng-model="current.contactFirstname" class="form-control"  placeholder="contactFirstname"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_contactLastname" class="col-xs-3 control-label" th:text="#{vendor.contactLastname}">contactLastname</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_contactLastname" ng-model="current.contactLastname" class="form-control"  placeholder="contactLastname"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_country" class="col-xs-3 control-label" th:text="#{vendor.country}">country</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_country" ng-model="current.country" class="form-control"  placeholder="country"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_fax" class="col-xs-3 control-label" th:text="#{vendor.fax}">fax</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_fax" ng-model="current.fax" class="form-control"  placeholder="fax"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_name" class="col-xs-3 control-label" th:text="#{vendor.name}">name</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_phone" class="col-xs-3 control-label" th:text="#{vendor.phone}">phone</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_phone" ng-model="current.phone" class="form-control"  placeholder="phone"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_postal" class="col-xs-3 control-label" th:text="#{vendor.postal}">postal</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_postal" ng-model="current.postal" class="form-control"  placeholder="postal"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_province" class="col-xs-3 control-label" th:text="#{vendor.province}">province</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_province" ng-model="current.province" class="form-control"  placeholder="province"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_website" class="col-xs-3 control-label" th:text="#{vendor.website}">website</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_website" ng-model="current.website" class="form-control"  placeholder="website"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="modal-footer">

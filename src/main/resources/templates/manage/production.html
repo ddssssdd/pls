@@ -34,37 +34,45 @@
                             <h3 class="box-title">查询</h3>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body"><div class="form-group">
-                            <label for="idSearch_active_date" class="col-xs-1 control-label" th:text="#{production.active_date}">active_date</label>
-                            <div class="col-xs-2">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="idSearch_active_date" class="control-label" th:text="#{production.active_date}">active_date</label>
                                 <input type="text" id="idSearch_active_date" ng-model="search.active_date" class="form-control"  placeholder="active_date"/>
-                            </div>
-                        </div>
-                            <div class="form-group">
-                                <label for="idSearch_band" class="col-xs-1 control-label" th:text="#{production.band}">band</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_band" ng-model="search.band" class="form-control"  placeholder="band"/>
-                                </div>
+
                             </div>
                             <div class="form-group">
-                                <label for="idSearch_description" class="col-xs-1 control-label" th:text="#{production.description}">description</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_description" ng-model="search.description" class="form-control"  placeholder="description"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_name" class="col-xs-1 control-label" th:text="#{production.name}">name</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_name" ng-model="search.name" class="form-control"  placeholder="name"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="idSearch_no" class="col-xs-1 control-label" th:text="#{production.no}">no</label>
-                                <div class="col-xs-2">
-                                    <input type="text" id="idSearch_no" ng-model="search.no" class="form-control"  placeholder="no"/>
-                                </div>
+                                <label for="idSearch_band" class="control-label" th:text="#{production.band}">band</label>
+
+                                <input type="text" id="idSearch_band" ng-model="search.band" class="form-control"  placeholder="band"/>
+
                             </div>
 
+                                </div>
+                                <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="idSearch_name" class="control-label" th:text="#{production.name}">name</label>
+
+                                <input type="text" id="idSearch_name" ng-model="search.name" class="form-control"  placeholder="name"/>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="idSearch_no" class="control-label" th:text="#{production.no}">no</label>
+
+                                <input type="text" id="idSearch_no" ng-model="search.no" class="form-control"  placeholder="no"/>
+
+                            </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="idSearch_description" class="control-label" th:text="#{production.description}">description</label>
+
+                                        <input type="text" id="idSearch_description" ng-model="search.description" class="form-control"  placeholder="description"/>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.box-body -->
 
@@ -142,34 +150,35 @@
                                 <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="id_active_date" class="col-xs-1 control-label" th:text="#{production.active_date}">active_date</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_active_date" ng-model="current.active_date" class="form-control"  placeholder="active_date"/>
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_activeDate" class="col-xs-3 control-label" th:text="#{production.activeDate}">activeDate</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="id_activeDate" ng-model="current.activeDate" class="form-control"  placeholder="activeDate"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="id_band" class="col-xs-1 control-label" th:text="#{production.band}">band</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_band" ng-model="current.band" class="form-control"  placeholder="band"/>
+                                    <div class="form-group">
+                                        <label for="id_band" class="col-xs-3 control-label" th:text="#{production.band}">band</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_band" ng-model="current.band" class="form-control"  placeholder="band"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_description" class="col-xs-1 control-label" th:text="#{production.description}">description</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_description" ng-model="current.description" class="form-control"  placeholder="description"/>
+                                    <div class="form-group">
+                                        <label for="id_description" class="col-xs-3 control-label" th:text="#{production.description}">description</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_description" ng-model="current.description" class="form-control"  placeholder="description"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_name" class="col-xs-1 control-label" th:text="#{production.name}">name</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                    <div class="form-group">
+                                        <label for="id_name" class="col-xs-3 control-label" th:text="#{production.name}">name</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_name" ng-model="current.name" class="form-control"  placeholder="name"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="id_no" class="col-xs-1 control-label" th:text="#{production.no}">no</label>
-                                    <div class="col-xs-2">
-                                        <input type="text" id="id_no" ng-model="current.no" class="form-control"  placeholder="no"/>
+                                    <div class="form-group">
+                                        <label for="id_no" class="col-xs-3 control-label" th:text="#{production.no}">no</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_no" ng-model="current.no" class="form-control"  placeholder="no"/>
+                                        </div>
                                     </div>
                                 </div>
 
