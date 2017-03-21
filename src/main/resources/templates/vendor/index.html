@@ -27,7 +27,7 @@
         <section class="content">
 
             <!-- Your Page Content Here -->
-            <div class="row" ng-controller="HelperController">
+            <div class="row" ng-controller="VendorDashboardController">
                 <div class="col-md-3">
                     <a href="javascript:void(0);" class="btn btn-primary btn-block margin-bottom">Refresh</a>
 
@@ -285,7 +285,7 @@
 
     /*<![CDATA[*/
 
-    angular.module("pls").controller("HelperController",function($scope,httpService,Message,$timeout){
+    angular.module("pls").controller("VendorDashboardController",function($scope,httpService,Message,$timeout){
         $scope.contact = [[${contact}]];
         $scope.orders = [];
         $scope.prices = [];
