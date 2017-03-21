@@ -13,6 +13,10 @@ import org.springframework.data.repository.CrudRepository;
 public interface MenuRepository  extends CrudRepository<Menu,Integer>{
 
     @Cacheable("menus")
-    @Query(value="SELECT * FROM menu m WHERE m.parent_id IS NULL OR m.parent_id =0",nativeQuery = true)
+    @Query(value="SELECT * FROM menu m WHERE m.parent_id IS NULL and vendor=0",nativeQuery = true)
     Iterable<Menu> topMenus();
+
+    @Cacheable("vendor_menus")
+    @Query(value="SELECT * FROM menu m WHERE m.parent_id IS NULL and vendor=1",nativeQuery = true)
+    Iterable<Menu> topVendorMenus();
 }

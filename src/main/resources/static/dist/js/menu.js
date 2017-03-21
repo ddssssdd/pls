@@ -8,7 +8,7 @@ angular.module("pls").controller("MenuController",function($scope,httpService,Me
 
     $scope.menus = [];
     $scope.init = function(){
-        httpService("/security/menus",{},function(json){
+        httpService("/security/menus/"+CURRENT_USER_ID,{},function(json){
             $scope.menus = json;
             console.log(json);
         })

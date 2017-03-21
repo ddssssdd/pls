@@ -192,7 +192,7 @@
                                     <a href="#" class="btn btn-default btn-flat" th:text="#{app.profile}">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat"  th:text="#{app.logout}">Sign out</a>
+                                    <a href="/login?logout" class="btn btn-default btn-flat"  th:text="#{app.logout}">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -651,6 +651,7 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var APP_TOKEN = [[${_csrf.token}]];
+    var CURRENT_USER_ID =[[${user.id}]];
     angular.module("pls",["commonService"]);
     /*]]>*/
 </script>

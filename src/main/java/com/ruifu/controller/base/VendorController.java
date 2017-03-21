@@ -1,7 +1,9 @@
 package com.ruifu.controller.base;
 
 import com.ruifu.model.base.Vendor;
+import com.ruifu.model.base.VendorContact;
 import com.ruifu.repository.base.VendorRepository;
+import com.ruifu.repository.vendor.VendorContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class VendorController {
     @Autowired
     VendorRepository vendorRepository;
+
+    @Autowired
+    VendorContactRepository vendorContactRepository;
 
     @RequestMapping("/list")
     public Iterable<Vendor> list()
@@ -32,6 +37,12 @@ public class VendorController {
         Vendor vendor = vendorRepository.findOne(vendor_id);
         vendorRepository.delete(vendor);
         return vendorRepository.findAll();
+    }
+
+    @RequestMapping("/contacts/{vendor_id}")
+    public Iterable<VendorContact> contacts(@PathVariable long vendor_id)
+    {
+        return vendorContactRepository.findByVendorId(vendor_id);
     }
     //todo: test
 

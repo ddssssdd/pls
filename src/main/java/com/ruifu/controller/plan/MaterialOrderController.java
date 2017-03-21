@@ -2,10 +2,13 @@ package com.ruifu.controller.plan;
 
 import com.ruifu.model.plan.MaterialOrder;
 import com.ruifu.repository.plan.OrderRepository;
+import com.ruifu.web.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.transform.Result;
 import java.util.Date;
 
 /**
@@ -21,15 +24,20 @@ public class MaterialOrderController {
         return currentRepository.findAll();
     }
     @RequestMapping("/add")
-    public MaterialOrder add(MaterialOrder item){
+    public ResultStatus add(MaterialOrder item){
         item.setUserId(1);
         item.setCreateDate(new Date());
         currentRepository.save(item);
-        return item;
+        return new ResultStatus(true,"success");
     }
     @RequestMapping("/remove/{item_id}")
     public Iterable<MaterialOrder> remove(long item_id){
         currentRepository.delete(item_id);
         return list();
+    }
+
+    @RequestMapping("/orders/{vendor_id}")
+    public Iterable<MaterialOrder> orders(@PathVariable long vendor_id){
+        return currentRepository.findByVendorId(vendor_id);
     }
 }
