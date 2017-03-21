@@ -1,5 +1,11 @@
 package com.ruifu.controller.front;
 
+import com.ruifu.model.base.Production;
+import com.ruifu.repository.base.MaterialRepository;
+import com.ruifu.repository.base.ProductionRepository;
+import com.ruifu.repository.base.VendorRepository;
+import com.ruifu.repository.plan.OrderPlanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,11 +74,31 @@ public class ManageController {
         model.addAttribute("user",auth.getPrincipal());
         return "plan/material";
     }
+    @Autowired
+    private MaterialRepository materialRepository;
+    @Autowired
+    private ProductionRepository productionRepository;
+    @Autowired
+    private VendorRepository vendorRepository;
+    @Autowired
+    private OrderPlanRepository orderPlanRepository;
     @RequestMapping("/plan/order")
     public String order_plan(Model model){
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user",auth.getPrincipal());
+        model.addAttribute("materials",materialRepository.findAll());
         return "plan/order";
+    }
+
+    @RequestMapping("/order/material")
+    public String order_material(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        model.addAttribute("materials",materialRepository.findAll());
+        model.addAttribute("vendors",vendorRepository.findAll());
+        model.addAttribute("order_plans",orderPlanRepository.findAll());
+
+        return "order/material";
     }
 
 }

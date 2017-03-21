@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="/template::head">
+
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-app="pls">
+<div class="wrapper">
+    <navigation th:include="/template::header">
+
+    </navigation>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                计划
+                <small>物料采购计划</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">物料采购计划</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            <div class="row" ng-controller="material_orderController">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">查询</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class='col-md-3'>
+                                    <div class="form-group">
+                            <label for="idSearch_createDate" class="control-label" th:text="#{material_order.createDate}">createDate</label>
+                            <input type="text" id="idSearch_createDate" ng-model="search.createDate" class="form-control"  placeholder="createDate"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_deliveryDate" class="control-label" th:text="#{material_order.deliveryDate}">deliveryDate</label>
+                                <input type="text" id="idSearch_deliveryDate" ng-model="search.deliveryDate" class="form-control"  placeholder="deliveryDate"/>
+                            </div>
+                        </div><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_orderNo" class="control-label" th:text="#{material_order.orderNo}">orderNo</label>
+                            <input type="text" id="idSearch_orderNo" ng-model="search.orderNo" class="form-control"  placeholder="orderNo"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_quantity" class="control-label" th:text="#{material_order.quantity}">quantity</label>
+                                <input type="text" id="idSearch_quantity" ng-model="search.quantity" class="form-control"  placeholder="quantity"/>
+                            </div>
+                        </div><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_userId" class="control-label" th:text="#{material_order.userId}">userId</label>
+                            <input type="text" id="idSearch_userId" ng-model="search.userId" class="form-control"  placeholder="userId"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_materialId" class="control-label" th:text="#{material_order.materialId}">materialId</label>
+                                <input type="text" id="idSearch_materialId" ng-model="search.materialId" class="form-control"  placeholder="materialId"/>
+                            </div>
+                        </div><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_orderPlanId" class="control-label" th:text="#{material_order.orderPlanId}">orderPlanId</label>
+                            <input type="text" id="idSearch_orderPlanId" ng-model="search.orderPlanId" class="form-control"  placeholder="orderPlanId"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_vendorId" class="control-label" th:text="#{material_order.vendorId}">vendorId</label>
+                                <input type="text" id="idSearch_vendorId" ng-model="search.vendorId" class="form-control"  placeholder="vendorId"/>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button class="btn btn-primary"
+                                    th:text="#{action.search}"
+                                    ng-click="doSearch($event)">Search</button>
+                            <button class="btn btn-danger"
+                                    th:text="#{action.clear}"
+                                    ng-click="resetSearch($event)">Clear</button>
+                            <button class="btn btn-info"
+                                    th:text="#{action.add}"
+                                    data-toggle="modal" data-target="#edtmaterial_orderModal">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">查询结果</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="tableResult" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{material_order.orderNo}" class="sorting"></th>
+                                    <th th:text="#{material_order.orderPlanId}" class="sorting"></th>
+                                    <th th:text="#{material_order.materialId}" class="sorting"></th>
+                                    <th th:text="#{material_order.vendorId}" class="sorting"></th>
+                                    <th th:text="#{material_order.quantity}" class="sorting"></th>
+                                    <th th:text="#{material_order.deliveryDate}" class="sorting"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in material_order_items">
+                                    <td>{{item.orderNo}}</td>
+                                    <td>{{item.orderPlan.description}}</td>
+                                    <td>{{item.material.name}}</td>
+                                    <td>{{item.vendor.name}}</td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.deliveryDate | date}}</td>
+
+                                    <td>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.delete}"
+                                                ng-click="removeItem($index,item,$event);"></button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>
+                                        <input type="text" class="form-control" ng-model="current.orderNo" placeholder=""/>
+                                    </th>
+
+                                    <th>
+                                    <select class="form-control" ng-model="current.orderPlanId">
+                                        <option value="0">--select--</option>
+                                        <option ng-repeat="op in order_plans" value="{{op.id}}">
+                                            {{op.description}}
+                                        </option>
+                                    </select>
+                                    </th>
+
+                                    <th>
+                                        <select class="form-control" ng-model="current.materialId">
+                                            <option ng-repeat="m in materials" value="{{m.id}}">
+                                                {{m.name}}
+                                            </option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <select class="form-control" ng-model="current.vendorId" placeholder="vendorId">
+                                            <option ng-repeat="v in vendors" value="{{v.id}}">
+                                                {{v.name}}
+                                            </option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                    <input type="text" class="form-control" ng-model="current.quantity" placeholder="quantity"/>
+                                    </th>
+                                    <th>
+                                        <input type="text" datetimepicker="true" class="form-control" ng-model="current.deliveryDate" placeholder="deliveryDate"/>
+                                    </th>
+
+
+                                    <th>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.add}"
+                                                ng-click="saveItem($event);">Add</button>
+                                    </th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- popup begin -->
+                <div class="modal fade" id="edtmaterial_orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_createDate" class="col-xs-3 control-label" th:text="#{material_order.createDate}">createDate</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="id_createDate" ng-model="current.createDate" class="form-control"  placeholder="createDate"/>
+                                    </div>
+                                </div>
+                                    <div class="form-group">
+                                        <label for="id_deliveryDate" class="col-xs-3 control-label" th:text="#{material_order.deliveryDate}">deliveryDate</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_deliveryDate" ng-model="current.deliveryDate" class="form-control"  placeholder="deliveryDate"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_orderNo" class="col-xs-3 control-label" th:text="#{material_order.orderNo}">orderNo</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_orderNo" ng-model="current.orderNo" class="form-control"  placeholder="orderNo"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_quantity" class="col-xs-3 control-label" th:text="#{material_order.quantity}">quantity</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_quantity" ng-model="current.quantity" class="form-control"  placeholder="quantity"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_userId" class="col-xs-3 control-label" th:text="#{material_order.userId}">userId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_userId" ng-model="current.userId" class="form-control"  placeholder="userId"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_materialId" class="col-xs-3 control-label" th:text="#{material_order.materialId}">materialId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_materialId" ng-model="current.materialId" class="form-control"  placeholder="materialId"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_orderPlanId" class="col-xs-3 control-label" th:text="#{material_order.orderPlanId}">orderPlanId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_orderPlanId" ng-model="current.orderPlanId" class="form-control"  placeholder="orderPlanId"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_vendorId" class="col-xs-3 control-label" th:text="#{material_order.vendorId}">vendorId</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_vendorId" ng-model="current.vendorId" class="form-control"  placeholder="vendorId"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveItem($event);">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- popup end -->
+
+            </div>
+            <!-- /.row -->
+
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <navigation th:include="/template::footer">
+
+    </navigation>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+
+
+
+
+<navigation th:include="/template::js">
+
+</navigation>
+<script th:src="@{/plugins/datepicker/bootstrap-datepicker.js}"></script>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+
+    $("input[datetimepicker]").datepicker({
+        autoclose:true,
+        format: 'yyyy-mm-dd',
+        startDate:'0d'
+    });
+
+    angular.module("pls").controller("material_orderController",function($scope,httpService,Message){
+        $scope.vendors = [[${vendors}]];
+        $scope.materials = [[${materials}]];
+        $scope.order_plans = [[${order_plans}]];
+        $scope.material_order_items = [];
+        $scope.current ={id:0};
+        $scope.search ={};
+        $scope.loadItems = function(){
+            httpService("/order/material/list",{},function(json){
+                $scope.material_order_items = json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadItems();
+        }
+        $scope.saveItem=function(event){
+            $scope.current.orderPlan ={id:$scope.current.orderPlanId||0};
+            $scope.current.material = {id: $scope.current.materialId || 0};
+            $scope.current.vendor = {id: $scope.current.vendorId||0};
+            httpService("/order/material/add",$scope.current,function(json){
+                //$scope.material_order_items = json;
+                angular.element("#edtmaterial_orderModal").modal('hide');
+                $scope.loadItems();
+            })
+        }
+        $scope.resetSearch = function(event){
+            $scope.search ={};
+        }
+        $scope.doSearch = function(event){
+
+            httpService("/order/material/search/",{},function(json){
+                $scope.material_order_items = json;
+            });
+        }
+        $scope.removeItem= function(index,item,event){
+            httpService("/order/material/remove/"+item.id,{},function(json){
+                $scope.material_order_items = json;
+            });
+        }
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
