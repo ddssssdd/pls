@@ -26,4 +26,23 @@ public class VendorPortalController {
         model.addAttribute("contact",vc);
         return "vendor/index";
     }
+
+    @RequestMapping("/order")
+    public String order(Model model) {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", auth.getPrincipal());
+        User user = (User)auth.getPrincipal();
+        VendorContact vc = vendorContactRepository.findByUserId(user.getId());
+        model.addAttribute("contact",vc);
+        return "vendor/order";
+    }
+    @RequestMapping("/asn")
+    public String asn(Model model) {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", auth.getPrincipal());
+        User user = (User)auth.getPrincipal();
+        VendorContact vc = vendorContactRepository.findByUserId(user.getId());
+        model.addAttribute("contact",vc);
+        return "vendor/asn";
+    }
 }

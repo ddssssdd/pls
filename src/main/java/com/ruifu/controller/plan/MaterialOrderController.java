@@ -3,6 +3,7 @@ package com.ruifu.controller.plan;
 import com.ruifu.model.plan.MaterialOrder;
 import com.ruifu.repository.plan.OrderRepository;
 import com.ruifu.web.ResultStatus;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,12 @@ public class MaterialOrderController {
 
     @RequestMapping("/orders/{vendor_id}")
     public Iterable<MaterialOrder> orders(@PathVariable long vendor_id){
+        return currentRepository.findByVendorId(vendor_id);
+    }
+
+    //todo: remove this one.
+    @RequestMapping("/vendor_list") //repeat as above, just to try different variable
+    public Iterable<MaterialOrder> list(long vendor_id){
         return currentRepository.findByVendorId(vendor_id);
     }
 }
