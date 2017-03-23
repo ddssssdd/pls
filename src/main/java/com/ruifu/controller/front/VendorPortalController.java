@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Administrator on 2017/3/21.
  */
 @Controller
-@RequestMapping("/vendor")
+@RequestMapping("/portal/vendor")
 public class VendorPortalController {
     @Autowired
     private VendorContactRepository vendorContactRepository;

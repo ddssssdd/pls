@@ -28,6 +28,7 @@ public class MaterialOrderController {
     public ResultStatus add(MaterialOrder item){
         item.setUserId(1);
         item.setCreateDate(new Date());
+        item.setIsDone(0);
         currentRepository.save(item);
         return new ResultStatus(true,"success");
     }
@@ -40,6 +41,10 @@ public class MaterialOrderController {
     @RequestMapping("/orders/{vendor_id}")
     public Iterable<MaterialOrder> orders(@PathVariable long vendor_id){
         return currentRepository.findByVendorId(vendor_id);
+    }
+    @RequestMapping("/ongoing_orders/{vendor_id}")
+    public Iterable<MaterialOrder> ongoing_orders(@PathVariable long vendor_id){
+        return currentRepository.findByVendorIdAndIsDone(vendor_id,0);
     }
 
     //todo: remove this one.

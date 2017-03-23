@@ -22,6 +22,7 @@ public class Asn {
     private Date createDate;
     private long userId;
     private long vendorId;
+    private int isShipment;
 
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -80,5 +81,13 @@ public class Asn {
 
     public void setDetails(List<AsnDetail> details) {
         this.details = details;
+    }
+
+    public int getIsShipment() {
+        return isShipment;
+    }
+
+    public void setIsShipment(int isShipment) {
+        this.isShipment = isShipment;
     }
 }

@@ -43,7 +43,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="tab_1">
-                            <div class="row">
+                            <div class="row box-body">
                                 <div class=" form form-horizontal">
                                 <div class="form-group">
                                     <label for="id_createDate" class="col-md-1 control-label" th:text="#{asn.asnNo}">createDate</label>
@@ -65,6 +65,8 @@
                                         <tr>
 
                                             <th th:text="#{material_order.orderPlanId}" class="sorting"></th>
+                                            <th>订单数量</th>
+                                            <th >已经分配</th>
                                             <th th:text="#{material_order.materialId}" class="sorting"></th>
                                             <th th:text="#{material_order.quantity}" class="sorting"></th>
 
@@ -74,8 +76,18 @@
                                         <tbody>
                                         <tr ng-repeat="item in asn.details">
 
-                                            <td>{{item.materialOrderId}}</td>
-                                            <td>{{item.materialId}}</td>
+                                            <td>
+                                                {{item.material_order.orderPlan.description}}
+                                            </td>
+                                            <td>
+                                                {{item.material_order.quantity}}
+                                            </td>
+                                            <td>
+                                                {{item.assigned_quantity}}
+                                            </td>
+                                            <td>
+                                                {{item.material_order.material.name}}
+                                            </td>
 
                                             <td>{{item.quantity}}</td>
 
@@ -92,20 +104,23 @@
                                         <tr>
 
                                             <th>
-                                                <select class="form-control" ng-model="current.materialOrderId">
+                                                <select class="form-control" ng-change="choose_material_order($event);"
+                                                        ng-model="current.materialOrderId">
                                                     <option value="0">--select--</option>
                                                     <option ng-repeat="op in order_plans" value="{{op.id}}">
                                                         {{op.orderPlan.description}}
                                                     </option>
                                                 </select>
                                             </th>
+                                            <th>
+                                                {{current.order_quantity}}
+                                            </th>
+                                            <th>
+                                                {{current.assigned_quantity}}
+                                            </th>
 
                                             <th>
-                                                <select class="form-control" ng-model="current.materialId">
-                                                    <option ng-repeat="m in materials" value="{{m.material.id}}">
-                                                        {{m.material.name}}
-                                                    </option>
-                                                </select>
+                                                {{current.material_order.material.name}}
                                             </th>
 
                                             <th>
@@ -134,8 +149,64 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tab_2">
+                            <div class="box-body">
+                                <div class="table-responsive">
+                                    <table class="table no-margin">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>ASN编号</th>
+                                            <th>创建日期</th>
+                                            <th>状态</th>
+                                            <th>内容</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="asn in asn_list">
+                                            <td style="width: 120px;">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info">查看</button>
+                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#">打印箱码</a></li>
+                                                        <li><a href="#">预准备</a></li>
+                                                        <li><a href="javascript:void(0);" ng-click="shipment(asn,$event)">发货</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">费用信息</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="">{{asn.asnNo}}</a>
+                                            </td>
+                                            <td>
+                                                {{asn.createDate | date}}
+                                            </td>
+                                            <td>
+                                                <span class="label label-warning">Shipped</span>
+                                            </td>
+                                            <td>
+                                                <ul class="nav nav-pills nav-stacked">
+                                                    <li ng-repeat="item in asn.details">
+                                                        <a href="#">{{item.materialOrder.material.name}}
+                                                            <span class="pull-right text-red">
+                                                                {{item.quantity}}
+                                                            </span>
+                                                        </a>
+                                                    </li>
 
+                                                </ul>
+                                            </td>
+                                        </tr>
 
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
                         </div>
                         <div class="tab-pane" id="tab_3">
 
@@ -189,18 +260,25 @@
         $scope.user = [[${user}]];
         $scope.materials = [];
         $scope.order_plans = [];
-
+        $scope.asn_list = [];
         $scope.asn = {id:0,details:[],vendorId:$scope.contact.vendor.id,userId:$scope.user.id};
         $scope.loadItems = function(){
-            httpService("/order/material/orders/"+$scope.contact.vendor.id,{},function(json){
+            httpService("/order/material/ongoing_orders/"+$scope.contact.vendor.id,{},function(json){
                 $scope.order_plans = json;
             });
             httpService("/base/material_vendor/materials/"+$scope.contact.vendor.id,{},function(json){
                 $scope.materials = json;
             });
+            $scope.load_asn();
             $timeout(function(){
-                angular.element('#vendorTab a:nth(1)').tab('show')
+                angular.element('#vendorTab a:nth(1)').tab('show');
             });
+        }
+        $scope.load_asn = function(){
+            httpService("/vendor/asn/list",{vendor_id:$scope.contact.vendor.id},function(json){
+
+                $scope.asn_list=json;
+            })
         }
         $scope.init = function(){
             $scope.loadItems();
@@ -212,17 +290,69 @@
                 materialId:$scope.current.materialId,
                 quantity:$scope.current.quantity,
                 material:{id:$scope.current.materialId},
-                materialOrder:{id:$scope.current.materialOrderId}
+                materialOrder:{id:$scope.current.materialOrderId},
+                assigned_details :$scope.current.assigned_details,
+                assigned_quantity : $scope.current.assigned_quantity,
+                material_order:$scope.current.material_order
+
             });
         }
         $scope.save = function(event){
             httpService("/vendor/asn/add",$scope.asn,function(json){
                 console.log(json);
+                $scope.load_asn();
+                $scope.asn = {id:0,details:[],vendorId:$scope.contact.vendor.id,userId:$scope.user.id};
+                angular.element('#vendorTab a:nth(1)').tab('show');
             })
         }
         $scope.removeItem = function(index,event){
             $scope.asn.details.splice(index,1);
         }
+
+        $scope.shipment = function(asn,event){
+            httpService("/vendor/asn/shipment",{asn_id:asn.id,user_id:$scope.user.id},function(json){
+                console.log(json);
+                $scope.load_asn();
+
+            })
+        }
+        $scope.choose_material_order = function(event){
+            var id = $scope.current.materialOrderId;
+            var material_order = $scope.findMaterialOrder(id);
+            if (material_order){
+                $scope.current.material_order = material_order;
+                $scope.current.order_quantity = material_order.quantity;
+            }
+            var sum = 0;
+            $scope.created_details(id,function(arr){
+                $scope.current.assigned_details = arr;
+
+                for(var i=0;i<arr.length;i++){
+                    sum += arr[i].quantity*1;
+                }
+                $scope.current.assigned_quantity = sum;
+                $scope.current.quantity = $scope.current.order_quantity - sum;
+            });
+
+
+
+        }
+        $scope.created_details = function(material_order_id,callback){
+            httpService("/vendor/asn/created_details",{material_order_id:material_order_id},function(json){
+                console.log(json);
+                callback(json);
+            });
+        }
+        $scope.findMaterialOrder = function(material_order_id){
+            for(var i=0;i<$scope.order_plans.length;i++){
+                var item = $scope.order_plans[i];
+                if (item.id*1==material_order_id*1){
+                    return item;
+                }
+            }
+            return null;
+        }
+
         $scope.init();
 
     });

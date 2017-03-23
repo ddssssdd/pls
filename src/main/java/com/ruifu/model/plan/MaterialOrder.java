@@ -34,6 +34,8 @@ public class MaterialOrder {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date createDate;
 
+    private int isDone;
+
     public long getId() {
         return id;
     }
@@ -104,5 +106,13 @@ public class MaterialOrder {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public int getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(int isDone) {
+        this.isDone = isDone;
     }
 }
