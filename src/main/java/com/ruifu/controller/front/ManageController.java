@@ -100,5 +100,14 @@ public class ManageController {
 
         return "order/material";
     }
+    /* init to empty database.
+    DELETE FROM  order_status;
+    DELETE FROM  asn_detail;
+    DELETE FROM  asn;
+    DELETE FROM  material_order;
+    DELETE FROM  material_plan;
 
+    DELETE FROM  order_plan;
+    DELETE FROM  production_plan;
+     */
 }

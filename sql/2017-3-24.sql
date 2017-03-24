@@ -24,11 +24,9 @@ CREATE TABLE `asn` (
   `vendor_id` bigint(20) NOT NULL,
   `is_shipment` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 /*Data for the table `asn` */
-
-insert  into `asn`(`id`,`asn_no`,`create_date`,`user_id`,`vendor_id`,`is_shipment`) values (12,'001','2017-01-23 00:03:00',4,2,1),(14,'002','2017-01-24 00:03:00',4,2,1),(15,'005','2017-01-24 00:03:00',4,2,1),(16,NULL,NULL,4,2,1),(17,NULL,NULL,4,2,1),(18,'201','2017-01-24 00:03:00',4,2,1),(19,'111','2017-01-24 00:03:00',4,2,1),(20,'111','2017-01-24 00:03:00',4,2,1),(21,NULL,NULL,4,2,1),(22,NULL,NULL,4,2,1),(23,'001','2017-01-24 00:03:00',4,2,0);
 
 /*Table structure for table `asn_detail` */
 
@@ -47,11 +45,9 @@ CREATE TABLE `asn_detail` (
   CONSTRAINT `FK3t49yv5waobpukyv34xitqjha` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`),
   CONSTRAINT `FKd48ympp2l7kru12jhio0oqqi7` FOREIGN KEY (`asn_id`) REFERENCES `asn` (`id`),
   CONSTRAINT `FKi4lgt3tl6l0hyc24ky2tj4sfx` FOREIGN KEY (`material_order_id`) REFERENCES `material_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `asn_detail` */
-
-insert  into `asn_detail`(`id`,`quantity`,`material_id`,`material_order_id`,`asn_id`) values (3,1,1,3,12),(4,2,4,6,12),(5,3,5,9,12),(6,12,1,3,14),(7,12,4,6,14),(8,12,4,8,14),(9,1,1,3,15),(10,2,1,6,15),(11,4,1,8,15),(12,86,1,3,16),(13,10,1,4,16),(14,10,NULL,3,17),(15,20,NULL,6,17),(16,30,NULL,8,17),(17,12,NULL,11,18),(18,12,NULL,10,18),(19,1,NULL,3,19),(20,1,NULL,6,20),(21,20,NULL,7,21),(22,1,NULL,8,21),(23,2,NULL,9,21),(24,1,NULL,10,21),(25,28,NULL,9,22),(26,90,NULL,4,22),(27,1,NULL,11,22),(28,90,NULL,14,23),(29,100,NULL,15,23);
 
 /*Table structure for table `doc_asn_details` */
 
@@ -370,11 +366,9 @@ CREATE TABLE `material_order` (
   CONSTRAINT `FKayhyo03an6xoipuyqmuhcq495` FOREIGN KEY (`order_plan_id`) REFERENCES `order_plan` (`id`),
   CONSTRAINT `FKc82ais0tib8m8hi4g8yl8c51k` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`id`),
   CONSTRAINT `FKmj1ru6q9gdmnlns9dan0nc1t` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 /*Data for the table `material_order` */
-
-insert  into `material_order`(`id`,`create_date`,`delivery_date`,`order_no`,`quantity`,`user_id`,`material_id`,`order_plan_id`,`vendor_id`,`is_done`) values (3,NULL,'2017-01-28 00:03:00','001',100,0,1,1,2,1),(4,'2017-03-21 14:31:32','2017-01-28 00:03:00','001',100,1,1,1,2,1),(5,'2017-03-21 14:33:01','2017-01-27 00:03:00','002',20,1,9,4,1,0),(6,'2017-03-21 14:33:41','2017-01-28 00:03:00','003',12,1,5,2,2,1),(7,'2017-03-21 14:36:16','2017-01-28 00:03:00','004',20,1,4,3,2,1),(8,'2017-03-21 14:50:39','2017-01-28 00:03:00','006',33,1,13,3,2,1),(9,'2017-03-21 15:11:51','2017-01-28 00:03:00','006',33,1,13,3,2,1),(10,'2017-03-21 15:17:51','2017-01-29 00:03:00','007',12,1,17,2,2,1),(11,'2017-03-21 15:18:21','2017-01-29 00:03:00','007',12,1,17,2,2,1),(14,'2017-03-23 16:13:21','2017-01-31 00:03:00','201',100,1,1,7,2,0),(15,'2017-03-23 16:13:42','2017-01-31 00:03:00','202',200,1,4,8,2,0);
 
 /*Table structure for table `material_plan` */
 
@@ -394,11 +388,9 @@ CREATE TABLE `material_plan` (
   KEY `FKi2rnxtse90efqpifkfvm6kfxl` (`material_id`),
   CONSTRAINT `FKi2rnxtse90efqpifkfvm6kfxl` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`),
   CONSTRAINT `fk_material` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `material_plan` */
-
-insert  into `material_plan`(`id`,`end_date`,`material_plan_no`,`min_quantity`,`note`,`plan_no`,`production_sku`,`quantity`,`material_id`) values (1,'2017-03-01 00:00:00','mmm','10','color;specific','planno','sku','10',1),(3,'2017-03-01 00:00:00','mmm','10','color;specific','planno','sku','10',3),(4,'2017-03-01 00:00:00','mmm','10','color;specific','planno','sku','10',4),(5,'2017-03-01 00:00:00','mmm','10','color;specific','planno','sku','10',5),(6,'2017-03-01 00:00:00','mmm','10','color;specific','planno','sku','10',6);
 
 /*Table structure for table `material_vendor` */
 
@@ -422,8 +414,6 @@ CREATE TABLE `material_vendor` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `material_vendor` */
-
-insert  into `material_vendor`(`id`,`end_date`,`max_price`,`max_quantity`,`min_price`,`min_quantity`,`start_date`,`material_id`,`vendor_id`) values (1,'2017-03-01 00:00:00',100,10,20,20,'2017-01-24 00:00:00',1,2),(2,'2017-03-22 17:48:13',200,1,1,1,'2017-03-15 17:48:24',4,2),(3,'2017-02-01 00:00:00',10,10,10,10,'2016-12-15 00:00:00',5,2);
 
 /*Table structure for table `menu` */
 
@@ -458,14 +448,14 @@ CREATE TABLE `order_plan` (
   `quantity` double NOT NULL,
   `sku` varchar(255) DEFAULT NULL,
   `material_id` bigint(20) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `assigned_quantity` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK5f3psen2qpej2ghvh4aq5ionh` (`material_id`),
   CONSTRAINT `FK5f3psen2qpej2ghvh4aq5ionh` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `order_plan` */
-
-insert  into `order_plan`(`id`,`end_date`,`order_plan_no`,`quantity`,`sku`,`material_id`) values (1,'2017-01-01 00:00:00','1021',100,'221',1),(2,'2017-01-01 00:00:00','1021',100,'221',3),(3,'2017-01-01 00:00:00','1021',100,'221',4),(4,'2017-05-08 00:00:00','sdf',23,'232323a',14),(5,'2017-09-10 00:00:00','sdfa',10,'sdf',17),(6,'2017-03-22 00:00:00','002',10,'20',19),(7,'2017-03-31 00:00:00','101011',100,'100LS',1),(8,'2017-03-31 00:00:00','101012',200,'100FS',4);
 
 /*Table structure for table `order_status` */
 
@@ -481,11 +471,9 @@ CREATE TABLE `order_status` (
   `quantity` double NOT NULL,
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `order_status` */
-
-insert  into `order_status`(`id`,`asn_id`,`create_date`,`detail_id`,`event`,`material_order_id`,`quantity`,`user_id`) values (4,12,'2017-03-23 09:27:39',3,'create_asn',3,1,4),(5,12,'2017-03-23 09:27:39',4,'create_asn',6,2,4),(6,12,'2017-03-23 09:27:39',5,'create_asn',9,3,4),(7,0,'2017-03-23 09:28:33',0,'confirm',3,0,4),(8,0,'2017-03-23 09:28:34',0,'confirm',4,0,4),(9,0,'2017-03-23 09:28:34',0,'confirm',6,0,4),(10,0,'2017-03-23 09:28:35',0,'confirm',7,0,4),(11,0,'2017-03-23 09:28:35',0,'confirm',8,0,4),(12,0,'2017-03-23 09:28:36',0,'confirm',9,0,4),(13,0,'2017-03-23 09:28:36',0,'confirm',10,0,4),(14,0,'2017-03-23 09:28:37',0,'confirm',11,0,4),(15,14,'2017-03-23 14:15:56',6,'create_asn',3,12,4),(16,14,'2017-03-23 14:15:56',7,'create_asn',6,12,4),(17,14,'2017-03-23 14:15:56',8,'create_asn',8,12,4),(18,12,'2017-03-23 14:23:02',3,'shipping',3,1,4),(19,12,'2017-03-23 14:23:02',4,'shipping',6,2,4),(20,12,'2017-03-23 14:23:02',5,'shipping',9,3,4),(21,15,'2017-03-23 15:24:21',9,'create_asn',3,1,4),(22,15,'2017-03-23 15:24:21',10,'create_asn',6,2,4),(23,15,'2017-03-23 15:24:21',11,'create_asn',8,4,4),(24,16,'2017-03-23 15:25:03',12,'create_asn',3,86,4),(25,16,'2017-03-23 15:25:03',13,'create_asn',4,10,4),(26,17,'2017-03-23 15:44:11',14,'create_asn',3,10,4),(27,17,'2017-03-23 15:44:11',15,'create_asn',6,20,4),(28,17,'2017-03-23 15:44:11',16,'create_asn',8,30,4),(29,18,'2017-03-23 15:50:42',17,'create_asn',11,12,4),(30,18,'2017-03-23 15:50:42',18,'create_asn',10,12,4),(31,18,'2017-03-23 15:50:49',17,'shipment',11,12,4),(32,18,'2017-03-23 15:50:49',18,'shipment',10,12,4),(33,12,'2017-03-23 15:54:33',3,'shipment',3,1,4),(34,12,'2017-03-23 15:54:33',4,'shipment',6,2,4),(35,12,'2017-03-23 15:54:33',5,'shipment',9,3,4),(36,19,'2017-03-23 16:05:09',19,'create_asn',3,1,4),(37,19,'2017-03-23 16:05:17',19,'shipment',3,1,4),(38,20,'2017-03-23 16:07:02',20,'create_asn',6,1,4),(39,20,'2017-03-23 16:07:11',20,'shipment',6,1,4),(40,21,'2017-03-23 16:07:47',21,'create_asn',7,20,4),(41,21,'2017-03-23 16:07:47',22,'create_asn',8,1,4),(42,21,'2017-03-23 16:07:47',23,'create_asn',9,2,4),(43,21,'2017-03-23 16:07:47',24,'create_asn',10,1,4),(44,21,'2017-03-23 16:07:52',21,'shipment',7,20,4),(45,21,'2017-03-23 16:07:52',22,'shipment',8,1,4),(46,21,'2017-03-23 16:07:52',23,'shipment',9,2,4),(47,21,'2017-03-23 16:07:52',24,'shipment',10,1,4),(48,22,'2017-03-23 16:08:21',25,'create_asn',9,28,4),(49,22,'2017-03-23 16:08:21',26,'create_asn',4,90,4),(50,22,'2017-03-23 16:08:21',27,'create_asn',11,1,4),(51,22,'2017-03-23 16:08:26',25,'shipment',9,28,4),(52,22,'2017-03-23 16:08:26',26,'shipment',4,90,4),(53,22,'2017-03-23 16:08:26',27,'shipment',11,1,4),(54,14,'2017-03-23 16:08:40',6,'shipment',3,12,4),(55,14,'2017-03-23 16:08:40',7,'shipment',6,12,4),(56,14,'2017-03-23 16:08:40',8,'shipment',8,12,4),(57,15,'2017-03-23 16:08:42',9,'shipment',3,1,4),(58,15,'2017-03-23 16:08:42',10,'shipment',6,2,4),(59,15,'2017-03-23 16:08:42',11,'shipment',8,4,4),(60,16,'2017-03-23 16:08:44',12,'shipment',3,86,4),(61,16,'2017-03-23 16:08:44',13,'shipment',4,10,4),(62,17,'2017-03-23 16:08:46',14,'shipment',3,10,4),(63,17,'2017-03-23 16:08:46',15,'shipment',6,20,4),(64,17,'2017-03-23 16:08:46',16,'shipment',8,30,4),(65,23,'2017-03-23 16:15:03',28,'create_asn',14,90,4),(66,23,'2017-03-23 16:15:03',29,'create_asn',15,100,4);
 
 /*Table structure for table `production` */
 
@@ -521,11 +509,9 @@ CREATE TABLE `production_plan` (
   PRIMARY KEY (`id`),
   KEY `FKc7tklsvbshcktyhjs5gnh14yo` (`production_id`),
   CONSTRAINT `FKc7tklsvbshcktyhjs5gnh14yo` FOREIGN KEY (`production_id`) REFERENCES `production` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `production_plan` */
-
-insert  into `production_plan`(`id`,`delivery_date`,`line_no`,`num`,`order_no`,`plan_no`,`serial_no`,`production_id`) values (3,'2017-01-02 00:00:00','lineno','100','orderno','planno','serialno',1),(4,'2017-03-28 00:00:00','xxxx','10','oooo','pppp','ssss',1);
 
 /*Table structure for table `role` */
 
@@ -557,6 +543,8 @@ CREATE TABLE `spring_session` (
 
 /*Data for the table `spring_session` */
 
+insert  into `spring_session`(`SESSION_ID`,`CREATION_TIME`,`LAST_ACCESS_TIME`,`MAX_INACTIVE_INTERVAL`,`PRINCIPAL_NAME`) values ('6b9c28ad-2956-4adf-8592-bce83b9486ef',1490341803045,1490342095558,1800,'13953253109'),('dd1b9580-8c60-4d43-841a-d463d276040b',1490332384787,1490342102139,1800,'admin');
+
 /*Table structure for table `spring_session_attributes` */
 
 DROP TABLE IF EXISTS `spring_session_attributes`;
@@ -571,6 +559,8 @@ CREATE TABLE `spring_session_attributes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `spring_session_attributes` */
+
+insert  into `spring_session_attributes`(`SESSION_ID`,`ATTRIBUTE_NAME`,`ATTRIBUTE_BYTES`) values ('6b9c28ad-2956-4adf-8592-bce83b9486ef','org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN','¬í\0sr\06org.springframework.security.web.csrf.DefaultCsrfTokenZï·È/¢ûÕ\0L\0\nheaderNamet\0Ljava/lang/String;L\0\rparameterNameq\0~\0L\0tokenq\0~\0xpt\0X-CSRF-TOKENt\0_csrft\0$edee5d2a-6929-4d48-abb7-a04f2b0d3383'),('6b9c28ad-2956-4adf-8592-bce83b9486ef','SPRING_SECURITY_CONTEXT','¬í\0sr\0=org.springframework.security.core.context.SecurityContextImpl\0\0\0\0\0\0¤\0L\0authenticationt\02Lorg/springframework/security/core/Authentication;xpsr\0Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken\0\0\0\0\0\0¤\0L\0credentialst\0Ljava/lang/Object;L\0	principalq\0~\0xr\0Gorg.springframework.security.authentication.AbstractAuthenticationTokenÓª(~nGd\0Z\0\rauthenticatedL\0authoritiest\0Ljava/util/Collection;L\0detailsq\0~\0xpsr\0&java.util.Collections$UnmodifiableListü%1µìŽ\0L\0listt\0Ljava/util/List;xr\0,java.util.Collections$UnmodifiableCollectionB\0€Ë^÷\0L\0cq\0~\0xpsr\0java.util.ArrayListxÒ™Ça\0I\0sizexp\0\0\0\0w\0\0\0\0xq\0~\0\rsr\0Horg.springframework.security.web.authentication.WebAuthenticationDetails\0\0\0\0\0\0¤\0L\0\rremoteAddresst\0Ljava/lang/String;L\0	sessionIdq\0~\0xpt\00:0:0:0:0:0:0:1t\0$be48d2a6-9d8c-4deb-97e3-407981f860d9psr\0com.ruifu.model.security.User¡]¥|ÂÖú\0L\0idt\0Ljava/lang/Integer;L\0passwordq\0~\0L\0rolesq\0~\0	L\0usernameq\0~\0xpsr\0java.lang.Integerâ ¤÷‡8\0I\0valuexr\0java.lang.Number†¬•”à‹\0\0xp\0\0\0t\013953253109sr\0/org.hibernate.collection.internal.PersistentBagFJd\\.Ä\0L\0bagq\0~\0	xr\0>org.hibernate.collection.internal.AbstractPersistentCollectionbt\0Ð_Us<\0\nZ\0allowLoadOutsideTransactionI\0\ncachedSizeZ\0dirtyZ\0initializedZ\0\risTempSessionL\0keyt\0Ljava/io/Serializable;L\0ownerq\0~\0L\0roleq\0~\0L\0sessionFactoryUuidq\0~\0L\0storedSnapshotq\0~\0xp\0ÿÿÿÿ\0\0q\0~\0q\0~\0t\0#com.ruifu.model.security.User.rolespsq\0~\0\0\0\0\0w\0\0\0\0xsq\0~\0\0\0\0\0w\0\0\0\0xt\013953253109'),('dd1b9580-8c60-4d43-841a-d463d276040b','org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN','¬í\0sr\06org.springframework.security.web.csrf.DefaultCsrfTokenZï·È/¢ûÕ\0L\0\nheaderNamet\0Ljava/lang/String;L\0\rparameterNameq\0~\0L\0tokenq\0~\0xpt\0X-CSRF-TOKENt\0_csrft\0$aa746efd-9f7a-4173-9838-26539e14a640'),('dd1b9580-8c60-4d43-841a-d463d276040b','SPRING_SECURITY_CONTEXT','¬í\0sr\0=org.springframework.security.core.context.SecurityContextImpl\0\0\0\0\0\0¤\0L\0authenticationt\02Lorg/springframework/security/core/Authentication;xpsr\0Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken\0\0\0\0\0\0¤\0L\0credentialst\0Ljava/lang/Object;L\0	principalq\0~\0xr\0Gorg.springframework.security.authentication.AbstractAuthenticationTokenÓª(~nGd\0Z\0\rauthenticatedL\0authoritiest\0Ljava/util/Collection;L\0detailsq\0~\0xpsr\0&java.util.Collections$UnmodifiableListü%1µìŽ\0L\0listt\0Ljava/util/List;xr\0,java.util.Collections$UnmodifiableCollectionB\0€Ë^÷\0L\0cq\0~\0xpsr\0java.util.ArrayListxÒ™Ça\0I\0sizexp\0\0\0\0w\0\0\0\0xq\0~\0\rsr\0Horg.springframework.security.web.authentication.WebAuthenticationDetails\0\0\0\0\0\0¤\0L\0\rremoteAddresst\0Ljava/lang/String;L\0	sessionIdq\0~\0xpt\00:0:0:0:0:0:0:1t\0$8308faa5-7840-4891-86e2-111dce18f2bepsr\0com.ruifu.model.security.User¡]¥|ÂÖú\0L\0idt\0Ljava/lang/Integer;L\0passwordq\0~\0L\0rolesq\0~\0	L\0usernameq\0~\0xpsr\0java.lang.Integerâ ¤÷‡8\0I\0valuexr\0java.lang.Number†¬•”à‹\0\0xp\0\0\0t\0adminsr\0/org.hibernate.collection.internal.PersistentBagFJd\\.Ä\0L\0bagq\0~\0	xr\0>org.hibernate.collection.internal.AbstractPersistentCollectionbt\0Ð_Us<\0\nZ\0allowLoadOutsideTransactionI\0\ncachedSizeZ\0dirtyZ\0initializedZ\0\risTempSessionL\0keyt\0Ljava/io/Serializable;L\0ownerq\0~\0L\0roleq\0~\0L\0sessionFactoryUuidq\0~\0L\0storedSnapshotq\0~\0xp\0ÿÿÿÿ\0\0q\0~\0q\0~\0t\0#com.ruifu.model.security.User.rolespsq\0~\0\0\0\0\0w\0\0\0\0xsq\0~\0\0\0\0\0w\0\0\0\0xt\0admin');
 
 /*Table structure for table `user` */
 
@@ -648,6 +638,24 @@ CREATE TABLE `vendor_contact` (
 /*Data for the table `vendor_contact` */
 
 insert  into `vendor_contact`(`id`,`cellphone`,`email`,`name`,`phone`,`user_id`,`vendor_id`) values (1,'13953253109','a@a.com','michael','4343',4,2),(2,'110','b@b.com','police','1122',3,2);
+
+/* Procedure structure for procedure `Init_plan_and_order` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `Init_plan_and_order` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`pls`@`localhost` PROCEDURE `Init_plan_and_order`()
+BEGIN
+	DELETE FROM  order_status;
+	DELETE FROM  asn_detail;
+	DELETE FROM  asn;
+	DELETE FROM  material_order;
+	DELETE FROM  material_plan;
+	DELETE FROM  order_plan;
+	DELETE FROM  production_plan;
+    END */$$
+DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
