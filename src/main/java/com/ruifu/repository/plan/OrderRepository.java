@@ -9,4 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface OrderRepository extends CrudRepository<MaterialOrder,Long> {
     Iterable<MaterialOrder> findByVendorId(long vendorId);
     Iterable<MaterialOrder> findByVendorIdAndIsDone(long vendorId,int isDone);
+    Iterable<MaterialOrder> findByOrderPlanId(long order_plan_id);
 }

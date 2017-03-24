@@ -1,7 +1,9 @@
 package com.ruifu.controller.plan;
 
 import com.ruifu.model.plan.MaterialOrder;
+import com.ruifu.model.plan.OrderPlan;
 import com.ruifu.model.vendor.OrderStatus;
+import com.ruifu.repository.plan.OrderPlanRepository;
 import com.ruifu.repository.plan.OrderRepository;
 import com.ruifu.repository.vendor.OrderStatusRepository;
 import com.ruifu.web.ResultStatus;
@@ -23,6 +25,10 @@ import java.util.Date;
 public class MaterialOrderController {
     @Autowired
     OrderRepository currentRepository;
+
+    @Autowired
+    OrderPlanRepository orderPlanRepository;
+
     @RequestMapping("/list")
     public Iterable<MaterialOrder> list(){
         return currentRepository.findAll();
@@ -33,6 +39,26 @@ public class MaterialOrderController {
         item.setCreateDate(new Date());
         item.setIsDone(0);
         currentRepository.save(item);
+        if (item.getOrderPlan()!=null){
+            long orderPlanId = item.getOrderPlan().getId();
+            Iterable<MaterialOrder> orders = currentRepository.findByOrderPlanId(orderPlanId);
+            double total = 0;
+            for (MaterialOrder mo: orders) {
+                total += mo.getQuantity();
+            }
+            OrderPlan orderPlan = orderPlanRepository.findOne(orderPlanId);
+            if (orderPlan!=null){
+                if (total>=orderPlan.getQuantity()){
+                    orderPlan.setStatus(-1);
+
+                }else{
+                    orderPlan.setStatus(1);
+                }
+                orderPlan.setAssignedQuantity(total);
+                orderPlanRepository.save(orderPlan);
+            }
+        }
+
         return new ResultStatus(true,"success");
     }
     @RequestMapping("/remove/{item_id}")
@@ -61,5 +87,14 @@ public class MaterialOrderController {
     @RequestMapping("/status")
     public Iterable<OrderStatus> status(long material_order_id){
         return orderStatusRepository.findByMaterialOrderId(material_order_id);
+    }
+    @RequestMapping("/assigned_orders")
+    public ResultStatus assignedOrders(long order_plan_id){
+        Iterable<MaterialOrder> orders = currentRepository.findByOrderPlanId(order_plan_id);
+        double total = 0;
+        for (MaterialOrder mo: orders) {
+            total += mo.getQuantity();
+        }
+        return new ResultStatus(true,String.format("%d",(int)total));
     }
 }

@@ -21,6 +21,7 @@ public class OrderPlanController {
     }
     @RequestMapping("/add")
     public Iterable<OrderPlan> add(OrderPlan item){
+        item.setStatus(0);
         currentRepository.save(item);
         return list();
     }

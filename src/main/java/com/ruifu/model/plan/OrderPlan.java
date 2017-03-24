@@ -23,6 +23,8 @@ public class OrderPlan {
     private double quantity;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
+    private int status;
+    private double assignedQuantity;
 
     public long getId() {
         return id;
@@ -78,5 +80,21 @@ public class OrderPlan {
                 this.getMaterial().getName(),
                 this.getQuantity(),
                 this.getEndDate());
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public double getAssignedQuantity() {
+        return assignedQuantity;
+    }
+
+    public void setAssignedQuantity(double assignedQuantity) {
+        this.assignedQuantity = assignedQuantity;
     }
 }

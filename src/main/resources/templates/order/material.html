@@ -100,6 +100,8 @@
                                 <tr>
                                     <th th:text="#{material_order.orderNo}" class="sorting"></th>
                                     <th th:text="#{material_order.orderPlanId}" class="sorting"></th>
+                                    <th>计划数量</th>
+                                    <th>下单数量</th>
                                     <th th:text="#{material_order.materialId}" class="sorting"></th>
                                     <th th:text="#{material_order.vendorId}" class="sorting"></th>
                                     <th th:text="#{material_order.quantity}" class="sorting"></th>
@@ -113,6 +115,8 @@
                                 <tr ng-repeat="item in material_order_items">
                                     <td>{{item.orderNo}}</td>
                                     <td>{{item.orderPlan.description}}</td>
+                                    <td>{{item.orderPlan.quantity}}</td>
+                                    <td>{{item.orderPlan.assignedQuantity}}</td>
                                     <td>{{item.material.name}}</td>
                                     <td>{{item.vendor.name}}</td>
                                     <td>{{item.quantity}}</td>
@@ -160,7 +164,8 @@
                                         </option>
                                     </select>
                                     </th>
-
+                                    <th>{{current.selectedOrderPlan.quantity}}</th>
+                                    <th>{{current.assigned_count}}</th>
                                     <th>
                                         <select class="form-control" ng-model="current.materialId">
                                             <option ng-repeat="m in materials" value="{{m.id}}">
@@ -190,7 +195,7 @@
 
 
                                     <th>
-                                        <button class="btn btn-danger"
+                                        <button class="btn btn-primary"
                                                 th:text="#{action.add}"
                                                 ng-click="saveItem($event);">Add</button>
                                     </th>
@@ -398,6 +403,13 @@
             if(orderPlan){
                 $scope.current.materialId = orderPlan.material.id+"";
                 $scope.current.selectedOrderPlan = orderPlan;
+                /*
+                httpService("/order/material/assigned_orders",{order_plan_id:orderPlan.id},function(json){
+                    $scope.current.assigned_count = json.result;
+                })*/
+                $scope.current.assigned_count = orderPlan.assignedQuantity;
+            }else{
+                $scope.current.selectedOrderPlan = {id:0,quantity:0};
             }
         }
 

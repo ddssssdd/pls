@@ -86,6 +86,7 @@
                                     <th th:text="#{order_plan.endDate}" class="sorting"></th>
                                     <th th:text="#{order_plan.orderPlanNo}" class="sorting"></th>
                                     <th th:text="#{order_plan.quantity}" class="sorting"></th>
+                                    <th width="100px">生成订单</th>
                                     <th th:text="#{order_plan.sku}" class="sorting"></th>
                                     <th th:text="#{order_plan.materialId}" class="sorting"></th>
                                     <th></th>
@@ -96,10 +97,17 @@
                                     <td>{{item.endDate | date}}</td>
                                     <td>{{item.orderPlanNo}}</td>
                                     <td>{{item.quantity}}</td>
+                                    <td>
+                                        <div class="progress-group">
+                                            <div class="progress sm">
+                                                <div class="progress-bar progress-bar-green" style="width: {{100.0*(item.assignedQuantity/item.quantity)}}%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{item.sku}}</td>
                                     <td>{{item.material.name}}</td>
                                     <td>
-                                        <button class="btn btn-danger"
+                                        <button class="btn btn-danger" ng-if="item.status==0"
                                                 th:text="#{action.delete}"
                                                 ng-click="removeItem($index,item,$event);"></button>
                                     </td>
@@ -117,20 +125,26 @@
                                         </div>
                                     </th>
                                     <th>
-                                    <input type="text" class="form-control" ng-model="current.orderPlanNo" placeholder="orderPlanNo"/>
-                                </th><th>
-                                    <input type="text" class="form-control" ng-model="current.quantity" placeholder="quantity"/>
-                                </th><th>
-                                    <input type="text" class="form-control" ng-model="current.sku" placeholder="sku"/>
-                                </th><th>
-                                    <select class="form-control" ng-model="current.materialId">
+                                        <input type="text" class="form-control" ng-model="current.orderPlanNo" placeholder="orderPlanNo"/>
+                                    </th>
+                                    <th>
+                                        <input type="text" class="form-control" ng-model="current.quantity" placeholder="quantity"/>
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        <input type="text" class="form-control" ng-model="current.sku" placeholder="sku"/>
+                                    </th>
+                                    <th>
+                                        <select class="form-control" ng-model="current.materialId">
                                         <option ng-repeat="m in materials" value="{{m.id}}">
                                             {{m.name}}
                                         </option>
                                     </select>
-                                </th>
+                                    </th>
                                     <th>
-                                        <button class="btn btn-danger"
+                                        <button class="btn btn-primary"
                                                 th:text="#{action.add}"
                                                 ng-click="saveItem($event);">Add</button>
                                     </th>
