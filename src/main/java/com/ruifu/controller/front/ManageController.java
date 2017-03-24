@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -31,6 +32,13 @@ public class ManageController {
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user",auth.getPrincipal());
         return "manage/vendor";
+    }
+    @RequestMapping("/vendor_contact/{vendor_id}")
+    public String vendor_contact(Model model, @PathVariable long vendor_id){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        model.addAttribute("vendorId",vendor_id);
+        return "manage/vendor_contact";
     }
 
     @RequestMapping("/helper")

@@ -96,7 +96,9 @@
                                 <tbody>
                                 <tr ng-repeat="m in vendors">
 
-                                    <td>{{m.name}}</td>
+                                    <td>
+                                        <a href="/manage/vendor_contact/{{m.id}}">{{m.name}}</a>
+                                    </td>
                                     <td>{{m.phone}}
                                     </td>
                                     <td>{{m.fax}}</td>
