@@ -14,12 +14,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                计划
-                <small>物料采购计划</small>
+                订单
+                <small>采购订单</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">物料采购计划</li>
+                <li class="active">采购订单</li>
             </ol>
         </section>
 
@@ -103,6 +103,8 @@
                                     <th th:text="#{material_order.materialId}" class="sorting"></th>
                                     <th th:text="#{material_order.vendorId}" class="sorting"></th>
                                     <th th:text="#{material_order.quantity}" class="sorting"></th>
+                                    <th>处理数量</th>
+                                    <th>运输数量</th>
                                     <th th:text="#{material_order.deliveryDate}" class="sorting"></th>
                                     <th></th>
                                 </tr>
@@ -114,12 +116,30 @@
                                     <td>{{item.material.name}}</td>
                                     <td>{{item.vendor.name}}</td>
                                     <td>{{item.quantity}}</td>
+                                    <td>
+                                        <div class="progress-group">
+
+                                            <div class="progress sm">
+                                                <div class="progress-bar progress-bar-aqua" style="width: {{item.asn_percent}}%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="progress-group">
+                                            <div class="progress sm">
+                                                <div class="progress-bar progress-bar-green" style="width: {{item.shipment_percent}}%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{item.deliveryDate | date}}</td>
 
                                     <td>
-                                        <button class="btn btn-danger"
+                                        <button class="btn btn-danger" ng-if="item.isDone==0"
                                                 th:text="#{action.delete}"
-                                                ng-click="removeItem($index,item,$event);"></button>
+                                                ng-click="removeItem($index,item,$event);">
+
+                                        </button>
+
                                     </td>
                                 </tr>
 
@@ -131,7 +151,9 @@
                                     </th>
 
                                     <th>
-                                    <select class="form-control" ng-model="current.orderPlanId">
+                                    <select class="form-control"
+                                            ng-change="choose_order_plan($event);"
+                                            ng-model="current.orderPlanId">
                                         <option value="0">--select--</option>
                                         <option ng-repeat="op in order_plans" value="{{op.id}}">
                                             {{op.description}}
@@ -155,6 +177,12 @@
                                     </th>
                                     <th>
                                     <input type="text" class="form-control" ng-model="current.quantity" placeholder="quantity"/>
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                    <th>
+
                                     </th>
                                     <th>
                                         <input type="text" datetimepicker="true" class="form-control" ng-model="current.deliveryDate" placeholder="deliveryDate"/>
@@ -292,7 +320,44 @@
         $scope.loadItems = function(){
             httpService("/order/material/list",{},function(json){
                 $scope.material_order_items = json;
+                for(var i=0;i<json.length;i++){
+                    var mo = json[i];
+                    httpService("/order/material/status",{material_order_id:mo.id},function(json){
+                        $scope.process_status(json);
+                    });
+                }
             })
+        }
+        $scope.process_status = function(arr){
+            var mo = null;
+            if (arr && arr.length>0){
+                var mo_id = arr[0].materialOrderId;
+                for(var j=0;j<$scope.material_order_items.length;j++){
+                    if ($scope.material_order_items[j].id==mo_id){
+                        mo = $scope.material_order_items[j];
+                        break;
+                    }
+                }
+            }
+            if (mo){
+                mo.status_list = arr;
+                mo.asn_count =0.0;
+                mo.shipment_count =0.0;
+                for(var i=0;i<arr.length;i++){
+                    var order_status = arr[i];
+                    if (order_status.event=="create_asn"){
+                        mo.asn_created = "created";
+                        mo.asn_count += order_status.quantity;
+                    }
+                    if (order_status.event=="shipment"){
+                        mo.shipment_count=order_status.quantity;
+                    }
+
+                }
+                mo.asn_percent = mo.asn_count / mo.quantity *100.0;
+                mo.shipment_percent = mo.shipment_count / mo.quantity * 100.0;
+            }
+
         }
         $scope.init = function(){
             $scope.loadItems();
@@ -321,6 +386,21 @@
                 $scope.material_order_items = json;
             });
         }
+        $scope.choose_order_plan = function(event){
+            var id = $scope.current.orderPlanId;
+            var orderPlan = null;
+            for(var i=0;i<$scope.order_plans.length;i++){
+                if ($scope.order_plans[i].id==id){
+                    orderPlan= $scope.order_plans[i];
+                    break;
+                }
+            }
+            if(orderPlan){
+                $scope.current.materialId = orderPlan.material.id+"";
+                $scope.current.selectedOrderPlan = orderPlan;
+            }
+        }
+
         $scope.init();
 
     });

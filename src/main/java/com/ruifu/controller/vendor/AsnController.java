@@ -41,8 +41,9 @@ public class AsnController {
         asn.setIsShipment(0);
         asnRepository.save(asn);
         for (AsnDetail detail: asn.getDetails()) {
+            long material_order_id = detail.getMaterialOrder().getId();
             OrderStatus orderStatus = new OrderStatus();
-            orderStatus.setMaterialOrderId(detail.getMaterialOrder().getId());
+            orderStatus.setMaterialOrderId(material_order_id);
             orderStatus.setUserId(asn.getUserId());
             orderStatus.setCreateDate(new Date());
             orderStatus.setQuantity(detail.getQuantity());
@@ -50,6 +51,12 @@ public class AsnController {
             orderStatus.setDetailId(detail.getId());
             orderStatus.setEvent("create_asn");
             orderStatusRepository.save(orderStatus);
+            MaterialOrder materialOrder = orderRepository.findOne(material_order_id);
+            if (materialOrder!=null){
+                materialOrder.setIsDone(1);
+                orderRepository.save(materialOrder);
+            }
+
         }
         return asn;
     }
@@ -86,7 +93,7 @@ public class AsnController {
                 }
                 MaterialOrder materialOrder = orderRepository.findOne(material_order_id);
                 if (materialOrder!=null && total>=materialOrder.getQuantity()){
-                    materialOrder.setIsDone(1);
+                    materialOrder.setIsDone(-1);
                     orderRepository.save(materialOrder);
                 }
             }

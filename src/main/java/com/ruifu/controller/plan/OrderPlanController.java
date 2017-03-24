@@ -3,6 +3,7 @@ package com.ruifu.controller.plan;
 import com.ruifu.model.plan.OrderPlan;
 import com.ruifu.repository.plan.OrderPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class OrderPlanController {
         return list();
     }
     @RequestMapping("/remove/{item_id}")
-    public Iterable<OrderPlan> remove(long item_id){
+    public Iterable<OrderPlan> remove(@PathVariable long item_id){
         currentRepository.delete(item_id);
         return list();
     }

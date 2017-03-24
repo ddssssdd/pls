@@ -1,10 +1,13 @@
 package com.ruifu.controller.plan;
 
 import com.ruifu.model.plan.MaterialOrder;
+import com.ruifu.model.vendor.OrderStatus;
 import com.ruifu.repository.plan.OrderRepository;
+import com.ruifu.repository.vendor.OrderStatusRepository;
 import com.ruifu.web.ResultStatus;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +36,7 @@ public class MaterialOrderController {
         return new ResultStatus(true,"success");
     }
     @RequestMapping("/remove/{item_id}")
-    public Iterable<MaterialOrder> remove(long item_id){
+    public Iterable<MaterialOrder> remove(@PathVariable long item_id){
         currentRepository.delete(item_id);
         return list();
     }
@@ -51,5 +54,12 @@ public class MaterialOrderController {
     @RequestMapping("/vendor_list") //repeat as above, just to try different variable
     public Iterable<MaterialOrder> list(long vendor_id){
         return currentRepository.findByVendorId(vendor_id);
+    }
+
+    @Autowired
+    private OrderStatusRepository orderStatusRepository;
+    @RequestMapping("/status")
+    public Iterable<OrderStatus> status(long material_order_id){
+        return orderStatusRepository.findByMaterialOrderId(material_order_id);
     }
 }
