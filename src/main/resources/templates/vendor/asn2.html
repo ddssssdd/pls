@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="template::head">
+
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-app="pls">
+<div class="wrapper">
+    <navigation th:include="template::header">
+
+    </navigation>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                供应商
+                <small>要货通知单</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">要货通知单</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            <div class="row" ng-controller="AsnController">
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title" th:text="#{asn.create}"></h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="col-md-4">
+                                <form role="form">
+                                    <!-- input states -->
+                                    <div class="form-group has-success">
+                                        <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label>
+                                        <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ..."/>
+                                        <span class="help-block">Help block with success</span>
+                                    </div>
+                                    <div class="form-group has-warning">
+                                        <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Input with
+                                            warning</label>
+                                        <input type="text" class="form-control" id="inputWarning" placeholder="Enter ..."/>
+                                        <span class="help-block">Help block with warning</span>
+                                    </div>
+                                    <div class="form-group has-error">
+                                        <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Input with
+                                            error</label>
+                                        <input type="text" class="form-control" id="inputError" placeholder="Enter ..."/>
+                                        <span class="help-block">Help block with error</span>
+                                    </div>
+
+                                    <!-- checkbox -->
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"/>
+                                                Checkbox 1
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"/>
+                                                Checkbox 2
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" disabled=""/>
+                                                Checkbox disabled
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <form role="form">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Text</label>
+                                        <input type="text" class="form-control" placeholder="Enter ..."/>
+                                    </div>
+                                    <!-- textarea -->
+                                    <div class="form-group">
+                                        <label>Textarea</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                    </div>
+
+
+
+                                    <!-- radio -->
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""/>
+                                                Option one is this and that—be sure to include why it's great
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"/>
+                                                Option two can be something else and selecting it will deselect option one
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled=""/>
+                                                Option three is disabled
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- select -->
+                                    <div class="form-group">
+                                        <label>Select</label>
+                                        <select class="form-control">
+                                            <option>option 1</option>
+                                            <option>option 2</option>
+                                            <option>option 3</option>
+                                            <option>option 4</option>
+                                            <option>option 5</option>
+                                        </select>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <form role="form">
+
+
+
+
+
+                                    <!-- checkbox -->
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"/>
+                                                Checkbox 1
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"/>
+                                                Checkbox 2
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" disabled=""/>
+                                                Checkbox disabled
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- radio -->
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked=""/>
+                                                Option one is this and that—be sure to include why it's great
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"/>
+                                                Option two can be something else and selecting it will deselect option one
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios6" value="option3" disabled=""/>
+                                                Option three is disabled
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+               <div class="col-md-6">
+                   <div class="box box-primary">
+                       <div class="box-header">
+                           <h3 class="box-title">待处理采购订单</h3>
+
+                           <div class="box-tools">
+                               <ul class="pagination pagination-sm no-margin pull-right">
+                                   <li><a href="#">«</a></li>
+                                   <li><a href="#">1</a></li>
+                                   <li><a href="#">2</a></li>
+                                   <li><a href="#">3</a></li>
+                                   <li><a href="#">»</a></li>
+                               </ul>
+                           </div>
+                       </div>
+                       <!-- /.box-header -->
+                       <div class="box-body no-padding">
+                           <table class="table">
+                               <tbody>
+                               <tr>
+                                   <th style="width: 30px">#</th>
+                                   <th>订单</th>
+                                   <th>订单数量</th>
+                                   <th>处理数量</th>
+
+                                   <th style="width: 150px;"></th>
+                               </tr>
+                               <tr  ng-repeat="order in order_plans">
+                                   <td>{{order.orderNo}}</td>
+                                   <td>{{order.orderPlan.description}}</td>
+                                   <td>
+                                       {{order.quantity}}
+                                   </td>
+                                   <td>
+                                       {{order.isDone}}
+                                   </td>
+
+                                   <td>
+                                       <div class="input-group">
+
+                                           <input type="text" class="form-control" value="{{order.quantity}}"/>
+                                           <span class="input-group-addon" ng-click="addItem(order,$index,$event);"><i class="fa fa-ambulance"></i>
+                                           </span>
+                                       </div>
+                                   </td>
+
+                               </tr>
+
+                               </tbody></table>
+                       </div>
+                       <!-- /.box-body -->
+                       <div class="box-footer">
+                            <h3>here is footer</h3>
+                       </div>
+                   </div>
+
+               </div>
+                <div class="col-md-6">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">物料清单</h3>
+
+                            <div class="box-tools">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>物料名称</th>
+                                    <th>数量</th>
+                                    <th style="width: 40px">SKU</th>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td>Update software</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-red">55%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>Clean database</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-yellow">70%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3.</td>
+                                    <td>Cron job running</td>
+                                    <td>
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light-blue">30%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4.</td>
+                                    <td>Fix and squish bugs</td>
+                                    <td>
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-green">90%</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <navigation th:include="template::footer">
+
+    </navigation>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+
+
+
+
+<navigation th:include="template::js">
+
+</navigation>
+<script th:src="@{/plugins/datepicker/bootstrap-datepicker.js}"></script>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+
+    $("input[datetimepicker]").datepicker({
+        autoclose:true,
+        format: 'yyyy-mm-dd',
+        startDate:'0d'
+    });
+
+    angular.module("pls").controller("AsnController",function($scope,httpService,Message,$timeout){
+        $scope.contact = [[${contact}]];
+        $scope.user = [[${user}]];
+        $scope.materials = [];
+        $scope.order_plans = [];
+        $scope.asn_list = [];
+        $scope.asn = {id:0,details:[],vendorId:$scope.contact.vendor.id,userId:$scope.user.id};
+        $scope.loadItems = function(){
+            httpService("/order/material/ongoing_orders/"+$scope.contact.vendor.id,{},function(json){
+                $scope.order_plans = json;
+            });
+            httpService("/base/material_vendor/materials/"+$scope.contact.vendor.id,{},function(json){
+                $scope.materials = json;
+            });
+            $scope.load_asn();
+            $timeout(function(){
+                angular.element('#vendorTab a:nth(1)').tab('show');
+            });
+        }
+        $scope.load_asn = function(){
+            httpService("/vendor/asn/list",{vendor_id:$scope.contact.vendor.id},function(json){
+
+                $scope.asn_list=json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadItems();
+        }
+        $scope.addItem = function(event){
+            $scope.asn.details.push({
+
+                materialOrderId:$scope.current.materialOrderId,
+                materialId:$scope.current.materialId,
+                quantity:$scope.current.quantity,
+                material:{id:$scope.current.materialId},
+                materialOrder:{id:$scope.current.materialOrderId},
+                assigned_details :$scope.current.assigned_details,
+                assigned_quantity : $scope.current.assigned_quantity,
+                material_order:$scope.current.material_order
+
+            });
+        }
+        $scope.save = function(event){
+            httpService("/vendor/asn/add",$scope.asn,function(json){
+                console.log(json);
+                $scope.load_asn();
+                $scope.asn = {id:0,details:[],vendorId:$scope.contact.vendor.id,userId:$scope.user.id};
+                angular.element('#vendorTab a:nth(1)').tab('show');
+            })
+        }
+        $scope.removeItem = function(index,event){
+            $scope.asn.details.splice(index,1);
+        }
+
+        $scope.shipment = function(asn,event){
+            httpService("/vendor/asn/shipment",{asn_id:asn.id,user_id:$scope.user.id},function(json){
+                console.log(json);
+                $scope.load_asn();
+
+            })
+        }
+        $scope.choose_material_order = function(event){
+            var id = $scope.current.materialOrderId;
+            var material_order = $scope.findMaterialOrder(id);
+            if (material_order){
+                $scope.current.material_order = material_order;
+                $scope.current.order_quantity = material_order.quantity;
+            }
+            var sum = 0;
+            $scope.created_details(id,function(arr){
+                $scope.current.assigned_details = arr;
+
+                for(var i=0;i<arr.length;i++){
+                    sum += arr[i].quantity*1;
+                }
+                $scope.current.assigned_quantity = sum;
+                $scope.current.quantity = $scope.current.order_quantity - sum;
+            });
+
+
+
+        }
+        $scope.created_details = function(material_order_id,callback){
+            httpService("/vendor/asn/created_details",{material_order_id:material_order_id},function(json){
+                console.log(json);
+                callback(json);
+            });
+        }
+        $scope.findMaterialOrder = function(material_order_id){
+            for(var i=0;i<$scope.order_plans.length;i++){
+                var item = $scope.order_plans[i];
+                if (item.id*1==material_order_id*1){
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

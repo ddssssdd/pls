@@ -76,7 +76,7 @@ public class OrderPlan {
 
 
     public String getDescription(){
-        return String.format("%s(%g %n,%tF%n)",
+        return String.format("%s(%.2f %n,%tF%n)",
                 this.getMaterial().getName(),
                 this.getQuantity(),
                 this.getEndDate());

@@ -43,6 +43,8 @@ public class VendorPortalController {
         User user = (User)auth.getPrincipal();
         VendorContact vc = vendorContactRepository.findByUserId(user.getId());
         model.addAttribute("contact",vc);
-        return "vendor/asn";
+        //return "vendor/asn";
+        return "vendor/asn2";
     }
+
 }
