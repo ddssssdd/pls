@@ -4,7 +4,7 @@
 
 
 angular.module("pls").controller("MenuController",function($scope,httpService,Message){
-    $scope.title = "Menus";
+    $scope.title = "主菜单";
 
     $scope.menus = [];
     $scope.init = function(){
