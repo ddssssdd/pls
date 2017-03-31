@@ -36,7 +36,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg" th:text="#{app.login_titlte}">Sign in to start your session</p>
 
         <form action="/login" method="post" th:name="${_csrf.parameterName}"   th:value="${_csrf.token}">
             <div class="form-group has-feedback">
@@ -49,11 +49,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"/> Remember Me
-                        </label>
-                    </div>
+
+                    <a href="#" th:text="#{app.forget_password}">I forgot my password</a><br/>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
@@ -66,7 +63,7 @@
 
 
 
-        <a href="#" th:text="#{app.forget_password}">I forgot my password</a><br/>
+
 
 
     </div>

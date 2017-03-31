@@ -34,4 +34,10 @@ public class MenuController {
         menuRepository.delete(menu);
         return menuRepository.findAll();
     }
+
+    @RequestMapping("/test")
+    public Object test() throws  Exception{
+        throw new Exception("Json data error");
+
+    }
 }
