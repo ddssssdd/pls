@@ -43,8 +43,25 @@ public class VendorPortalController {
         User user = (User)auth.getPrincipal();
         VendorContact vc = vendorContactRepository.findByUserId(user.getId());
         model.addAttribute("contact",vc);
-        //return "vendor/asn";
+        return "vendor/asn";
+    }
+    @RequestMapping("/asn2")
+    public String asn2(Model model) {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", auth.getPrincipal());
+        User user = (User)auth.getPrincipal();
+        VendorContact vc = vendorContactRepository.findByUserId(user.getId());
+        model.addAttribute("contact",vc);
         return "vendor/asn2";
+    }
+    @RequestMapping("/asn3")
+    public String asn3(Model model) {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", auth.getPrincipal());
+        User user = (User)auth.getPrincipal();
+        VendorContact vc = vendorContactRepository.findByUserId(user.getId());
+        model.addAttribute("contact",vc);
+        return "vendor/asn3";
     }
 
 }

@@ -33,9 +33,13 @@
                         <div class="box-header with-border">
                             <h3 class="box-title" th:text="#{asn.create}"></h3>
                             <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-primary" ng-click="saveASN($event)">
+                                    存储
+                                </button>
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
                             </div>
+
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -43,21 +47,22 @@
                                 <form role="form">
                                     <!-- input states -->
                                     <div class="form-group has-success">
-                                        <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label>
-                                        <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ..."/>
-                                        <span class="help-block">Help block with success</span>
+                                        <label class="control-label" for="inputSuccess">
+                                            <i class="fa fa-check"></i>送货地址</label>
+                                        <input type="text" class="form-control" id="inputSuccess" ng-model="asn.shipAddress"/>
+                                        <span class="help-block">地址来自采购订单</span>
                                     </div>
                                     <div class="form-group has-warning">
-                                        <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Input with
-                                            warning</label>
-                                        <input type="text" class="form-control" id="inputWarning" placeholder="Enter ..."/>
-                                        <span class="help-block">Help block with warning</span>
+                                        <label class="control-label" for="inputWarning">
+                                            <i class="fa fa-bell-o"></i>预期到货日期</label>
+                                        <input type="text" datetimepiker="true" class="form-control" id="inputWarning" ng-model="asn.shipDate"/>
+                                        <span class="help-block">日期来自采购订单</span>
                                     </div>
                                     <div class="form-group has-error">
-                                        <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Input with
-                                            error</label>
-                                        <input type="text" class="form-control" id="inputError" placeholder="Enter ..."/>
-                                        <span class="help-block">Help block with error</span>
+                                        <label class="control-label" for="inputError">
+                                            <i class="fa fa-times-circle-o"></i>额外信息</label>
+                                        <input type="text" class="form-control" id="inputError" ng-model="asn.shipExtra"/>
+                                        <span class="help-block">其他相关要求</span>
                                     </div>
 
                                     <!-- checkbox -->
@@ -65,21 +70,21 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox"/>
-                                                Checkbox 1
+                                                只能整箱发货
                                             </label>
                                         </div>
 
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox"/>
-                                                Checkbox 2
+                                                整车装满
                                             </label>
                                         </div>
 
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" disabled=""/>
-                                                Checkbox disabled
+                                                可以延期发货
                                             </label>
                                         </div>
                                     </div>
@@ -92,13 +97,13 @@
                                 <form role="form">
                                     <!-- text input -->
                                     <div class="form-group">
-                                        <label>Text</label>
-                                        <input type="text" class="form-control" placeholder="Enter ..."/>
+                                        <label>ASN编号</label>
+                                        <input type="text" class="form-control" ng-model="asn.asnNo"/>
                                     </div>
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>Textarea</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                        <label>备注</label>
+                                        <textarea class="form-control" rows="3" ng-model="asn.note"></textarea>
                                     </div>
 
 
@@ -108,32 +113,32 @@
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""/>
-                                                Option one is this and that—be sure to include why it's great
+                                                一个订单允许被拆分多个ASN
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"/>
-                                                Option two can be something else and selecting it will deselect option one
+                                                一个ASN单允许包含多个订单
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled=""/>
-                                                Option three is disabled
+                                                ASN单可以包含不在订单内的物料
                                             </label>
                                         </div>
                                     </div>
 
                                     <!-- select -->
                                     <div class="form-group">
-                                        <label>Select</label>
+                                        <label>发运方式</label>
                                         <select class="form-control">
-                                            <option>option 1</option>
-                                            <option>option 2</option>
-                                            <option>option 3</option>
-                                            <option>option 4</option>
-                                            <option>option 5</option>
+                                            <option>干线</option>
+                                            <option>自有物流</option>
+                                            <option>第三方物流</option>
+                                            <option>VMI</option>
+                                            <option>其他</option>
                                         </select>
                                     </div>
 
@@ -152,21 +157,21 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox"/>
-                                                Checkbox 1
+                                                一单一结
                                             </label>
                                         </div>
 
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox"/>
-                                                Checkbox 2
+                                                按月结算
                                             </label>
                                         </div>
 
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" disabled=""/>
-                                                Checkbox disabled
+                                                凑足整数
                                             </label>
                                         </div>
                                     </div>
@@ -176,19 +181,19 @@
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked=""/>
-                                                Option one is this and that—be sure to include why it's great
+                                                ASN细目带有订单编号
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"/>
-                                                Option two can be something else and selecting it will deselect option one
+                                                ASN带有订单编号
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="optionsRadios" id="optionsRadios6" value="option3" disabled=""/>
-                                                Option three is disabled
+                                                不需要订单编号
                                             </label>
                                         </div>
                                     </div>
@@ -200,9 +205,19 @@
 
                         </div>
                         <!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="col-xs-12">
+                                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                                <button type="button" class="btn btn-success pull-right" ng-click="saveASN($event)"><i class="fa fa-credit-card"></i> Submit ASN
+                                </button>
+                                <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                                    <i class="fa fa-download"></i> Generate PDF
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-               <div class="col-md-6">
+                <div class="col-md-6">
                    <div class="box box-primary">
                        <div class="box-header">
                            <h3 class="box-title">待处理采购订单</h3>
@@ -236,13 +251,13 @@
                                        {{order.quantity}}
                                    </td>
                                    <td>
-                                       {{order.isDone}}
+                                       {{order.assigned_quantity}}
                                    </td>
 
                                    <td>
                                        <div class="input-group">
 
-                                           <input type="text" class="form-control" value="{{order.quantity}}"/>
+                                           <input type="number" class="form-control" ng-model="order.quan" value="{{order.quantity-order.assigned_quantity}}"/>
                                            <span class="input-group-addon" ng-click="addItem(order,$index,$event);"><i class="fa fa-ambulance"></i>
                                            </span>
                                        </div>
@@ -254,7 +269,7 @@
                        </div>
                        <!-- /.box-body -->
                        <div class="box-footer">
-                            <h3>here is footer</h3>
+                            <h3>合计信息</h3>
                        </div>
                    </div>
 
@@ -279,53 +294,50 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <th style="width: 10px">#</th>
+                                    <th style="width: 30px">#</th>
                                     <th>物料名称</th>
                                     <th>数量</th>
-                                    <th style="width: 40px">SKU</th>
+                                    <th>到货期日期</th>
+                                    <th>
+
+                                    </th>
                                 </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
+                                <tr ng-repeat="item in asn.details">
+                                    <td>{{item.material_order.orderNo}}</td>
+                                    <td>{{item.material_order.material.name}}</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
+                                        {{item.quantity}}
                                     </td>
-                                    <td><span class="badge bg-red">55%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Clean database</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                        </div>
+                                        {{item.material_order.deliveryDate | date}}
                                     </td>
-                                    <td><span class="badge bg-yellow">70%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Cron job running</td>
                                     <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                        </div>
+                                        <button class="btn btn-danger btn-xs" ng-click="removeDetail(item,$index,$event)">del</button>
                                     </td>
-                                    <td><span class="badge bg-light-blue">30%</span></td>
                                 </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Fix and squish bugs</td>
-                                    <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-green">90%</span></td>
-                                </tr>
+
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="box-footer">
+                            <h3>合计信息</h3>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title" th:text="#{asn.box}"></h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -379,6 +391,7 @@
         $scope.loadItems = function(){
             httpService("/order/material/ongoing_orders/"+$scope.contact.vendor.id,{},function(json){
                 $scope.order_plans = json;
+                $scope.load_order_details();
             });
             httpService("/base/material_vendor/materials/"+$scope.contact.vendor.id,{},function(json){
                 $scope.materials = json;
@@ -397,21 +410,21 @@
         $scope.init = function(){
             $scope.loadItems();
         }
-        $scope.addItem = function(event){
+        $scope.addItem = function(order,index,event){
             $scope.asn.details.push({
 
-                materialOrderId:$scope.current.materialOrderId,
-                materialId:$scope.current.materialId,
-                quantity:$scope.current.quantity,
-                material:{id:$scope.current.materialId},
-                materialOrder:{id:$scope.current.materialOrderId},
-                assigned_details :$scope.current.assigned_details,
-                assigned_quantity : $scope.current.assigned_quantity,
-                material_order:$scope.current.material_order
+                materialOrderId:order.id,
+                materialId:order.material.id,
+                quantity:order.quan,
+                material:{id:order.material.id},
+                materialOrder:{id:order.id},
+                assigned_details :order.assigned_details,
+                assigned_quantity : order.assigned_quantity,
+                material_order:order
 
             });
         }
-        $scope.save = function(event){
+        $scope.saveASN = function(event){
             httpService("/vendor/asn/add",$scope.asn,function(json){
                 console.log(json);
                 $scope.load_asn();
@@ -419,7 +432,13 @@
                 angular.element('#vendorTab a:nth(1)').tab('show');
             })
         }
-        $scope.removeItem = function(index,event){
+        $scope.removeDetail = function(detail,index,event){
+            for(var i=0;i<$scope.order_plans.length;i++){
+                var order = $scope.order_plans[i];
+                if (order.id==item.materialOrderId){
+                    order.quan = 0;
+                }
+            }
             $scope.asn.details.splice(index,1);
         }
 
@@ -430,26 +449,24 @@
 
             })
         }
-        $scope.choose_material_order = function(event){
-            var id = $scope.current.materialOrderId;
-            var material_order = $scope.findMaterialOrder(id);
-            if (material_order){
-                $scope.current.material_order = material_order;
-                $scope.current.order_quantity = material_order.quantity;
+
+        $scope.load_order_details = function(){
+            for(var i=0;i<$scope.order_plans.length;i++){
+                var order = $scope.order_plans[i];
+                $scope.process_each_order(order);
             }
+        }
+        $scope.process_each_order = function(order){
             var sum = 0;
-            $scope.created_details(id,function(arr){
-                $scope.current.assigned_details = arr;
+            $scope.created_details(order.id,function(arr){
+                order.assigned_details = arr;
 
                 for(var i=0;i<arr.length;i++){
                     sum += arr[i].quantity*1;
                 }
-                $scope.current.assigned_quantity = sum;
-                $scope.current.quantity = $scope.current.order_quantity - sum;
+                order.assigned_quantity = sum;
+                order.assigned_details = arr;
             });
-
-
-
         }
         $scope.created_details = function(material_order_id,callback){
             httpService("/vendor/asn/created_details",{material_order_id:material_order_id},function(json){

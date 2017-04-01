@@ -73,7 +73,8 @@ public class MaterialOrderController {
     }
     @RequestMapping("/ongoing_orders/{vendor_id}")
     public Iterable<MaterialOrder> ongoing_orders(@PathVariable long vendor_id){
-        return currentRepository.findByVendorIdAndIsDone(vendor_id,0);
+        //return currentRepository.findByVendorIdAndIsDone(vendor_id,0);
+        return currentRepository.findOngoingByVendor(vendor_id);
     }
 
     //todo: remove this one.

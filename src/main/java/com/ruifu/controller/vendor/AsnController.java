@@ -39,6 +39,7 @@ public class AsnController {
             return asn;
         }
         asn.setIsShipment(0);
+        asn.setCreateDate(new Date());
         asnRepository.save(asn);
         for (AsnDetail detail: asn.getDetails()) {
             long material_order_id = detail.getMaterialOrder().getId();

@@ -17,13 +17,17 @@ public class Asn {
     @Id @GeneratedValue
     private long id;
 
-    private String AsnNo;
+    private String asnNo;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date createDate;
     private long userId;
     private long vendorId;
     private int isShipment;
-
+    private String shipAddress;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date shipDate;
+    private String shipExtra;
+    private String note;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
@@ -36,15 +40,6 @@ public class Asn {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-
-    public String getAsnNo() {
-        return AsnNo;
-    }
-
-    public void setAsnNo(String asnNo) {
-        AsnNo = asnNo;
     }
 
     public Date getCreateDate() {
@@ -89,5 +84,45 @@ public class Asn {
 
     public void setIsShipment(int isShipment) {
         this.isShipment = isShipment;
+    }
+
+    public String getShipAddress() {
+        return shipAddress;
+    }
+
+    public void setShipAddress(String shipAddress) {
+        this.shipAddress = shipAddress;
+    }
+
+    public Date getShipDate() {
+        return shipDate;
+    }
+
+    public void setShipDate(Date shipDate) {
+        this.shipDate = shipDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getAsnNo() {
+        return asnNo;
+    }
+
+    public void setAsnNo(String asnNo) {
+        this.asnNo = asnNo;
+    }
+
+    public String getShipExtra() {
+        return shipExtra;
+    }
+
+    public void setShipExtra(String shipExtra) {
+        this.shipExtra = shipExtra;
     }
 }
