@@ -322,6 +322,7 @@
             if (material_order){
                 $scope.current.material_order = material_order;
                 $scope.current.order_quantity = material_order.quantity;
+                $scope.current.materialId = material_order.material.id;
             }
             var sum = 0;
             $scope.created_details(id,function(arr){

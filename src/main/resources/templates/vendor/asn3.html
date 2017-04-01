@@ -33,9 +33,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title" th:text="#{asn.create}"></h3>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary" ng-click="saveASN($event)">
-                                    存储
-                                </button>
+
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
                             </div>
@@ -217,7 +215,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                    <div class="box box-primary">
                        <div class="box-header">
                            <h3 class="box-title">待处理采购订单</h3>
@@ -234,38 +232,83 @@
                        </div>
                        <!-- /.box-header -->
                        <div class="box-body no-padding">
-                           <table class="table">
-                               <tbody>
+                           <table id="tableResult" class="table table-bordered table-hover">
+                               <thead>
                                <tr>
-                                   <th style="width: 30px">#</th>
-                                   <th>订单</th>
+
+                                   <th th:text="#{material_order.orderPlanId}" class="sorting"></th>
                                    <th>订单数量</th>
-                                   <th>处理数量</th>
+                                   <th >已经分配</th>
+                                   <th th:text="#{material_order.materialId}" class="sorting"></th>
+                                   <th th:text="#{material_order.quantity}" class="sorting"></th>
 
-                                   <th style="width: 150px;"></th>
+                                   <th></th>
                                </tr>
-                               <tr  ng-repeat="order in order_plans">
-                                   <td>{{order.orderNo}}</td>
-                                   <td>{{order.orderPlan.description}}</td>
-                                   <td>
-                                       {{order.quantity}}
-                                   </td>
-                                   <td>
-                                       {{order.assigned_quantity}}
-                                   </td>
+                               </thead>
+                               <tbody>
+                               <tr ng-repeat="item in asn.details">
 
                                    <td>
-                                       <div class="input-group">
-
-                                           <input type="number" class="form-control" ng-model="order.quan" value="{{order.quantity-order.assigned_quantity}}"/>
-                                           <span class="input-group-addon" ng-click="addItem(order,$index,$event);"><i class="fa fa-ambulance"></i>
-                                           </span>
-                                       </div>
+                                       {{item.material_order.orderPlan.description}}
+                                   </td>
+                                   <td>
+                                       {{item.material_order.quantity}}
+                                   </td>
+                                   <td>
+                                       {{item.assigned_quantity}}
+                                   </td>
+                                   <td>
+                                       {{item.material_order.material.name}}
                                    </td>
 
+                                   <td>{{item.quantity}}</td>
+
+
+                                   <td>
+                                       <button class="btn btn-danger"
+                                               th:text="#{action.delete}"
+                                               ng-click="removeItem($index,$event);"></button>
+                                   </td>
                                </tr>
 
-                               </tbody></table>
+                               </tbody>
+                               <tfoot>
+                               <tr>
+
+                                   <th>
+                                       <select class="form-control" ng-change="choose_material_order($event);"
+                                               ng-model="current.materialOrderId">
+                                           <option value="0">--select--</option>
+                                           <option ng-repeat="op in order_plans" value="{{op.id}}">
+                                               {{op.orderPlan.description}}
+                                           </option>
+                                       </select>
+                                   </th>
+                                   <th>
+                                       {{current.order_quantity}}
+                                   </th>
+                                   <th>
+                                       {{current.assigned_quantity}}
+                                   </th>
+
+                                   <th>
+                                       {{current.material_order.material.name}}
+                                   </th>
+
+                                   <th>
+                                       <input type="text" class="form-control" ng-model="current.quantity" placeholder="quantity"/>
+                                   </th>
+
+
+
+                                   <th>
+                                       <button class="btn btn-primary"
+                                               th:text="#{action.add}"
+                                               ng-click="addItem($event);">Add</button>
+                                   </th>
+                               </tr>
+                               </tfoot>
+                           </table>
                        </div>
                        <!-- /.box-body -->
                        <div class="box-footer">
@@ -274,57 +317,6 @@
                    </div>
 
                </div>
-                <div class="col-md-6">
-                    <div class="box box-danger">
-                        <div class="box-header">
-                            <h3 class="box-title">物料清单</h3>
-
-                            <div class="box-tools">
-                                <ul class="pagination pagination-sm no-margin pull-right">
-                                    <li><a href="#">«</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">»</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body no-padding">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th style="width: 30px">#</th>
-                                    <th>物料名称</th>
-                                    <th>数量</th>
-                                    <th>到货期日期</th>
-                                    <th>
-
-                                    </th>
-                                </tr>
-                                <tr ng-repeat="item in asn.details">
-                                    <td>{{item.material_order.orderNo}}</td>
-                                    <td>{{item.material_order.material.name}}</td>
-                                    <td>
-                                        {{item.quantity}}
-                                    </td>
-                                    <td>
-                                        {{item.material_order.deliveryDate | date}}
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger btn-xs" ng-click="removeDetail(item,$index,$event)">del</button>
-                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="box-footer">
-                            <h3>合计信息</h3>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="box box-warning">
                         <div class="box-header with-border">
@@ -391,7 +383,6 @@
         $scope.loadItems = function(){
             httpService("/order/material/ongoing_orders/"+$scope.contact.vendor.id,{},function(json){
                 $scope.order_plans = json;
-                $scope.load_order_details();
             });
             httpService("/base/material_vendor/materials/"+$scope.contact.vendor.id,{},function(json){
                 $scope.materials = json;
@@ -399,8 +390,6 @@
             httpService("/base/sequence/asn",{vendorId:$scope.contact.vendor.id},function(json){
                 $scope.asn.asnNo=json.result;
             });
-
-
 
             $timeout(function(){
                 angular.element('#vendorTab a:nth(1)').tab('show');
@@ -410,17 +399,17 @@
         $scope.init = function(){
             $scope.loadItems();
         }
-        $scope.addItem = function(order,index,event){
+        $scope.addItem = function(event){
             $scope.asn.details.push({
 
-                materialOrderId:order.id,
-                materialId:order.material.id,
-                quantity:order.quan,
-                material:{id:order.material.id},
-                materialOrder:{id:order.id},
-                assigned_details :order.assigned_details,
-                assigned_quantity : order.assigned_quantity,
-                material_order:order
+                materialOrderId:$scope.current.materialOrderId,
+                materialId:$scope.current.materialId,
+                quantity:$scope.current.quantity,
+                material:{id:$scope.current.materialId},
+                materialOrder:{id:$scope.current.materialOrderId},
+                assigned_details :$scope.current.assigned_details,
+                assigned_quantity : $scope.current.assigned_quantity,
+                material_order:$scope.current.material_order
 
             });
         }
@@ -432,13 +421,7 @@
                 angular.element('#vendorTab a:nth(1)').tab('show');
             })
         }
-        $scope.removeDetail = function(detail,index,event){
-            for(var i=0;i<$scope.order_plans.length;i++){
-                var order = $scope.order_plans[i];
-                if (order.id==item.materialOrderId){
-                    order.quan = 0;
-                }
-            }
+        $scope.removeItem = function(index,event){
             $scope.asn.details.splice(index,1);
         }
 
@@ -449,24 +432,27 @@
 
             })
         }
-
-        $scope.load_order_details = function(){
-            for(var i=0;i<$scope.order_plans.length;i++){
-                var order = $scope.order_plans[i];
-                $scope.process_each_order(order);
+        $scope.choose_material_order = function(event){
+            var id = $scope.current.materialOrderId;
+            var material_order = $scope.findMaterialOrder(id);
+            if (material_order){
+                $scope.current.material_order = material_order;
+                $scope.current.order_quantity = material_order.quantity;
+                $scope.current.materialId = material_order.material.id;
             }
-        }
-        $scope.process_each_order = function(order){
             var sum = 0;
-            $scope.created_details(order.id,function(arr){
-                order.assigned_details = arr;
+            $scope.created_details(id,function(arr){
+                $scope.current.assigned_details = arr;
 
                 for(var i=0;i<arr.length;i++){
                     sum += arr[i].quantity*1;
                 }
-                order.assigned_quantity = sum;
-                order.assigned_details = arr;
+                $scope.current.assigned_quantity = sum;
+                $scope.current.quantity = $scope.current.order_quantity - sum;
             });
+
+
+
         }
         $scope.created_details = function(material_order_id,callback){
             httpService("/vendor/asn/created_details",{material_order_id:material_order_id},function(json){
