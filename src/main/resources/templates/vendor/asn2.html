@@ -298,6 +298,7 @@
                                     <th>物料名称</th>
                                     <th>数量</th>
                                     <th>到货期日期</th>
+                                    <th>装箱</th>
                                     <th>
 
                                     </th>
@@ -310,6 +311,9 @@
                                     </td>
                                     <td>
                                         {{item.material_order.deliveryDate | date}}
+                                    </td>
+                                    <td>
+                                        {{item.box_info.quantity}}
                                     </td>
                                     <td>
                                         <button class="btn btn-danger btn-xs" ng-click="removeDetail(item,$index,$event)">del</button>
@@ -335,8 +339,16 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body">
+                        <div class="box-body no-padding">
+                            <ul class="clearfix" ng-repeat="detail in asn.details">
+                                <li style="width: 10%;float: left;padding: 10px;text-align: center;" ng-repeat="item in detail.boxes">
+                                    <img ng-src="{{item.image}}" alt="{{item.sku}}" width="75" height="10"/>
+                                    <a class="users-list-name" href="#">{{item.name}}</a>
+                                    <span class="users-list-date">{{item.count}}</span>
+                                    <span class="users-list-date">{{item.asnNo}}</span>
+                                </li>
 
+                            </ul>
 
                         </div>
                         <!-- /.box-body -->
@@ -387,6 +399,7 @@
         $scope.materials = [];
         $scope.order_plans = [];
         $scope.asn_list = [];
+
         $scope.asn = {id:0,details:[],vendorId:$scope.contact.vendor.id,userId:$scope.user.id};
         $scope.loadItems = function(){
             httpService("/order/material/ongoing_orders/"+$scope.contact.vendor.id,{},function(json){
@@ -411,18 +424,43 @@
             $scope.loadItems();
         }
         $scope.addItem = function(order,index,event){
-            $scope.asn.details.push({
+            var quan = order.quan;
+            if (!quan){
+                quan = order.quantity - (order.assigned_quantity||0);
+            }
+            var asn_detail = {
 
                 materialOrderId:order.id,
                 materialId:order.material.id,
-                quantity:order.quan,
+                quantity:quan,
                 material:{id:order.material.id},
                 materialOrder:{id:order.id},
                 assigned_details :order.assigned_details,
                 assigned_quantity : order.assigned_quantity,
-                material_order:order
+                material_order:order,
+                box_info:{quantity:0}
 
+            };
+            $scope.asn.details.push(asn_detail);
+            $scope.process_box(asn_detail);
+
+        }
+        $scope.process_box = function(detail){
+            httpService("/vendor/asn/box",{materialId:detail.materialId,quantity:detail.quantity},function(json){
+                detail.box_info = json;
+                detail.boxes =[];
+                var material = detail.material_order.material;
+                for(var i=1;i<=json.quantity;i++){
+                    var box ={asn:$scope.asn.asnNo,name:material.name,sku:material.sku,count:json.count};
+                    detail.boxes.push(box);
+                    $scope.load_barcode(box);
+                }
             });
+        }
+        $scope.load_barcode = function(box_item){
+            httpService("/base/sequence/barcode/"+box_item.sku,{},function(json){
+                box_item.image = json.result;
+            })
         }
         $scope.saveASN = function(event){
             httpService("/vendor/asn/add",$scope.asn,function(json){
@@ -432,7 +470,7 @@
                 angular.element('#vendorTab a:nth(1)').tab('show');
             })
         }
-        $scope.removeDetail = function(detail,index,event){
+        $scope.removeDetail = function(item,index,event){
             for(var i=0;i<$scope.order_plans.length;i++){
                 var order = $scope.order_plans[i];
                 if (order.id==item.materialOrderId){

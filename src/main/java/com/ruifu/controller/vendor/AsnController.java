@@ -1,10 +1,14 @@
 package com.ruifu.controller.vendor;
 
+import com.ruifu.model.base.MaterialBox;
+import com.ruifu.model.base.rule.RuleMaterialBox;
 import com.ruifu.model.plan.MaterialOrder;
 import com.ruifu.model.vendor.Asn;
 import com.ruifu.model.vendor.AsnDetail;
 import com.ruifu.model.vendor.OrderStatus;
+import com.ruifu.repository.base.MaterialBoxRepository;
 import com.ruifu.repository.base.MaterialRepository;
+import com.ruifu.repository.base.rule.RuleMaterialBoxRepository;
 import com.ruifu.repository.plan.OrderRepository;
 import com.ruifu.repository.vendor.AsnDetailRepository;
 import com.ruifu.repository.vendor.AsnRepository;
@@ -29,6 +33,11 @@ public class AsnController {
     private OrderRepository orderRepository;
     @Autowired
     private MaterialRepository materialRepository;
+
+    @Autowired
+    MaterialBoxRepository materialBoxRepository;
+    @Autowired
+    RuleMaterialBoxRepository ruleMaterialBoxRepository;
 
     @Autowired
     private OrderStatusRepository orderStatusRepository;
@@ -105,5 +114,31 @@ public class AsnController {
     @RequestMapping("/created_details")
     public List<AsnDetail> created_details(long material_order_id){
         return asnDetailRepository.findByMaterialOrderId(material_order_id);
+    }
+    @RequestMapping("/box")
+    public RuleMaterialBox findbox(long materialId,double quantity){
+        RuleMaterialBox ruleMaterialBox = null;
+        MaterialBox materialBox = materialBoxRepository.findByMaterialId(materialId);
+        if (materialBox!=null){
+            ruleMaterialBox = ruleMaterialBoxRepository.findOne(materialBox.getRuleMaterialBoxId());
+
+        }
+        if (ruleMaterialBox==null){
+            ruleMaterialBox = new RuleMaterialBox();
+            ruleMaterialBox.setCount(1);
+            ruleMaterialBox.setName("default");
+            ruleMaterialBox.setLength(1);
+            ruleMaterialBox.setWidth(1);
+            ruleMaterialBox.setHeight(1);
+            ruleMaterialBox.setWeight(1);
+        }
+        //todo: too simple to handle this for now.
+        int q = (int)quantity;
+        int boxCount = (int)quantity / ruleMaterialBox.getCount();
+        if (q % ruleMaterialBox.getCount()!=0){
+            boxCount +=1;
+        }
+        ruleMaterialBox.setQuantity(boxCount);
+        return ruleMaterialBox;
     }
 }

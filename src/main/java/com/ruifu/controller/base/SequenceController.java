@@ -1,11 +1,14 @@
 package com.ruifu.controller.base;
 
+import com.ruifu.service.BarcodeService;
 import com.ruifu.web.ResultStatus;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
@@ -39,5 +42,13 @@ public class SequenceController {
         SimpleDateFormat df = new SimpleDateFormat("yyyymmdd");
         String d = df.format(new Date());
         return new ResultStatus(true,String.format("MO%s%05d",d,count));
+    }
+
+    @Autowired
+    BarcodeService barcodeService;
+    @RequestMapping("/barcode/{code}")
+
+    public ResultStatus barcode(@PathVariable String code) throws Exception{
+        return new ResultStatus(true, "data:image/png;base64,"+barcodeService.barCodeAsBase64(code));
     }
 }

@@ -241,7 +241,7 @@
                                    <th >已经分配</th>
                                    <th th:text="#{material_order.materialId}" class="sorting"></th>
                                    <th th:text="#{material_order.quantity}" class="sorting"></th>
-
+                                   <th>装箱</th>
                                    <th></th>
                                </tr>
                                </thead>
@@ -263,7 +263,9 @@
 
                                    <td>{{item.quantity}}</td>
 
-
+                                    <td>
+                                        {{item.box_info.quantity}}
+                                    </td>
                                    <td>
                                        <button class="btn btn-danger"
                                                th:text="#{action.delete}"
@@ -300,7 +302,7 @@
                                    </th>
 
 
-
+                                   <th></th>
                                    <th>
                                        <button class="btn btn-primary"
                                                th:text="#{action.add}"
@@ -327,8 +329,16 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body">
+                        <div class="box-body no-padding">
+                            <ul class="clearfix" ng-repeat="detail in asn.details">
+                                <li style="width: 10%;float: left;padding: 10px;text-align: center;" ng-repeat="item in detail.boxes">
+                                    <img ng-src="{{item.image}}" alt="{{item.sku}}" width="75" height="10"/>
+                                    <a class="users-list-name" href="#">{{item.name}}</a>
+                                    <span class="users-list-date">{{item.count}}</span>
+                                    <span class="users-list-date">{{item.asnNo}}</span>
+                                </li>
 
+                            </ul>
 
                         </div>
                         <!-- /.box-body -->
@@ -400,7 +410,7 @@
             $scope.loadItems();
         }
         $scope.addItem = function(event){
-            $scope.asn.details.push({
+            var asn_detail = {
 
                 materialOrderId:$scope.current.materialOrderId,
                 materialId:$scope.current.materialId,
@@ -409,9 +419,28 @@
                 materialOrder:{id:$scope.current.materialOrderId},
                 assigned_details :$scope.current.assigned_details,
                 assigned_quantity : $scope.current.assigned_quantity,
-                material_order:$scope.current.material_order
-
+                material_order:$scope.current.material_order,
+                box_info:{quantity:0}
+            };
+            $scope.asn.details.push(asn_detail);
+            $scope.process_box(asn_detail);
+        }
+        $scope.process_box = function(detail){
+            httpService("/vendor/asn/box",{materialId:detail.materialId,quantity:detail.quantity},function(json){
+                detail.box_info = json;
+                detail.boxes =[];
+                var material = detail.material_order.material;
+                for(var i=1;i<=json.quantity;i++){
+                    var box ={asn:$scope.asn.asnNo,name:material.name,sku:material.sku,count:json.count};
+                    detail.boxes.push(box);
+                    $scope.load_barcode(box);
+                }
             });
+        }
+        $scope.load_barcode = function(box_item){
+            httpService("/base/sequence/barcode/"+box_item.sku,{},function(json){
+                box_item.image = json.result;
+            })
         }
         $scope.saveASN = function(event){
             httpService("/vendor/asn/add",$scope.asn,function(json){
