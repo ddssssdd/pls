@@ -87,8 +87,8 @@
                                     <th th:text="#{order_plan.orderPlanNo}" class="sorting"></th>
                                     <th th:text="#{order_plan.quantity}" class="sorting"></th>
                                     <th width="100px">生成订单</th>
-                                    <th th:text="#{order_plan.sku}" class="sorting"></th>
                                     <th th:text="#{order_plan.materialId}" class="sorting"></th>
+                                    <th th:text="#{order_plan.sku}" class="sorting"></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -104,8 +104,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{item.sku}}</td>
                                     <td>{{item.material.name}}</td>
+                                    <td>{{item.sku}}</td>
                                     <td>
                                         <button class="btn btn-danger" ng-if="item.status==0"
                                                 th:text="#{action.delete}"
@@ -133,15 +133,16 @@
                                     <th>
 
                                     </th>
+
                                     <th>
-                                        <input type="text" class="form-control" ng-model="current.sku" placeholder="sku"/>
+                                        <select class="form-control" ng-model="current.materialId" ng-change="choose_material($event)">
+                                            <option ng-repeat="m in materials" value="{{m.id}}">
+                                            {{m.name}}
+                                            </option>
+                                        </select>
                                     </th>
                                     <th>
-                                        <select class="form-control" ng-model="current.materialId">
-                                        <option ng-repeat="m in materials" value="{{m.id}}">
-                                            {{m.name}}
-                                        </option>
-                                    </select>
+                                        <input type="text" class="form-control" ng-model="current.sku" placeholder="sku"  ng-change="input_sku($evnet);"/>
                                     </th>
                                     <th>
                                         <button class="btn btn-primary"
@@ -186,7 +187,7 @@
                                     <div class="form-group">
                                         <label for="id_sku" class="col-xs-3 control-label" th:text="#{order_plan.sku}">sku</label>
                                         <div class="col-xs-6">
-                                            <input type="text" id="id_sku" ng-model="current.sku" class="form-control"  placeholder="sku"/>
+                                            <input type="text" id="id_sku" ng-model="current.sku" class="form-control"  placeholder="sku" ng-change="input_sku($evnet);"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -282,6 +283,28 @@
             httpService("/plan/order/remove/"+item.id,{},function(json){
                 $scope.order_plan_items = json;
             });
+        }
+        $scope.choose_material= function(event){
+            var id = $scope.current.materialId;
+            var material = null;
+            for(var i=0;i<$scope.materials.length;i++){
+                if ($scope.materials[i].id==id){
+                    material = $scope.materials[i];
+                    break;
+                }
+            }
+            if (material){
+                $scope.current.sku=material.sku;
+            }
+        }
+        $scope.input_sku= function(event){
+            var sku = $scope.current.sku;
+            for(var i=0;i<$scope.materials.length;i++){
+                if (sku==$scope.materials[i].sku){
+                    $scope.current.materialId=$scope.materials[i].id;
+                    break;
+                }
+            }
         }
         $scope.init();
 

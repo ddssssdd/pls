@@ -18,7 +18,7 @@ public class Asn {
     private long id;
 
     private String asnNo;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;
     private long userId;
     private long vendorId;

@@ -408,6 +408,9 @@
                     $scope.current.assigned_count = json.result;
                 })*/
                 $scope.current.assigned_count = orderPlan.assignedQuantity;
+                $scope.current.deliveryDate = orderPlan.endDate;
+                $scope.current.orderNo = orderPlan.orderPlanNo;
+
             }else{
                 $scope.current.selectedOrderPlan = {id:0,quantity:0};
             }

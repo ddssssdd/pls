@@ -26,12 +26,12 @@ public class MaterialOrder {
     private Vendor vendor;
     private double quantity;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date deliveryDate;
 
     private long userId;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;
 
     private int isDone;
