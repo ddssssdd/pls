@@ -330,12 +330,53 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body no-padding">
-                            <ul class="clearfix" ng-repeat="detail in asn.details">
-                                <li style="width: 10%;float: left;padding: 10px;text-align: center;" ng-repeat="item in detail.boxes">
-                                    <img ng-src="{{item.image}}" alt="{{item.sku}}" width="75" height="10"/>
-                                    <a class="users-list-name" href="#">{{item.name}}</a>
-                                    <span class="users-list-date">{{item.count}}</span>
-                                    <span class="users-list-date">{{item.asnNo}}</span>
+                            <ul class="clearfix" ng-repeat="detail in asn.details" style="list-style-type: none;">
+                                <li style="width: 25%;float: left;padding: 10px;text-align: center;" ng-repeat="item in detail.boxes">
+                                    <table style="background-color: white;border: solid 1px;padding: 5px;margin: 5px;">
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="2">
+                                                <img ng-src="{{item.image}}" alt="{{item.sku}}" width="100" height="20"/>
+                                            </td>
+                                            <td>
+                                                {{item.sku}}
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a class="users-list-name" href="#">{{item.name}}</a>
+                                            </td>
+                                            <td>
+                                                <span class="users-list-date">{{item.count}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="users-list-date">{{item.asnNo}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                四川省绵阳市东山路73号
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                青岛市台湾路4号胜利油田疗养院商务楼419
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <img ng-src="{{item.image}}" alt="{{item.sku}}" width="125" height="30"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+
+
                                 </li>
 
                             </ul>

@@ -82,6 +82,21 @@ public class ManageController {
         model.addAttribute("user",auth.getPrincipal());
         return "plan/material";
     }
+
+    @RequestMapping("/settings/address")
+    public String address(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/address";
+    }
+
+    @RequestMapping("/settings/department")
+    public String department(Model model){
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",auth.getPrincipal());
+        return "manage/department";
+    }
+
     @Autowired
     private MaterialRepository materialRepository;
     @Autowired

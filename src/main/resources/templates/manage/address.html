@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="template::head">
+
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-app="pls">
+<div class="wrapper">
+    <navigation th:include="template::header">
+
+    </navigation>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                基础管理
+                <small>产品代码管理</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">物料编码</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            <div class="row" ng-controller="addressController">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">查询</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body"><div class="row"><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_address1" class="control-label" th:text="#{address.address1}">address1</label>
+                            <input type="text" id="idSearch_address1" ng-model="search.address1" class="form-control"  placeholder="address1"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_address2" class="control-label" th:text="#{address.address2}">address2</label>
+                                <input type="text" id="idSearch_address2" ng-model="search.address2" class="form-control"  placeholder="address2"/>
+                            </div>
+                        </div><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_area" class="control-label" th:text="#{address.area}">area</label>
+                            <input type="text" id="idSearch_area" ng-model="search.area" class="form-control"  placeholder="area"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_city" class="control-label" th:text="#{address.city}">city</label>
+                                <input type="text" id="idSearch_city" ng-model="search.city" class="form-control"  placeholder="city"/>
+                            </div>
+                        </div><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_country" class="control-label" th:text="#{address.country}">country</label>
+                            <input type="text" id="idSearch_country" ng-model="search.country" class="form-control"  placeholder="country"/>
+                        </div>
+                            <div class="form-group">
+                                <label for="idSearch_postal" class="control-label" th:text="#{address.postal}">postal</label>
+                                <input type="text" id="idSearch_postal" ng-model="search.postal" class="form-control"  placeholder="postal"/>
+                            </div>
+                        </div><div class='col-md-3'><div class="form-group">
+                            <label for="idSearch_province" class="control-label" th:text="#{address.province}">province</label>
+                            <input type="text" id="idSearch_province" ng-model="search.province" class="form-control"  placeholder="province"/>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button class="btn btn-primary"
+                                    th:text="#{action.search}"
+                                    ng-click="doSearch($event)">Search</button>
+                            <button class="btn btn-danger"
+                                    th:text="#{action.clear}"
+                                    ng-click="resetSearch($event)">Clear</button>
+                            <button class="btn btn-info"
+                                    th:text="#{action.add}"
+                                    data-toggle="modal" data-target="#edtaddressModal">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">查询结果</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="tableResult" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{address.address1}" class="sorting"></th><th th:text="#{address.address2}" class="sorting"></th><th th:text="#{address.area}" class="sorting"></th><th th:text="#{address.city}" class="sorting"></th><th th:text="#{address.country}" class="sorting"></th><th th:text="#{address.postal}" class="sorting"></th><th th:text="#{address.province}" class="sorting"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in address_items">
+                                    <td>{{item.address1}}</td><td>{{item.address2}}</td><td>{{item.area}}</td><td>{{item.city}}</td><td>{{item.country}}</td><td>{{item.postal}}</td><td>{{item.province}}</td>
+                                    <td>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.delete}"
+                                                ng-click="removeItem($index,item,$event);"></button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>
+                                        <input type="text" class="form-control" ng-model="current.address1" placeholder="address1"/>
+                                    </th><th>
+                                    <input type="text" class="form-control" ng-model="current.address2" placeholder="address2"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.area" placeholder="area"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.city" placeholder="city"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.country" placeholder="country"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.postal" placeholder="postal"/>
+                                </th><th>
+                                    <input type="text" class="form-control" ng-model="current.province" placeholder="province"/>
+                                </th>
+                                    <th>
+                                        <button class="btn btn-danger"
+                                                th:text="#{action.add}"
+                                                ng-click="saveItem($event);">Add</button>
+                                    </th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- popup begin -->
+                <div class="modal fade" id="edtaddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add/Edit</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form form-horizontal"><div class="form-group">
+                                    <label for="id_address1" class="col-xs-3 control-label" th:text="#{address.address1}">address1</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="id_address1" ng-model="current.address1" class="form-control"  placeholder="address1"/>
+                                    </div>
+                                </div>
+                                    <div class="form-group">
+                                        <label for="id_address2" class="col-xs-3 control-label" th:text="#{address.address2}">address2</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_address2" ng-model="current.address2" class="form-control"  placeholder="address2"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_area" class="col-xs-3 control-label" th:text="#{address.area}">area</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_area" ng-model="current.area" class="form-control"  placeholder="area"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_city" class="col-xs-3 control-label" th:text="#{address.city}">city</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_city" ng-model="current.city" class="form-control"  placeholder="city"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_country" class="col-xs-3 control-label" th:text="#{address.country}">country</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_country" ng-model="current.country" class="form-control"  placeholder="country"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_postal" class="col-xs-3 control-label" th:text="#{address.postal}">postal</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_postal" ng-model="current.postal" class="form-control"  placeholder="postal"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_province" class="col-xs-3 control-label" th:text="#{address.province}">province</label>
+                                        <div class="col-xs-6">
+                                            <input type="text" id="id_province" ng-model="current.province" class="form-control"  placeholder="province"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveItem($event);">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- popup end -->
+
+            </div>
+            <!-- /.row -->
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <navigation th:include="template::footer">
+
+    </navigation>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+
+
+
+
+<navigation th:include="template::js">
+
+</navigation>
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/plugins/fastclick/fastclick.js}"></script>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    angular.module("pls").controller("addressController",function($scope,httpService,Message){
+
+        $scope.address_items = [];
+        $scope.current ={id:0};
+        $scope.search ={};
+        $scope.loadItems = function(){
+            httpService("/base/settings/address/list",{},function(json){
+                $scope.address_items = json;
+            })
+        }
+        $scope.init = function(){
+            $scope.loadItems();
+        }
+        $scope.saveItem=function(event){
+            httpService("/base/settings/address/add",$scope.current,function(json){
+                $scope.address_items = json;
+                angular.element("#edtaddressModal").modal('hide');
+            })
+        }
+        $scope.resetSearch = function(event){
+            $scope.search ={};
+        }
+        $scope.doSearch = function(event){
+
+            httpService("/base/settings/address/search/",{},function(json){
+                $scope.address_items = json;
+            });
+        }
+        $scope.removeItem= function(index,item,event){
+            httpService("/base/settings/address/remove/"+item.id,{},function(json){
+                $scope.address_items = json;
+            });
+        }
+        $scope.init();
+
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
